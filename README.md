@@ -21,6 +21,7 @@ local chance = require("chance")
 
 Running [LDoc][] on `chance.lua` will create a `doc/` directory with
 detailed information on the library’s API.
+**[That documentation is also available online.][gh-pages]**
 
 If [Tup][] is available then running `tup` within the project
 directory will…
@@ -58,3 +59,4 @@ This project follows [Semantic Versioning](http://semver.org/).
 [ctags]: http://ctags.sourceforge.net/
 [Emacs]: https://www.gnu.org/software/emacs/
 [Busted]: http://olivinelabs.com/busted/ "Lua Unit Testing Tool"
+[gh-pages]: https://ejmr.github.io/chance.lua
