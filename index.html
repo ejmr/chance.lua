@@ -1,0 +1,788 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Core">Core </a></li>
+<li><a href="#Basic">Basic </a></li>
+<li><a href="#Miscellaneous">Miscellaneous </a></li>
+<li><a href="#Helpers">Helpers </a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>chance</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>chance</code></h1>
+<p></p>
+<p>Chance: A Library for Generating Random Data
+</p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>Copyright</strong>: 2015 Plutono Inc</li>
+        <li><strong>Release</strong>: <a href="https://github.com/ejmr/chance.lua">Project Home</a></li>
+        <li><strong>License</strong>: GNU General Public License</li>
+        <li><strong>Author</strong>: Eric James Michael Ritz</li>
+    </ul>
+
+
+<h2><a href="#Core">Core </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#VERSION">VERSION</a></td>
+	<td class="summary">The library version number.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#seed">seed (seed)</a></td>
+	<td class="summary">Seeds the random number generator.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#random">random ([m[, n]])</a></td>
+	<td class="summary">Returns a random number.</td>
+	</tr>
+</table>
+<h2><a href="#Basic">Basic </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#bool">bool ([flags])</a></td>
+	<td class="summary">Returns a random boolean.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#float">float ()</a></td>
+	<td class="summary">Returns a random floating-point number.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#integer">integer ([flags])</a></td>
+	<td class="summary">Returns a random integer.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#natural">natural ([flags])</a></td>
+	<td class="summary">Returns a random natural number.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#character">character ([flags])</a></td>
+	<td class="summary">Returns a random character.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#string">string ([flags])</a></td>
+	<td class="summary">Returns a random string.</td>
+	</tr>
+</table>
+<h2><a href="#Miscellaneous">Miscellaneous </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#rpg">rpg (notation)</a></td>
+	<td class="summary">Create an array of die rolls using Dungeons and Dragons notation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#d4">d4 ()</a></td>
+	<td class="summary">Roll a 4-sided die.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#d6">d6 ()</a></td>
+	<td class="summary">Roll a 6-sided die.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#d8">d8 ()</a></td>
+	<td class="summary">Roll an 8-sided die.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#d10">d10 ()</a></td>
+	<td class="summary">Roll a 10-sided die.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#d12">d12 ()</a></td>
+	<td class="summary">Roll a 12-sided die.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#d20">d20 ()</a></td>
+	<td class="summary">Roll a 20-sided die.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#d100">d100 ()</a></td>
+	<td class="summary">Roll a 100-sided die.</td>
+	</tr>
+</table>
+<h2><a href="#Helpers">Helpers </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#pick">pick (array[, count])</a></td>
+	<td class="summary">Pick a random element from a given array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#shuffle">shuffle (array)</a></td>
+	<td class="summary">Randomly shuffle the contents of an array.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header has-description"><a name="Core"></a>Core </h2>
+
+          <div class="section-description">
+           These functions provide a random number generator atop which the
+ rest of the library is built, and metadata about the library.
+
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "VERSION"></a>
+    <strong>VERSION</strong>
+    </dt>
+    <dd>
+    The library version number.
+<p> This table contains four keys: MAJOR, MINOR, PATCH, and LABEL.  The
+ first three are numbers, and the last is a potentially empty
+ string.  Calling <code>tostring()</code> on the table will produce
+ an easy-to-read version number such as "1.0.2-rc1", "2.0.0", etc.
+<p> The version number follows <a href="http://semver.org">Semantic
+ Versioning</a>.
+
+
+
+    <ul>
+        <li><span class="parameter">VERSION</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "seed"></a>
+    <strong>seed (seed)</strong>
+    </dt>
+    <dd>
+    Seeds the random number generator.
+<p> This function accepts one parameter: a seed, which it uses to seed
+ the random number generator.  The seed must be a number, and
+ providing the same seed must result in <a href="index.html#random">chance.random</a> producing
+ the same sequence of results.  Beyond that there are no
+ restrictions on the implementation of how the seed is used or the
+ underlying random number generation algorithm to be used.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">seed</span>
+            <span class="types"><span class="type">Number</span></span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "random"></a>
+    <strong>random ([m[, n]])</strong>
+    </dt>
+    <dd>
+    Returns a random number.
+<p> This is the primary function used throughout the library for
+ generating random numbers.  Any algorithm for generating random
+ numbers may be used, so long as the implementation of this function
+ adheres to the following restrictions:
+<p> 1. When called with no arguments the function must return a number
+ in the range of [0, 1).
+<p> 2. When called with one argument, a number 'm', the function must
+ return a number in the range of [1, m].
+<p> 3. When called with two arguments, numbers 'm' and 'n', the
+ function must return a number in the range of [m, n].  If 'n' is
+ less than or equal to 'm' then the function simply returns 'm'.
+<p> Note that this is the same behavior as <code>math.random()</code>
+ from Lua's standard library.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">m</span>
+
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">n</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Number</span></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#seed">chance.seed</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.random() == <span class="number">0.8273</span></pre></li>
+        <li><pre class="example">chance.random(<span class="number">10</span>) == <span class="number">7</span></pre></li>
+        <li><pre class="example">chance.random(<span class="number">8</span>, <span class="number">12</span>) == <span class="number">8</span></pre></li>
+    </ul>
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Basic"></a>Basic </h2>
+
+          <div class="section-description">
+           These are functions that generate simple types of data such as
+ booleans and numbers.
+
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "bool"></a>
+    <strong>bool ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random boolean.
+<p> If given no arguments the function has a 50/50 chance of returning
+ true or false.  However, an optional table argument can specify the
+ probability of returning true, expressing the probability as a
+ percentage by using an integer in the range [1, 100].
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">true</span> or <span class="type">false</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">fifty_fifty = chance.bool()</pre></li>
+        <li><pre class="example">ten_percent_true = chance.bool { probability = <span class="number">10</span> }</pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "float"></a>
+    <strong>float ()</strong>
+    </dt>
+    <dd>
+    Returns a random floating-point number.
+<p> The number will be in the range of zero (inclusive) to one
+ (exclusive), like random number generating functions in many
+ programming languages.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "integer"></a>
+    <strong>integer ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random integer.
+<p> By default the function returns an integer between smallest and the
+ largest integers Lua allows on the given platform.  An optional
+ table can provide inclusive "min" and "max" limits, which have the
+ default values -2^16 and 2^16, respectively.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">x = chance.integer()</pre></li>
+        <li><pre class="example">y = chance.integer { max = <span class="number">50</span> }</pre></li>
+        <li><pre class="example">z = chance.integer { min = <span class="number">1</span>, max = <span class="number">20</span> }</pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "natural"></a>
+    <strong>natural ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random natural number.
+<p> By default the function returns a number between zero and positive
+ inifinity.  But it accepts an optional table of flags which can
+ define inclusive "min" and "max" ranges for the result.  Minimum
+ values less than zero are rounded up to zero.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#integer">chance.integer</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "character"></a>
+    <strong>character ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random character.
+<p> This functions returns a random character which will be either a
+ digit or a letter, lower-case and upper-case.
+<p> The function accepts a table of optional flags.  The "pool" flag
+ can be a string from which the function will select a character.
+ Or one can use the "group" flag to receive a random character from
+ a specific group of characters.  The acceptable group names are
+ "lower", "upper", "letter" (case-insensitive), "digit", and "all"
+ (the default).  If the function receives both "pool" and "group"
+ then "pool" takes precedence and "group" is ignored.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">anything = chance.character()</pre></li>
+        <li><pre class="example">anything = chance.character { pool = <span class="string">"all"</span> }</pre></li>
+        <li><pre class="example">vowel = chance.character { pool = <span class="string">"aeiou"</span> }</pre></li>
+        <li><pre class="example">capital = chance.character { group = <span class="string">"upper"</span> }</pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "string"></a>
+    <strong>string ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random string.
+<p> This function will return a string of random characters, with a
+ random length of five to twenty characters.  The optional flags
+ table can set "length" explicitly.  It also accepts a "group" flag
+ which determines what kind of characters appear in the string.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#character">chance.character</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.<span class="global">string</span>() == <span class="string">"c0Ab3le8"</span></pre></li>
+        <li><pre class="example">chance.<span class="global">string</span> { length = <span class="number">3</span> } == <span class="string">"NIN"</span></pre></li>
+        <li><pre class="example">chance.<span class="global">string</span> { group = <span class="string">"digit"</span> } = <span class="string">"8374933749"</span></pre></li>
+    </ul>
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Miscellaneous"></a>Miscellaneous </h2>
+
+          <div class="section-description">
+           These are functions for generating data which does not easily fall
+ under any other category.
+
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "rpg"></a>
+    <strong>rpg (notation)</strong>
+    </dt>
+    <dd>
+    Create an array of die rolls using Dungeons and Dragons notation.
+<p> This function returns an array of random numbers simulating the
+ results of rolling dice of the kind found in most table-top RPGs
+ such as Dungeons and Dragons.  The argument to the function must be
+ a string of the form <code>#d#</code> where each <code>#</code> is
+ a number; the first represents the number of rolls to make, and the
+ second represents the number of sides on the die, e.g. <code>3d6</code>
+ returns an array with three numbers, each being the result of rolling
+ a six-sided die.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">notation</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The values of each die roll.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.rpg(<span class="string">"1d8"</span>) == {<span class="number">4</span>}</pre></li>
+        <li><pre class="example">chance.rpg(<span class="string">"3d20"</span>) == {<span class="number">10</span>, <span class="number">4</span>, <span class="number">17</span>}</pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "d4"></a>
+    <strong>d4 ()</strong>
+    </dt>
+    <dd>
+    Roll a 4-sided die.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "d6"></a>
+    <strong>d6 ()</strong>
+    </dt>
+    <dd>
+    Roll a 6-sided die.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "d8"></a>
+    <strong>d8 ()</strong>
+    </dt>
+    <dd>
+    Roll an 8-sided die.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "d10"></a>
+    <strong>d10 ()</strong>
+    </dt>
+    <dd>
+    Roll a 10-sided die.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "d12"></a>
+    <strong>d12 ()</strong>
+    </dt>
+    <dd>
+    Roll a 12-sided die.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "d20"></a>
+    <strong>d20 ()</strong>
+    </dt>
+    <dd>
+    Roll a 20-sided die.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "d100"></a>
+    <strong>d100 ()</strong>
+    </dt>
+    <dd>
+    Roll a 100-sided die.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Helpers"></a>Helpers </h2>
+
+          <div class="section-description">
+           These are functions that help select random data from existing
+ sources or define new random content generation functions.
+
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "pick"></a>
+    <strong>pick (array[, count])</strong>
+    </dt>
+    <dd>
+    Pick a random element from a given array.
+<p> This function takes a table with numeric keys and randomly returns
+ a value assigned to one of those keys.  The function optionally
+ accepts an integer <code>count</code> which, if given, will return
+ a new table containing that many values.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">array</span>
+
+        </li>
+        <li><span class="parameter">count</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+         A single value from <code>array</code> or a table of the
+ size <code>count</code> containing random values from
+ <code>array</code>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "shuffle"></a>
+    <strong>shuffle (array)</strong>
+    </dt>
+    <dd>
+    Randomly shuffle the contents of an array.
+<p> This function takes an array, i.e. a table with only numeric
+ indices, and returns a new table of the same size and with those
+ same elements except in a random order.  Naturally there is the
+ possibility that the shuffled array will be randomly,
+ coincidentally equal to the original.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">array</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">chance.shuffle {<span class="string">"foo"</span>, <span class="string">"bar"</span>, <span class="string">"baz"</span>} == {<span class="string">"bar"</span>, <span class="string">"foo"</span>, <span class="string">"baz"</span>}</pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
+<i style="float:right;">Last updated 2015-08-11 21:37:25 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
