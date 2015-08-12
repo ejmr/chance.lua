@@ -139,6 +139,11 @@ describe("The Time API", function ()
         assert.is_within_range(chance.millisecond(), 0, 999)
     end)
 
+    it("Can randomly produce 'am' or 'pm' for times", function ()
+        local meridiem = chance.ampm()
+        assert.is_true(meridiem == "am" or meridiem == "pm")
+    end)
+
 end)
 
 describe("The Helper API", function ()

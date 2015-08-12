@@ -326,6 +326,19 @@ function chance.millisecond()
     return chance.random(0, 999)
 end
 
+--- Returns 'am' or 'pm' for use with times.
+--
+-- @treturn string <code>"am"</code> or <code>"pm"</code>
+function chance.ampm()
+    local probability = chance.random()
+
+    if probability < 0.5 then
+        return "am"
+    else
+        return "pm"
+    end
+end
+
 --- Miscellaneous
 --
 -- These are functions for generating data which does not easily fall
