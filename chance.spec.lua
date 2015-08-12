@@ -144,6 +144,21 @@ describe("The Time API", function ()
         assert.is_true(meridiem == "am" or meridiem == "pm")
     end)
 
+    describe("chance.year()", function ()
+        it("By default returns a year between the current and a century later", function ()
+            local random_year = chance.year()
+            local current_date = os.date("*t")
+            assert.is_within_range(random_year, current_date["year"], current_date["year"] + 100)
+        end)
+
+        it("Can be restricted to a minimum and/or maximum range", function ()
+            local current_date = os.date("*t")
+            assert.is_within_range(chance.year { min = 1700 }, 1700, 1800)
+            assert.is_within_range(chance.year { max = 2200 }, current_date["year"], 2200)
+            assert.is_within_range(chance.year { min = 1984, max = 2002 }, 1984, 2002)
+        end)
+    end)
+
 end)
 
 describe("The Helper API", function ()

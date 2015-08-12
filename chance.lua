@@ -326,6 +326,48 @@ function chance.millisecond()
     return chance.random(0, 999)
 end
 
+--- Returns a random year.
+--
+-- By default this function returns a number representing a year in
+-- the range of the current year and a century later.  For example,
+-- calling <code>chance.year()</code> in the year 2015 will return
+-- a number between 2015 and 2115.
+--
+-- The function accepts an optional table of flags which can have
+-- <code>min</code> and <code>max</code> properties to restrict the
+-- range of the output.  If only <code>min</code> is provided then the
+-- maximum range is one century ahead of the minimum, for example
+-- <code>chance.year { min = 1750 }</code> returns a year between 1750
+-- and 1850.  If only <code>max</code> is provided then the minimum is
+-- the current year.
+--
+-- @usage chance.year() == 2074
+-- @usage chance.year { min = 1800 } == 1884
+-- @usage chance.year { max = 2300 } == 2203
+-- @usage chance.year { min = 1990, max = 2000 } == 1995
+--
+-- @param[opt] flags
+-- @treturn number
+function chance.year(flags)
+    local current_year = os.date("*t")["year"]
+    local minimum = current_year
+    local maximum = current_year + 100
+
+    if flags then
+        if flags["min"] and flags["max"] then
+            minimum = flags["min"]
+            maximum = flags["max"]
+        elseif flags["min"] then
+            minimum = flags["min"]
+            maximum = minimum + 100
+        elseif flags["max"] then
+            maximum = flags["max"]
+        end
+    end
+
+    return chance.random(minimum, maximum)
+end
+
 --- Returns 'am' or 'pm' for use with times.
 --
 -- @treturn string <code>"am"</code> or <code>"pm"</code>
