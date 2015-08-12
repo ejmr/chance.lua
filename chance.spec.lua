@@ -200,6 +200,10 @@ describe("The Time API", function ()
         })
     end)
 
+    it("Can generate a random Unix timestamp", function ()
+        assert.is_within_range(chance.timestamp(), 0, os.time())
+    end)
+
 end)
 
 describe("The Helper API", function ()

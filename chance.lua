@@ -388,6 +388,20 @@ function chance.month()
     }
 end
 
+--- Returns a random Unix timestamp.
+--
+-- This function returns a random number between zero and the current
+-- time as a Unix timestamp, i.e. the number of seconds since January
+-- 1st 1970.
+--
+-- <strong>This function may not correctly determine the current time
+-- on non-POSIX systems.</strong>
+--
+-- @treturn number
+function chance.timestamp()
+    return chance.random(0, os.time())
+end
+
 --- Returns 'am' or 'pm' for use with times.
 --
 -- @treturn string <code>"am"</code> or <code>"pm"</code>
