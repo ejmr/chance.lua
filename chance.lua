@@ -213,7 +213,7 @@ character_groups["all"]    = character_groups["letter"] .. character_groups["dig
 -- then "pool" takes precedence and "group" is ignored.
 --
 -- @usage anything = chance.character()
--- @usage anything = chance.character { pool = "all" }
+-- @usage anything = chance.character { group = "all" }
 -- @usage vowel = chance.character { pool = "aeiou" }
 -- @usage capital = chance.character { group = "upper" }
 --
