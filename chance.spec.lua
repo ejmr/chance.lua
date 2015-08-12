@@ -118,6 +118,29 @@ describe("The Basic API", function ()
 
 end)
 
+describe("The Time API", function ()
+
+    before_each(function () chance.seed(1) end)
+
+    it("Can generate random hours", function ()
+        assert.is_within_range(chance.hour(), 1, 12)
+        assert.is_within_range(chance.hour { twentyfour = true }, 1, 24)
+    end)
+
+    it("Can generate random minutes", function ()
+        assert.is_within_range(chance.minute(), 0, 59)
+    end)
+
+    it("Can generate random seconds", function ()
+        assert.is_within_range(chance.second(), 0, 59)
+    end)
+
+    it("Can generate random milliseconds", function ()
+        assert.is_within_range(chance.millisecond(), 0, 999)
+    end)
+
+end)
+
 describe("The Helper API", function ()
 
     before_each(function () chance.seed(1) end)

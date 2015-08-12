@@ -273,6 +273,59 @@ function chance.string(flags)
     return result
 end
 
+--- Time
+--
+-- These are functions for generating random times.
+--
+-- @section Time
+
+--- Returns a random hour.
+--
+-- By default this will return an hour in the range of one to twelve.
+-- However, if the optional flag <code>twentyfour</code> is true then
+-- the result will be in the range of one to twenty-four.
+--
+-- @usage chance.hour() == 3
+-- @usage chance.hour { twentyfour = true } == 15
+--
+-- @param[opt] flags
+-- @treturn number
+function chance.hour(flags)
+    if flags and flags["twentyfour"] == true then
+        return chance.random(1, 24)
+    else
+        return chance.random(1, 12)
+    end
+end
+
+--- Returns a random minute.
+--
+-- This will return a number in the range of zero to fifty-nine.
+--
+-- @treturn number
+function chance.minute()
+    return chance.random(0, 59)
+end
+
+--- Returns a random second.
+--
+-- This will return a number in the range of zero to fifty-nine.
+--
+-- @treturn number
+function chance.second()
+    return chance.random(0, 59)
+end
+
+--- Returns a random millisecond.
+--
+-- This returns a number in the range of zero to nine-hundred ninety
+-- nine.
+--
+-- @treturn number
+function chance.millisecond()
+    return chance.random(0, 999)
+end
+
 --- Miscellaneous
 --
 -- These are functions for generating data which does not easily fall

@@ -23,6 +23,12 @@ to [Semantic Versioning](http://semver.org/).
     - `chance.natural()`
     - `chance.character()`
 
+- The `Time` API:
+    - `chance.hour()`
+    - `chance.minute()`
+    - `chance.second()`
+    - `chance.millisecond()`
+
 - The `Helper` API:
     - `chance.pick()`
     - `change.shuffle()`
