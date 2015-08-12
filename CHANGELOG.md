@@ -26,3 +26,13 @@ to [Semantic Versioning](http://semver.org/).
 - The `Helper` API:
     - `chance.pick()`
     - `change.shuffle()`
+
+- The `Miscellaneous` API:
+    - `chance.rpg()`
+    - `chance.d4()`
+    - `chance.d6()`
+    - `chance.d8()`
+    - `chance.d10()`
+    - `chance.d12()`
+    - `chance.d20()`
+    - `chance.d100()`

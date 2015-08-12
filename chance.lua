@@ -273,6 +273,100 @@ function chance.string(flags)
     return result
 end
 
+--- Miscellaneous
+--
+-- These are functions for generating data which does not easily fall
+-- under any other category.
+--
+-- @section Miscellaneous
+
+--- Create an array of die rolls using Dungeons and Dragons notation.
+--
+-- This function returns an array of random numbers simulating the
+-- results of rolling dice of the kind found in most table-top RPGs
+-- such as Dungeons and Dragons.  The argument to the function must be
+-- a string of the form <code>#d#</code> where each <code>#</code> is
+-- a number; the first represents the number of rolls to make, and the
+-- second represents the number of sides on the die, e.g. <code>3d6</code>
+-- returns an array with three numbers, each being the result of rolling
+-- a six-sided die.
+--
+-- @usage chance.rpg("1d8") == {4}
+-- @usage chance.rpg("3d20") == {10, 4, 17}
+--
+-- @param notation
+-- @treturn table The values of each die roll.
+function chance.rpg(notation)
+    local _,middle = notation:find("d")
+    local rolls = tonumber(notation:sub(1, middle - 1))
+    local die = tonumber(notation:sub(middle + 1))
+    local results = {}
+
+    while rolls > 0 do
+        table.insert(results, chance.random(1, die))
+        rolls = rolls - 1
+    end
+
+    return results
+end
+
+-- This utility function accepts a die as a string, i.e. the number of
+-- sides on the die, and creates a public API function which returns
+-- one number by rolling that die.  For example, after calling...
+--
+--     createDieRollFunction("10")
+--
+-- ...we end up with the function chance.d10(), which will return the
+-- result of rolling a ten-sided die once.
+local function createDieRollFunction(die)
+    chance["d" .. die] = function ()
+        local roll = chance.rpg("1d" .. die)
+        return roll[1]
+    end
+end
+
+--- Roll a 4-sided die.
+--
+-- @function chance.d4
+-- @treturn number
+createDieRollFunction("4")
+
+--- Roll a 6-sided die.
+--
+-- @function chance.d6
+-- @treturn number
+createDieRollFunction("6")
+
+--- Roll an 8-sided die.
+--
+-- @function chance.d8
+-- @treturn number
+
+createDieRollFunction("8")
+--- Roll a 10-sided die.
+--
+-- @function chance.d10
+-- @treturn number
+
+createDieRollFunction("10")
+--- Roll a 12-sided die.
+--
+-- @function chance.d12
+-- @treturn number
+
+createDieRollFunction("12")
+--- Roll a 20-sided die.
+--
+-- @function chance.d20
+-- @treturn number
+createDieRollFunction("20")
+
+--- Roll a 100-sided die.
+--
+-- @function chance.d100
+-- @treturn number
+createDieRollFunction("100")
+
 --- Helpers
 --
 -- These are functions that help select random data from existing

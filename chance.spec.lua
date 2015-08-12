@@ -139,12 +139,12 @@ describe("The Helper API", function ()
         it("Returns an array of randomly shuffled elements", function ()
             local original = { "foo", "bar", "baz" }
             local shuffled = chance.shuffle(original)
-            
+
             assert.equal(#shuffled, #original)
 
             local exists = function (element, array)
                 local exists = false
-                
+
                 for _,value in ipairs(array) do
                     if element == value then
                         exists = true
@@ -159,6 +159,42 @@ describe("The Helper API", function ()
                 exists(value, shuffled)
             end
         end)
+    end)
+
+end)
+
+describe("The Miscellaneous API", function ()
+
+    before_each(function () chance.seed(1) end)
+
+    describe("chance.rpg()", function ()
+        it("Creates an array of numbers simulating table-top RPG die rolls", function ()
+            local oneD100 = chance.rpg("1d100")
+            local threeD6 = chance.rpg("3d6")
+            local fiveD20 = chance.rpg("5d20")
+
+            assert.equals(1, #oneD100)
+            assert.equals(3, #threeD6)
+            assert.equals(5, #fiveD20)
+
+            local testRolls = function (rolls, max)
+                for _,value in ipairs(rolls) do
+                    assert.is_within_range(value, 1, max)
+                end
+            end
+
+            testRolls(oneD100, 100)
+            testRolls(threeD6, 6)
+            testRolls(fiveD20, 20)
+        end)
+    end)
+
+    it("Has predefined functions for common die rolls", function ()
+        local dice = { 4, 6, 8, 10, 12, 20, 100 }
+
+        for _,die in ipairs(dice) do
+            assert.is_within_range(chance["d" .. die](), 1, die)
+        end
     end)
 
 end)
