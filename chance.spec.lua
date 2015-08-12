@@ -29,6 +29,30 @@ assert:register("assertion", "is_within_range", is_within_range,
                 "assertion.is_within_range.positive",
                 "assertion.is_within_range.negative")
 
+-- This assertion requires two arguments.  The first argument can be
+-- any type of value.  The second argument must be a table.  The
+-- assertion tests whether or not that value exists in the table.  If
+-- we think of the table as an array then this assertion checks to see
+-- if the element exists in that array.
+local function in_array(state, arguments)
+    local element = arguments[1]
+    local array = arguments[2]
+
+    for _,value in ipairs(array) do
+        if value == element then return true end
+    end
+
+    return false
+end
+
+say:set("assertion.in_array.positive", "Expected value %s to be a value in array:\n%s")
+say:set("assertion.in_array.negative", "Expected value %s to not be a value in array:\n%s")
+assert:register("assertion", "in_array", in_array,
+                "assertion.in_array.positive",
+                "assertion.in_array.negative")
+
+
+
 describe("The Core API", function ()
 
     it("Accepts a number to seed the RNG", function ()
@@ -157,6 +181,23 @@ describe("The Time API", function ()
             assert.is_within_range(chance.year { max = 2200 }, current_date["year"], 2200)
             assert.is_within_range(chance.year { min = 1984, max = 2002 }, 1984, 2002)
         end)
+    end)
+
+    it("Can randomly generate a month by name", function ()
+        assert.in_array(chance.month(), {
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        })
     end)
 
 end)

@@ -30,6 +30,7 @@ to [Semantic Versioning](http://semver.org/).
     - `chance.millisecond()`
     - `chance.ampm()`
     - `chance.year()`
+    - `chance.month()`
 
 - The `Helper` API:
     - `chance.pick()`

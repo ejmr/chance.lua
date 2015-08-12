@@ -368,6 +368,26 @@ function chance.year(flags)
     return chance.random(minimum, maximum)
 end
 
+--- Returns the name of a random month.
+--
+-- @treturn string
+function chance.month()
+    return chance.pick {
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    }
+end
+
 --- Returns 'am' or 'pm' for use with times.
 --
 -- @treturn string <code>"am"</code> or <code>"pm"</code>
