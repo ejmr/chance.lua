@@ -9,6 +9,12 @@ returns numbers in a different range than the original library’s
 `chance.floating()`.
 
 
+Requirements
+------------
+
+Chance requires Lua 5.1 or later, or [LuaJIT][] 2.0 or later.
+
+
 Usage
 -----
 
@@ -60,3 +66,4 @@ This project follows [Semantic Versioning](http://semver.org/).
 [Emacs]: https://www.gnu.org/software/emacs/
 [Busted]: http://olivinelabs.com/busted/ "Lua Unit Testing Tool"
 [gh-pages]: https://ejmr.github.io/chance.lua
+[LuaJIT]: http://luajit.org/
