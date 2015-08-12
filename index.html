@@ -31,6 +31,7 @@
 <ul>
 <li><a href="#Core">Core </a></li>
 <li><a href="#Basic">Basic </a></li>
+<li><a href="#Time">Time </a></li>
 <li><a href="#Miscellaneous">Miscellaneous </a></li>
 <li><a href="#Helpers">Helpers </a></li>
 </ul>
@@ -100,8 +101,51 @@
 	<td class="summary">Returns a random string.</td>
 	</tr>
 </table>
+<h2><a href="#Time">Time </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#hour">hour ([flags])</a></td>
+	<td class="summary">Returns a random hour.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#minute">minute ()</a></td>
+	<td class="summary">Returns a random minute.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#second">second ()</a></td>
+	<td class="summary">Returns a random second.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#millisecond">millisecond ()</a></td>
+	<td class="summary">Returns a random millisecond.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#year">year ([flags])</a></td>
+	<td class="summary">Returns a random year.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#month">month ()</a></td>
+	<td class="summary">Returns the name of a random month.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#day">day ([flags])</a></td>
+	<td class="summary">Returns a random day of the week.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#timestamp">timestamp ()</a></td>
+	<td class="summary">Returns a random Unix timestamp.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ampm">ampm ()</a></td>
+	<td class="summary">Returns 'am' or 'pm' for use with times.</td>
+	</tr>
+</table>
 <h2><a href="#Miscellaneous">Miscellaneous </a></h2>
 <table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#n">n (generator, count[, ...])</a></td>
+	<td class="summary">Create an array of random data from a given generator.</td>
+	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#rpg">rpg (notation)</a></td>
 	<td class="summary">Create an array of die rolls using Dungeons and Dragons notation.</td>
@@ -505,6 +549,268 @@
 
 </dd>
 </dl>
+    <h2 class="section-header has-description"><a name="Time"></a>Time </h2>
+
+          <div class="section-description">
+           These are functions for generating random times.
+
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "hour"></a>
+    <strong>hour ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random hour.
+<p> By default this will return an hour in the range of one to twelve.
+ However, if the optional flag <code>twentyfour</code> is true then
+ the result will be in the range of one to twenty-four.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.hour() == <span class="number">3</span></pre></li>
+        <li><pre class="example">chance.hour { twentyfour = <span class="keyword">true</span> } == <span class="number">15</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "minute"></a>
+    <strong>minute ()</strong>
+    </dt>
+    <dd>
+    Returns a random minute.
+<p> This will return a number in the range of zero to fifty-nine.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "second"></a>
+    <strong>second ()</strong>
+    </dt>
+    <dd>
+    Returns a random second.
+<p> This will return a number in the range of zero to fifty-nine.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "millisecond"></a>
+    <strong>millisecond ()</strong>
+    </dt>
+    <dd>
+    Returns a random millisecond.
+<p> This returns a number in the range of zero to nine-hundred ninety
+ nine.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "year"></a>
+    <strong>year ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random year.
+<p> By default this function returns a number representing a year in
+ the range of the current year and a century later.  For example,
+ calling <code>chance.year()</code> in the year 2015 will return
+ a number between 2015 and 2115.
+<p> The function accepts an optional table of flags which can have
+ <code>min</code> and <code>max</code> properties to restrict the
+ range of the output.  If only <code>min</code> is provided then the
+ maximum range is one century ahead of the minimum, for example
+ <code>chance.year { min = 1750 }</code> returns a year between 1750
+ and 1850.  If only <code>max</code> is provided then the minimum is
+ the current year.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.year() == <span class="number">2074</span></pre></li>
+        <li><pre class="example">chance.year { min = <span class="number">1800</span> } == <span class="number">1884</span></pre></li>
+        <li><pre class="example">chance.year { max = <span class="number">2300</span> } == <span class="number">2203</span></pre></li>
+        <li><pre class="example">chance.year { min = <span class="number">1990</span>, max = <span class="number">2000</span> } == <span class="number">1995</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "month"></a>
+    <strong>month ()</strong>
+    </dt>
+    <dd>
+    Returns the name of a random month.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "day"></a>
+    <strong>day ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random day of the week.
+<p> By default this function will return the name of a day of the week.
+ However, it accepts an optional table of flags which control the
+ possible days it returns.  If the flags <code>weekdays</code> or
+ <code>weekends</code> are false then the function will not return
+ those types of days.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.day() == <span class="string">"Monday"</span></pre></li>
+        <li><pre class="example">chance.day { weekdays = <span class="keyword">false</span> } == <span class="string">"Sunday"</span></pre></li>
+        <li><pre class="example">chance.day { weekends = <span class="keyword">false</span> } == <span class="string">"Thursday"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "timestamp"></a>
+    <strong>timestamp ()</strong>
+    </dt>
+    <dd>
+    Returns a random Unix timestamp.
+<p> This function returns a random number between zero and the current
+ time as a Unix timestamp, i.e. the number of seconds since January
+ 1st 1970.
+<p> <strong>This function may not correctly determine the current time
+ on non-POSIX systems.</strong>
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ampm"></a>
+    <strong>ampm ()</strong>
+    </dt>
+    <dd>
+    Returns 'am' or 'pm' for use with times.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+        <code>"am"</code> or <code>"pm"</code>
+    </ol>
+
+
+
+
+</dd>
+</dl>
     <h2 class="section-header has-description"><a name="Miscellaneous"></a>Miscellaneous </h2>
 
           <div class="section-description">
@@ -513,6 +819,54 @@
 
           </div>
     <dl class="function">
+    <dt>
+    <a name = "n"></a>
+    <strong>n (generator, count[, ...])</strong>
+    </dt>
+    <dd>
+    Create an array of random data from a given generator.
+<p> This function requires two arguments: a function which generates
+ random data, and a number.  The function will invoke the generator
+ that number of times and return an array of that size containing
+ whatever random data comes out of the generator.  Effectively this
+ function acts as a shortcut for writing a for-loop that calls a
+ <code>chance.*()</code> function a certain number of times while
+ collecting the results into an array.
+<p> Any additional arguments will be given to the generator function on
+ each invocation.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">generator</span>
+         A function that returns random data.
+        </li>
+        <li><span class="parameter">count</span>
+         The number of times to call the generator.
+        </li>
+        <li><span class="parameter">...</span>
+         Additional arguments passed to the generator.
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">switches = chance.n(chance.bool, <span class="number">3</span>)</pre></li>
+        <li><pre class="example">numbers = chance.n(chance.natural, <span class="number">10</span>, { max = <span class="number">100</span> })</pre></li>
+    </ul>
+
+</dd>
     <dt>
     <a name = "rpg"></a>
     <strong>rpg (notation)</strong>
@@ -781,7 +1135,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
-<i style="float:right;">Last updated 2015-08-11 21:37:25 </i>
+<i style="float:right;">Last updated 2015-08-12 15:31:01 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
