@@ -280,6 +280,38 @@ end
 --
 -- @section Miscellaneous
 
+--- Create an array of random data from a given generator.
+--
+-- This function requires two arguments: a function which generates
+-- random data, and a number.  The function will invoke the generator
+-- that number of times and return an array of that size containing
+-- whatever random data comes out of the generator.  Effectively this
+-- function acts as a shortcut for writing a for-loop that calls a
+-- <code>chance.*()</code> function a certain number of times while
+-- collecting the results into an array.
+--
+-- Any additional arguments will be given to the generator function on
+-- each invocation.
+--
+-- @usage switches = chance.n(chance.bool, 3)
+-- @usage numbers = chance.n(chance.natural, 10, { max = 100 })
+--
+-- @param generator A function that returns random data.
+-- @param count The number of times to call the generator.
+-- @param[opt] ... Additional arguments passed to the generator.
+-- @treturn table
+function chance.n(generator, count, ...)
+    local results = {}
+
+    if count <= 0 then return results end
+    while count > 0 do
+        table.insert(results, generator(...))
+        count = count - 1
+    end
+
+    return results
+end
+
 --- Create an array of die rolls using Dungeons and Dragons notation.
 --
 -- This function returns an array of random numbers simulating the

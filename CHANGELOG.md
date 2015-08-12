@@ -5,7 +5,7 @@ to [Semantic Versioning](http://semver.org/).
 
 
 
-## [Unreleased][unreleased]
+## Unreleased
 
 ### Added
 
@@ -36,3 +36,4 @@ to [Semantic Versioning](http://semver.org/).
     - `chance.d12()`
     - `chance.d20()`
     - `chance.d100()`
+    - `chance.n()`

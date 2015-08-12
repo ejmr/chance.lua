@@ -197,4 +197,19 @@ describe("The Miscellaneous API", function ()
         end
     end)
 
+    describe("chance.n()", function ()
+        it("Can create an array of data from any other function", function ()
+            local strings = chance.n(chance.string, 3)
+            assert.equals(3, #strings)
+        end)
+
+        it("Passes on extra arguments to the generator function", function ()
+            local numbers = chance.n(chance.natural, 10, { max = 3 })
+            assert.equals(10, #numbers)
+            for _,value in ipairs(numbers) do
+                assert.is_within_range(value, 0, 3)
+            end
+        end)
+    end)
+
 end)
