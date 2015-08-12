@@ -204,6 +204,45 @@ describe("The Time API", function ()
         assert.is_within_range(chance.timestamp(), 0, os.time())
     end)
 
+    describe("chance.day()", function ()
+        local alldays, weekdays, weekends
+
+        setup(function ()
+            alldays = {
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+            }
+            weekdays = {
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday"
+            }
+            weekends = {
+                "Saturday",
+                "Sunday"
+            }
+        end)
+
+        it("Can return any day of the week", function ()
+            assert.in_array(chance.day(), alldays)
+        end)
+
+        it("Can return only weekdays", function ()
+            assert.in_array(chance.day { weekends = false }, weekdays)
+        end)
+
+        it("Can return only weekends", function ()
+            assert.in_array(chance.day { weekdays = false }, weekends)
+        end)
+    end)
+
 end)
 
 describe("The Helper API", function ()

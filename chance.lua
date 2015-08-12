@@ -388,6 +388,47 @@ function chance.month()
     }
 end
 
+--- Returns a random day of the week.
+--
+-- By default this function will return the name of a day of the week.
+-- However, it accepts an optional table of flags which control the
+-- possible days it returns.  If the flags <code>weekdays</code> or
+-- <code>weekends</code> are false then the function will not return
+-- those types of days.
+--
+-- @usage chance.day() == "Monday"
+-- @usage chance.day { weekdays = false } == "Sunday"
+-- @usage chance.day { weekends = false } == "Thursday"
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.day(flags)
+    local days = {
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+    }
+
+    -- This logic takes advantage of the specific order of the `days`
+    -- table above.
+    if flags then
+        if flags["weekdays"] == false then
+            for i = 1, 5 do
+                table.remove(days, i)
+            end
+        elseif flags["weekends"] == false then
+            table.remove(days)
+            table.remove(days)
+        end
+    end
+
+    return chance.pick(days)
+end
+
 --- Returns a random Unix timestamp.
 --
 -- This function returns a random number between zero and the current
