@@ -306,6 +306,9 @@ chance.genders = {
 -- By default, however, the function will return a string from the
 -- @{chance.genders} array.
 --
+-- @usage chance.gender() == "Female"
+-- @usage chance.gender { binary = true } == "Male"
+--
 -- @see chance.genders
 --
 -- @param[opt] flags
