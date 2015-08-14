@@ -273,6 +273,50 @@ function chance.string(flags)
     return result
 end
 
+--- Person
+--
+-- These are functions for generating random data about people.
+--
+-- @section Person
+
+--- The possible genders returned by @{chance.gender}.
+--
+-- This is a table of strings which the @{chance.gender} function will
+-- randomly choose from when called.  Developers can modify the domain
+-- of @{chance.gender} by changing this table to include or remove
+-- possible values as needed for their purposes.  The default values
+-- are based on common gender identities in modern socities as opposed
+-- to gender based on medical qualification (e.g. chromosones) or
+-- sexual orientation.
+--
+-- @field genders
+chance.genders = {
+    "Male",
+    "Female",
+    "Third", -- https://en.m.wikipedia.org/wiki/Third_gender
+}
+
+--- Returns a random gender as a string.
+--
+-- One can classify gender in a number of ways.  The most traditional
+-- form is the binary division of 'male' and 'female'; if the function
+-- is given the optional flag <code>binary = true</code> then it will
+-- return either <code>"Male"</code> or <code>"Female"</code>.
+--
+-- By default, however, the function will return a string from the
+-- @{chance.genders} array.
+--
+-- @see chance.genders
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.gender(flags)
+    if flags and flags["binary"] == true then
+        return chance.pick { "Male", "Female" }
+    end
+    return chance.pick(chance.genders)
+end
+
 --- Time
 --
 -- These are functions for generating random times.

@@ -142,6 +142,22 @@ describe("The Basic API", function ()
 
 end)
 
+describe("The Person API", function ()
+
+    before_each(function () chance.seed(1) end)
+
+    describe("chance.gender()", function ()
+        it("Returns a value from chance.genders by default", function ()
+            assert.in_array(chance.gender(), chance.genders)
+        end)
+
+        it("Can be restricted to binary Male or Female", function ()
+            assert.in_array(chance.gender { binary = true }, { "Male", "Female" })
+        end)
+    end)
+
+end)
+
 describe("The Time API", function ()
 
     before_each(function () chance.seed(1) end)
