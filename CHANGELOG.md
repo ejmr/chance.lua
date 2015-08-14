@@ -11,6 +11,7 @@ to [Semantic Versioning](http://semver.org/).
 
 - The `Person` API:
     - `chance.gender()`
+    - `chance.age()`
 
 
 

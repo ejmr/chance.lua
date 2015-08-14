@@ -320,6 +320,42 @@ function chance.gender(flags)
     return chance.pick(chance.genders)
 end
 
+-- These are the ranges for the various "types" accepted as optional
+-- flags for the chance.age() function.
+local age_groups = {}
+age_groups["child"] = {1, 12}
+age_groups["teen"] = {13, 19}
+age_groups["adult"] = {18, 65}
+age_groups["senior"] = {65, 100}
+
+--- Returns a random age for a person.
+--
+-- By default this function return an integer in the range of one and
+-- one-hundred twenty.  It accepts an optional <code>type</code> flag
+-- which must be one of the following strings, which limit the range
+-- of the generated age:
+--
+-- <ol>
+-- <li><code>"child" = [1, 12]</code></li>
+-- <li><code>"teen" = [13, 19]</code></li>
+-- <li><code>"adult" = [18, 65]</code></li>
+-- <li><code>"senior" = [65, 100]</code></li>
+-- </ol>
+--
+-- @usage chance.age() == 33
+-- @usage chance.age { type = "teen" } == 17
+-- @usage chance.age { type = "adult" } == 40
+--
+-- @param[opt] flags
+-- @treturn int
+function chance.age(flags)
+    if flags and flags["type"] then
+        local group = age_groups[flags["type"]]
+        return chance.random(group[1], group[2])
+    end
+    return chance.random(1, 120)
+end
+
 --- Time
 --
 -- These are functions for generating random times.

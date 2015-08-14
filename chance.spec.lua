@@ -161,6 +161,19 @@ describe("The Person API", function ()
         end)
     end)
 
+    describe("chance.age()", function ()
+        it("Returns an age in the range [1, 120] by default", function ()
+            assert.is_within_range(chance.age(), 1, 120)
+        end)
+
+        it("Has predefined age types", function ()
+            assert.is_within_range(chance.age { type = "child" }, 1, 12)
+            assert.is_within_range(chance.age { type = "teen" }, 13, 19)
+            assert.is_within_range(chance.age { type = "adult" }, 18, 65)
+            assert.is_within_range(chance.age { type = "senior" }, 65, 100)
+        end)
+    end)
+
 end)
 
 describe("The Time API", function ()
