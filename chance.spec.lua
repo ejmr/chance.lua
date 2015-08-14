@@ -154,6 +154,11 @@ describe("The Person API", function ()
         it("Can be restricted to binary Male or Female", function ()
             assert.in_array(chance.gender { binary = true }, { "Male", "Female" })
         end)
+
+        it("Supports customizing its output domain", function ()
+            chance.genders = { "M", "F", "N" }
+            assert.in_array(chance.gender(), chance.genders)
+        end)
     end)
 
 end)
