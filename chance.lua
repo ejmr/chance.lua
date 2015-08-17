@@ -48,6 +48,17 @@ chance.VERSION = setmetatable(
         end
 })
 
+--- Make a shallow copy of a table.
+--
+-- @local
+local function makeShallowCopy(array)
+    local copy = {}
+    for _,value in ipairs(array) do
+        table.insert(copy, value)
+    end
+    return copy
+end
+
 --- Seeds the random number generator.
 --
 -- This function accepts one parameter: a seed, which it uses to seed
@@ -483,11 +494,28 @@ function chance.month()
     return chance.fromSet("months")
 end
 
+--- Names of days of the week.
+--
+-- @see chance.day
+-- @local
+-- @field days
+-- @table chance.dataSets
+chance.set("days", {
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+})
+
 --- Returns a random day of the week.
 --
--- By default this function will return the name of a day of the week.
--- However, it accepts an optional table of flags which control the
--- possible days it returns.  If the flags <code>weekdays</code> or
+-- By default this function will return the name of a day of the week,
+-- chosen from the <code>days</code> data set.  The function accepts
+-- an optional table of flags which control the possible days it
+-- returns.  If the flags <code>weekdays</code> or
 -- <code>weekends</code> are false then the function will not return
 -- those types of days.
 --
@@ -498,15 +526,7 @@ end
 -- @param[opt] flags
 -- @treturn string
 function chance.day(flags)
-    local days = {
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-    }
+    local days = makeShallowCopy(chance.dataSets["days"])
 
     -- This logic takes advantage of the specific order of the `days`
     -- table above.
@@ -710,15 +730,6 @@ function chance.pick(array, count)
     end
 
     return array[chance.random(1, size)]
-end
-
---- Make a shallow copy of a table.
-local function makeShallowCopy(array)
-    local copy = {}
-    for _,value in ipairs(array) do
-        table.insert(copy, value)
-    end
-    return copy
 end
 
 --- Randomly shuffle the contents of an array.

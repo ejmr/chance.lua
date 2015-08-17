@@ -19,6 +19,7 @@ to [Semantic Versioning](http://semver.org/).
 
 - The following functions now randomly select from data sets:
     - `chance.month()` selects from `"months"`
+    - `chance.day()` selects from `"days"`
 
 
 
