@@ -189,17 +189,18 @@ describe("The Person API", function ()
     before_each(function () chance.seed(1) end)
 
     describe("chance.gender()", function ()
-        it("Returns a value from chance.genders by default", function ()
-            assert.in_array(chance.gender(), chance.genders)
+        it("Returns a value from the 'genders' data set by default", function ()
+            assert.in_array(chance.gender(), chance.dataSets["genders"])
         end)
 
         it("Can be restricted to binary Male or Female", function ()
             assert.in_array(chance.gender { binary = true }, { "Male", "Female" })
         end)
 
-        it("Supports customizing its output domain", function ()
-            chance.genders = { "M", "F", "N" }
-            assert.in_array(chance.gender(), chance.genders)
+        it("Supports customizing its output domain via data sets", function ()
+            local genders = { "M", "F", "N" }
+            chance.set("genders", genders)
+            assert.in_array(chance.gender(), chance.dataSets["genders"])
         end)
     end)
 

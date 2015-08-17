@@ -384,12 +384,15 @@ end
 -- to gender based on medical qualification (e.g. chromosones) or
 -- sexual orientation.
 --
+-- @see chance.gender
+-- @local
 -- @field genders
-chance.genders = {
+-- @table chance.dataSets
+chance.set("genders", {
     "Male",
     "Female",
     "Third", -- https://en.m.wikipedia.org/wiki/Third_gender
-}
+})
 
 --- Returns a random gender as a string.
 --
@@ -399,7 +402,7 @@ chance.genders = {
 -- return either <code>"Male"</code> or <code>"Female"</code>.
 --
 -- By default, however, the function will return a string from the
--- @{chance.genders} array.
+-- <code>genders</code> data set.
 --
 -- @usage chance.gender() == "Female"
 -- @usage chance.gender { binary = true } == "Male"
@@ -412,7 +415,7 @@ function chance.gender(flags)
     if flags and flags["binary"] == true then
         return chance.pick { "Male", "Female" }
     end
-    return chance.pick(chance.genders)
+    return chance.fromSet("genders")
 end
 
 -- These are the ranges for the various "types" accepted as optional

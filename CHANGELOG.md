@@ -15,21 +15,15 @@ to [Semantic Versioning](http://semver.org/).
     - `chance.fromSet()`
     - `chance.appendSet()`
 
+- The `Person` API:
+    - `chance.gender()`
+    - `chance.age()`
+
 ### Changed
 
 - The following functions now randomly select from data sets:
     - `chance.month()` selects from `"months"`
     - `chance.day()` selects from `"days"`
-
-
-
-## Unreleased
-
-### Added
-
-- The `Person` API:
-    - `chance.gender()`
-    - `chance.age()`
 
 
 
