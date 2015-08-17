@@ -418,13 +418,18 @@ function chance.gender(flags)
     return chance.fromSet("genders")
 end
 
--- These are the ranges for the various "types" accepted as optional
--- flags for the chance.age() function.
-local age_groups = {}
-age_groups["child"] = {1, 12}
-age_groups["teen"] = {13, 19}
-age_groups["adult"] = {18, 65}
-age_groups["senior"] = {65, 100}
+--- Ranges for various types of ages.
+--
+-- @see chance.age
+-- @local
+-- @field ages
+-- @table chance.dataSets
+chance.set("ages", {
+        ["child"]  = {1, 12},
+        ["teen"]   = {13, 19},
+        ["adult"]  = {18, 65},
+        ["senior"] = {65, 100},
+    })
 
 --- Returns a random age for a person.
 --
@@ -440,6 +445,10 @@ age_groups["senior"] = {65, 100}
 -- <li><code>"senior" = [65, 100]</code></li>
 -- </ol>
 --
+-- These ranges are defined in the <code>ages</code> data set, meaning
+-- one can use @{chance.set} and @{chance.appendSet} to redefine the
+-- ranges for types and/or add new types.
+--
 -- @usage chance.age() == 33
 -- @usage chance.age { type = "teen" } == 17
 -- @usage chance.age { type = "adult" } == 40
@@ -448,7 +457,7 @@ age_groups["senior"] = {65, 100}
 -- @treturn int
 function chance.age(flags)
     if flags and flags["type"] then
-        local group = age_groups[flags["type"]]
+        local group = chance.dataSets["ages"][flags["type"]]
         return chance.random(group[1], group[2])
     end
     return chance.random(1, 120)
