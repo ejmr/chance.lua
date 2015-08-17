@@ -106,6 +106,95 @@ function chance.random(m, n)
     return math.random()
 end
 
+--- Sets of data which some functions choose from.
+--
+-- Many functions select random data from a predefined source.  For
+-- example, @{chance.month} randomly picks a name from an existing
+-- list of names.  This table contains all of those types of
+-- predefined sets of data.  Developers can modify or add new sets
+-- of data by using the @{chance.set} function.
+--
+-- The keys for this table must either be strings, which name the data
+-- set, or functions themselves; in the latter case the function key
+-- acts as a reference to the function which uses that particular set
+-- of data.
+--
+-- The values must either be arrays (which can contain any types of
+-- values), or a single function.  If the value is a function then the
+-- library treats it as a generator for that data set, i.e. the
+-- library will invoke that function expecting it to return the
+-- appropriate type of random data.  The function will receive no
+-- arguments.
+--
+-- @see chance.set
+-- @see chance.fromSet
+-- @field dataSets
+chance.dataSets = {}
+
+--- Define or modify a set of data.
+--
+-- This function creates a new set of data or replaces an existing
+-- one.  The key parameter must be either a string naming the data set
+-- or a function, in which case the key represents the function which
+-- relies on that data set.  The data parameter must be either a table
+-- of data, which can be of any type, or must be a function.  If it is
+-- a function then the library treats it as a generator and will invoke
+-- that function with no arguments whenever random data is requested from
+-- that set.
+--
+-- @see chance.fromSet
+-- @see chance.dataSets
+--
+-- @tparam string|function key
+-- @tparam table|function data
+-- @treturn nil
+function chance.set(key, data)
+    chance.dataSets[key] = data
+end
+
+--- Add data to an existing data set.
+--
+-- See the documentation on @{chance.set} for details on the
+-- <code>key</code> parameter.  The <code>data</code> must be a table
+-- of values which the function will add to the existing data set.
+-- <strong>This does not work for data sets that have generator
+-- functions for their values.</strong>
+--
+-- @see chance.set
+-- @see chance.dataSets
+--
+-- @tparam string|function key
+-- @tparam table data
+-- @treturn nil
+function chance.appendSet(key, data)
+    for _,value in ipairs(data) do
+        table.insert(chance.dataSets[key], value)
+    end
+end
+
+--- Select random data from an existing data set.
+--
+-- See the documentation on @{chance.set} for details on the
+-- restrictions and semantics of the <code>key</code> parameter.
+--
+-- @see chance.set
+-- @see chance.dataSets
+--
+-- @tparam string|function key
+-- @return Random data of potentially any type, or nil if there is no
+-- data set for the given <code>key</code>
+function chance.fromSet(key)
+    local data = chance.dataSets[key]
+
+    if data == nil then return nil end
+
+    if type(data) == "function" then
+        return data()
+    else
+        return chance.pick(data)
+    end
+end
+
 --- Basic
 --
 -- These are functions that generate simple types of data such as

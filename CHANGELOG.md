@@ -4,6 +4,18 @@ This document describes notable changes to this project, which adheres
 to [Semantic Versioning](http://semver.org/).
 
 
+## Unreleased
+
+### Added
+
+- The `Core` API:
+    - Defining, modifying, and selecting from named data sets
+    - `chance.dataSets`
+    - `chance.set()`
+    - `chance.fromSet()`
+    - `chance.appendSet()`
+
+
 
 ## [0.1.0] - 2015-08-14
 
