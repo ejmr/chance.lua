@@ -737,6 +737,8 @@ function chance.rpg(notation)
     return results
 end
 
+--- Create a short-cut function for rolling dice.
+--
 -- This utility function accepts a die as a string, i.e. the number of
 -- sides on the die, and creates a public API function which returns
 -- one number by rolling that die.  For example, after calling...
@@ -745,6 +747,8 @@ end
 --
 -- ...we end up with the function chance.d10(), which will return the
 -- result of rolling a ten-sided die once.
+--
+-- @local
 local function createDieRollFunction(die)
     chance["d" .. die] = function ()
         local roll = chance.rpg("1d" .. die)
