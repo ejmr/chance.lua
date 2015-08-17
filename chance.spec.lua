@@ -77,6 +77,48 @@ describe("The Core API", function ()
         end)
 
     end)
+
+    describe("Data sets, i.e. the chance.dataSets table", function ()
+        local setName, setData
+
+        setup(function ()
+            setName = "testNames"
+            setData = { "Eric", "Jeff", "Mira", "Ben" }
+        end)
+
+        it("Provides chance.set() to create data sets and chance.fromSet() to get data", function ()
+            chance.set(setName, setData)
+            assert.is.truthy(chance.dataSets[setName])
+            assert.is.equal(chance.dataSets[setName], setData)
+            assert.is.in_array(chance.fromSet(setName), setData)
+        end)
+
+        it("Can create a data set by giving a function to chance.set()", function ()
+            local generator = function ()
+                return chance.pick(setData)
+            end
+            chance.set(setName, generator)
+            assert.is.in_array(chance.fromSet(setName), setData)
+        end)
+
+        it("Can add data to an existing set via chance.appendSet()", function ()
+            chance.set(setName, setData)
+            local oldSize = #setData
+            assert.is.equal(chance.dataSets[setName], setData)
+
+            chance.appendSet(setName, { "Lobby" })
+            local newSize = #setData
+            assert.is.equal(#chance.dataSets[setName], newSize)
+        end)
+
+        it("Can overwrite an existing data set via chance.set()", function ()
+            chance.set(setName, setData)
+            assert.is.in_array(chance.fromSet(setName), setData)
+            chance.set(setName, { "Foo" })
+            assert.is.in_array(chance.fromSet(setName), { "Foo" })
+            assert.is.not_in_array(chance.fromSet(setName), setData)
+        end)
+    end)
 end)
 
 describe("The Basic API", function ()
@@ -218,20 +260,7 @@ describe("The Time API", function ()
     end)
 
     it("Can randomly generate a month by name", function ()
-        assert.in_array(chance.month(), {
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December"
-        })
+        assert.in_array(chance.month(), chance.dataSets["months"])
     end)
 
     it("Can generate a random Unix timestamp", function ()
