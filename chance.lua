@@ -420,6 +420,53 @@ function chance.gender(flags)
     return chance.fromSet("genders")
 end
 
+--- Possible words returned by @{chance.prefix}
+--
+-- @see chance.prefix
+-- @local
+-- @field prefixes
+-- @table chance.dataSets
+chance.set("prefixes", {
+        ["short"] = {
+            "Mr.",
+            "Ms.",
+            "Mrs.",
+            "Doc.",
+            "Prof.",
+            "Rev.",
+            "Hon.",
+        },
+        ["long"] = {
+            "Mister",
+            "Miss",
+            "Doctor",
+            "Professor",
+            "Reverend",
+            "Honorable",
+        }})
+
+--- Returns a random prefix for a name.
+--
+-- This function will return a random prefix for a name, e.g. "Mr."
+-- or "Prof.", short prefixes by default.  The function accepts an
+-- optional table of flags, and if the flag <code>type</code> equals
+-- <code>"long"</code> then the function returns prefixes such as
+-- "Mister" and "Professor".  The function uses the
+-- <code>prefixes</code> data set.
+--
+-- @usage chance.prefix() == "Mrs."
+-- @usage chance.prefix { type = "long" } == "Doctor"
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.prefix(flags)
+    local prefixType = "short"
+    if flags and flags["type"] then
+        prefixType = string.lower(flags["type"])
+    end
+    return chance.pick(chance.dataSets["prefixes"][prefixType])
+end
+
 --- Ranges for various types of ages.
 --
 -- @see chance.age

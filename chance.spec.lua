@@ -188,6 +188,16 @@ describe("The Person API", function ()
 
     before_each(function () chance.seed(1) end)
 
+    describe("chance.prefix()", function ()
+        it("Returns a short prefix by default", function ()
+            assert.is.in_array(chance.prefix(), chance.dataSets["prefixes"]["short"])
+        end)
+
+        it("Can return a long prefix", function ()
+            assert.is.in_array(chance.prefix { type = "long" }, chance.dataSets["prefixes"]["long"])
+        end)
+    end)
+
     describe("chance.gender()", function ()
         it("Returns a value from the 'genders' data set by default", function ()
             assert.in_array(chance.gender(), chance.dataSets["genders"])
