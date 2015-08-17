@@ -114,10 +114,7 @@ end
 -- predefined sets of data.  Developers can modify or add new sets
 -- of data by using the @{chance.set} function.
 --
--- The keys for this table must either be strings, which name the data
--- set, or functions themselves; in the latter case the function key
--- acts as a reference to the function which uses that particular set
--- of data.
+-- The keys for this table must strings, which name the data set.
 --
 -- The values must either be arrays (which can contain any types of
 -- values), or a single function.  If the value is a function then the
@@ -134,18 +131,16 @@ chance.dataSets = {}
 --- Define or modify a set of data.
 --
 -- This function creates a new set of data or replaces an existing
--- one.  The key parameter must be either a string naming the data set
--- or a function, in which case the key represents the function which
--- relies on that data set.  The data parameter must be either a table
--- of data, which can be of any type, or must be a function.  If it is
--- a function then the library treats it as a generator and will invoke
--- that function with no arguments whenever random data is requested from
--- that set.
+-- one.  The key parameter must be a string naming the data set.  The
+-- data parameter must be either a table of data, which can be of any
+-- type, or must be a function.  If it is a function then the library
+-- treats it as a generator and will invoke that function with no
+-- arguments whenever random data is requested from that set.
 --
 -- @see chance.fromSet
 -- @see chance.dataSets
 --
--- @tparam string|function key
+-- @tparam string key
 -- @tparam table|function data
 -- @treturn nil
 function chance.set(key, data)
@@ -163,7 +158,7 @@ end
 -- @see chance.set
 -- @see chance.dataSets
 --
--- @tparam string|function key
+-- @tparam string key
 -- @tparam table data
 -- @treturn nil
 function chance.appendSet(key, data)
