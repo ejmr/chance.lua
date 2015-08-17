@@ -51,6 +51,8 @@ chance.VERSION = setmetatable(
 --- Make a shallow copy of a table.
 --
 -- @local
+-- @param array
+-- @treturn table A copy of <code>array</code>
 local function makeShallowCopy(array)
     local copy = {}
     for _,value in ipairs(array) do
