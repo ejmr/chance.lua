@@ -15,6 +15,11 @@ to [Semantic Versioning](http://semver.org/).
     - `chance.fromSet()`
     - `chance.appendSet()`
 
+### Changed
+
+- The following functions now randomly select from data sets:
+    - `chance.month()` selects from `"months"`
+
 
 
 ## [0.1.0] - 2015-08-14

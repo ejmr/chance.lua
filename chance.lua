@@ -452,11 +452,13 @@ function chance.year(flags)
     return chance.random(minimum, maximum)
 end
 
---- Returns the name of a random month.
+--- Names of months.
 --
--- @treturn string
-function chance.month()
-    return chance.pick {
+-- @see chance.month
+-- @local
+-- @field months
+-- @table chance.dataSets
+chance.set("months", {
         "January",
         "February",
         "March",
@@ -468,8 +470,17 @@ function chance.month()
         "September",
         "October",
         "November",
-        "December"
-    }
+        "December",
+})
+
+--- Returns the name of a random month.
+--
+-- This function chooses the name of a month from the
+-- <code>months</code> data set.
+--
+-- @treturn string
+function chance.month()
+    return chance.fromSet("months")
 end
 
 --- Returns a random day of the week.

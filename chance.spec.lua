@@ -226,20 +226,7 @@ describe("The Time API", function ()
     end)
 
     it("Can randomly generate a month by name", function ()
-        assert.in_array(chance.month(), {
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December"
-        })
+        assert.in_array(chance.month(), chance.dataSets["months"])
     end)
 
     it("Can generate a random Unix timestamp", function ()
