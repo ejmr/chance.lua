@@ -31,6 +31,7 @@
 <ul>
 <li><a href="#Core">Core </a></li>
 <li><a href="#Basic">Basic </a></li>
+<li><a href="#Person">Person </a></li>
 <li><a href="#Time">Time </a></li>
 <li><a href="#Miscellaneous">Miscellaneous </a></li>
 <li><a href="#Helpers">Helpers </a></li>
@@ -73,6 +74,22 @@
 	<td class="name" nowrap><a href="#random">random ([m[, n]])</a></td>
 	<td class="summary">Returns a random number.</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#dataSets">dataSets</a></td>
+	<td class="summary">Sets of data which some functions choose from.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#set">set (key, data)</a></td>
+	<td class="summary">Define or modify a set of data.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#appendSet">appendSet (key, data)</a></td>
+	<td class="summary">Add data to an existing data set.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fromSet">fromSet (key)</a></td>
+	<td class="summary">Select random data from an existing data set.</td>
+	</tr>
 </table>
 <h2><a href="#Basic">Basic </a></h2>
 <table class="function_list">
@@ -99,6 +116,25 @@
 	<tr>
 	<td class="name" nowrap><a href="#string">string ([flags])</a></td>
 	<td class="summary">Returns a random string.</td>
+	</tr>
+</table>
+<h2><a href="#Person">Person </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#gender">gender ([flags])</a></td>
+	<td class="summary">Returns a random gender as a string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#prefix">prefix ([flags])</a></td>
+	<td class="summary">Returns a random prefix for a name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#suffix">suffix ([flags])</a></td>
+	<td class="summary">Returns a random suffix for names.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#age">age ([flags])</a></td>
+	<td class="summary">Returns a random age for a person.</td>
 	</tr>
 </table>
 <h2><a href="#Time">Time </a></h2>
@@ -318,6 +354,164 @@
     </ul>
 
 </dd>
+    <dt>
+    <a name = "dataSets"></a>
+    <strong>dataSets</strong>
+    </dt>
+    <dd>
+    Sets of data which some functions choose from.
+<p> Many functions select random data from a predefined source.  For
+ example, <a href="index.html#month">chance.month</a> randomly picks a name from an existing
+ list of names.  This table contains all of those types of
+ predefined sets of data.  Developers can modify or add new sets
+ of data by using the <a href="index.html#set">chance.set</a> function.
+<p> The keys for this table must strings, which name the data set.
+<p> The values must either be arrays (which can contain any types of
+ values), or a single function.  If the value is a function then the
+ library treats it as a generator for that data set, i.e. the
+ library will invoke that function expecting it to return the
+ appropriate type of random data.  The function will receive no
+ arguments.
+
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">dataSets</span>
+
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="index.html#set">chance.set</a></li>
+         <li><a href="index.html#fromSet">chance.fromSet</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "set"></a>
+    <strong>set (key, data)</strong>
+    </dt>
+    <dd>
+    Define or modify a set of data.
+<p> This function creates a new set of data or replaces an existing
+ one.  The key parameter must be a string naming the data set.  The
+ data parameter must be either a table of data, which can be of any
+ type, or must be a function.  If it is a function then the library
+ treats it as a generator and will invoke that function with no
+ arguments whenever random data is requested from that set.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">function</span></span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="index.html#fromSet">chance.fromSet</a></li>
+         <li><a href="index.html#dataSets">chance.dataSets</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "appendSet"></a>
+    <strong>appendSet (key, data)</strong>
+    </dt>
+    <dd>
+    Add data to an existing data set.
+<p> See the documentation on <a href="index.html#set">chance.set</a> for details on the
+ <code>key</code> parameter.  The <code>data</code> must be a table
+ of values which the function will add to the existing data set.
+ <strong>This does not work for data sets that have generator
+ functions for their values.</strong>
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="index.html#set">chance.set</a></li>
+         <li><a href="index.html#dataSets">chance.dataSets</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "fromSet"></a>
+    <strong>fromSet (key)</strong>
+    </dt>
+    <dd>
+    Select random data from an existing data set.
+<p> See the documentation on <a href="index.html#set">chance.set</a> for details on the
+ restrictions and semantics of the <code>key</code> parameter.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="index.html#string">string</a> or <span class="type">function</span></span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Random data of potentially any type, or nil if there is no
+ data set for the given <code>key</code>
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="index.html#set">chance.set</a></li>
+         <li><a href="index.html#dataSets">chance.dataSets</a></li>
+    </ul>
+
+
+</dd>
 </dl>
     <h2 class="section-header has-description"><a name="Basic"></a>Basic </h2>
 
@@ -500,7 +694,7 @@
     <h3>Usage:</h3>
     <ul>
         <li><pre class="example">anything = chance.character()</pre></li>
-        <li><pre class="example">anything = chance.character { pool = <span class="string">"all"</span> }</pre></li>
+        <li><pre class="example">anything = chance.character { group = <span class="string">"all"</span> }</pre></li>
         <li><pre class="example">vowel = chance.character { pool = <span class="string">"aeiou"</span> }</pre></li>
         <li><pre class="example">capital = chance.character { group = <span class="string">"upper"</span> }</pre></li>
     </ul>
@@ -545,6 +739,181 @@
         <li><pre class="example">chance.<span class="global">string</span>() == <span class="string">"c0Ab3le8"</span></pre></li>
         <li><pre class="example">chance.<span class="global">string</span> { length = <span class="number">3</span> } == <span class="string">"NIN"</span></pre></li>
         <li><pre class="example">chance.<span class="global">string</span> { group = <span class="string">"digit"</span> } = <span class="string">"8374933749"</span></pre></li>
+    </ul>
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Person"></a>Person </h2>
+
+          <div class="section-description">
+           These are functions for generating random data about people.
+
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "gender"></a>
+    <strong>gender ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random gender as a string.
+<p> One can classify gender in a number of ways.  The most traditional
+ form is the binary division of 'male' and 'female'; if the function
+ is given the optional flag <code>binary = true</code> then it will
+ return either <code>"Male"</code> or <code>"Female"</code>.
+<p> By default, however, the function will return a string from the
+ <code>genders</code> data set.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.gender() == <span class="string">"Female"</span></pre></li>
+        <li><pre class="example">chance.gender { binary = <span class="keyword">true</span> } == <span class="string">"Male"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "prefix"></a>
+    <strong>prefix ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random prefix for a name.
+<p> This function will return a random prefix for a name, e.g. "Mr."
+ or "Prof.", short prefixes by default.  The function accepts an
+ optional table of flags, and if the flag <code>type</code> equals
+ <code>"long"</code> then the function returns prefixes such as
+ "Mister" and "Professor".  The function uses the
+ <code>prefixes</code> data set.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.prefix() == <span class="string">"Mrs."</span></pre></li>
+        <li><pre class="example">chance.prefix { <span class="global">type</span> = <span class="string">"long"</span> } == <span class="string">"Doctor"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "suffix"></a>
+    <strong>suffix ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random suffix for names.
+<p> This function will return a random suffix for a name, e.g. "Jr."
+ or "M.D.", short prefixes by default.  The function accepts an
+ optional table of flags, and if the flag <code>type</code> equals
+ <code>"long"</code> then the function returns prefixes such as
+ "Junior" and "Juris Doctor".  The function uses the
+ <code>suffixes</code> data set.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.suffix() == <span class="string">"Sr."</span></pre></li>
+        <li><pre class="example">chance.suffix { <span class="global">type</span> = <span class="string">"long"</span> } == <span class="string">"Senior"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "age"></a>
+    <strong>age ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random age for a person.
+<p> By default this function return an integer in the range of one and
+ one-hundred twenty.  It accepts an optional <code>type</code> flag
+ which must be one of the following strings, which limit the range
+ of the generated age:
+<p> <ol>
+ <li><code>"child" = [1, 12]</code></li>
+ <li><code>"teen" = [13, 19]</code></li>
+ <li><code>"adult" = [18, 65]</code></li>
+ <li><code>"senior" = [65, 100]</code></li>
+ </ol>
+<p> These ranges are defined in the <code>ages</code> data set, meaning
+ one can use <a href="index.html#set">chance.set</a> and <a href="index.html#appendSet">chance.appendSet</a> to redefine the
+ ranges for types and/or add new types.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.age() == <span class="number">33</span></pre></li>
+        <li><pre class="example">chance.age { <span class="global">type</span> = <span class="string">"teen"</span> } == <span class="number">17</span></pre></li>
+        <li><pre class="example">chance.age { <span class="global">type</span> = <span class="string">"adult"</span> } == <span class="number">40</span></pre></li>
     </ul>
 
 </dd>
@@ -711,6 +1080,9 @@
     </dt>
     <dd>
     Returns the name of a random month.
+<p> This function chooses the name of a month from the
+ <code>months</code> data set.
+
 
 
 
@@ -731,9 +1103,10 @@
     </dt>
     <dd>
     Returns a random day of the week.
-<p> By default this function will return the name of a day of the week.
- However, it accepts an optional table of flags which control the
- possible days it returns.  If the flags <code>weekdays</code> or
+<p> By default this function will return the name of a day of the week,
+ chosen from the <code>days</code> data set.  The function accepts
+ an optional table of flags which control the possible days it
+ returns.  If the flags <code>weekdays</code> or
  <code>weekends</code> are false then the function will not return
  those types of days.
 
@@ -1135,7 +1508,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
-<i style="float:right;">Last updated 2015-08-12 15:31:01 </i>
+<i style="float:right;">Last updated 2015-08-18 13:08:23 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
