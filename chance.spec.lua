@@ -184,6 +184,61 @@ describe("The Basic API", function ()
 
 end)
 
+describe("The Person API", function ()
+
+    before_each(function () chance.seed(1) end)
+
+    describe("chance.prefix()", function ()
+        it("Returns a short prefix by default", function ()
+            assert.is.in_array(chance.prefix(), chance.dataSets["prefixes"]["short"])
+        end)
+
+        it("Can return a long prefix", function ()
+            assert.is.in_array(chance.prefix { type = "long" }, chance.dataSets["prefixes"]["long"])
+        end)
+    end)
+
+    describe("chance.suffix()", function ()
+        it("Returns a short suffix by default", function ()
+            assert.is.in_array(chance.suffix(), chance.dataSets["suffixes"]["short"])
+        end)
+
+        it("Can return a long suffix", function ()
+            assert.is.in_array(chance.suffix { type = "long" }, chance.dataSets["suffixes"]["long"])
+        end)
+    end)
+
+    describe("chance.gender()", function ()
+        it("Returns a value from the 'genders' data set by default", function ()
+            assert.in_array(chance.gender(), chance.dataSets["genders"])
+        end)
+
+        it("Can be restricted to binary Male or Female", function ()
+            assert.in_array(chance.gender { binary = true }, { "Male", "Female" })
+        end)
+
+        it("Supports customizing its output domain via data sets", function ()
+            local genders = { "M", "F", "N" }
+            chance.set("genders", genders)
+            assert.in_array(chance.gender(), chance.dataSets["genders"])
+        end)
+    end)
+
+    describe("chance.age()", function ()
+        it("Returns an age in the range [1, 120] by default", function ()
+            assert.is_within_range(chance.age(), 1, 120)
+        end)
+
+        it("Has predefined age types", function ()
+            assert.is_within_range(chance.age { type = "child" }, 1, 12)
+            assert.is_within_range(chance.age { type = "teen" }, 13, 19)
+            assert.is_within_range(chance.age { type = "adult" }, 18, 65)
+            assert.is_within_range(chance.age { type = "senior" }, 65, 100)
+        end)
+    end)
+
+end)
+
 describe("The Time API", function ()
 
     before_each(function () chance.seed(1) end)

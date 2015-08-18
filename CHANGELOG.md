@@ -15,6 +15,12 @@ to [Semantic Versioning](http://semver.org/).
     - `chance.fromSet()`
     - `chance.appendSet()`
 
+- The `Person` API:
+    - `chance.gender()`
+    - `chance.age()`
+    - `chance.prefix()`
+    - `chance.suffix()`
+
 ### Changed
 
 - The following functions now randomly select from data sets:

@@ -10,6 +10,9 @@ Chance: A Library for Generating Random Data
 
 --]]--
 
+--- The table representing the entire module.
+--
+-- @local
 local chance = {}
 
 --- Core
@@ -51,6 +54,8 @@ chance.VERSION = setmetatable(
 --- Make a shallow copy of a table.
 --
 -- @local
+-- @param array
+-- @treturn table A copy of <code>array</code>
 local function makeShallowCopy(array)
     local copy = {}
     for _,value in ipairs(array) do
@@ -368,6 +373,196 @@ function chance.string(flags)
     return result
 end
 
+--- Person
+--
+-- These are functions for generating random data about people.
+--
+-- @section Person
+
+--- The possible genders returned by @{chance.gender}.
+--
+-- This is a table of strings which the @{chance.gender} function will
+-- randomly choose from when called.  Developers can modify the domain
+-- of @{chance.gender} by changing this table to include or remove
+-- possible values as needed for their purposes.  The default values
+-- are based on common gender identities in modern socities as opposed
+-- to gender based on medical qualification (e.g. chromosones) or
+-- sexual orientation.
+--
+-- @see chance.gender
+-- @local
+-- @field genders
+-- @table chance.dataSets
+chance.set("genders", {
+    "Male",
+    "Female",
+    "Third", -- https://en.m.wikipedia.org/wiki/Third_gender
+})
+
+--- Returns a random gender as a string.
+--
+-- One can classify gender in a number of ways.  The most traditional
+-- form is the binary division of 'male' and 'female'; if the function
+-- is given the optional flag <code>binary = true</code> then it will
+-- return either <code>"Male"</code> or <code>"Female"</code>.
+--
+-- By default, however, the function will return a string from the
+-- <code>genders</code> data set.
+--
+-- @usage chance.gender() == "Female"
+-- @usage chance.gender { binary = true } == "Male"
+--
+-- @see chance.genders
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.gender(flags)
+    if flags and flags["binary"] == true then
+        return chance.pick { "Male", "Female" }
+    end
+    return chance.fromSet("genders")
+end
+
+--- Possible words returned by @{chance.prefix}
+--
+-- @see chance.prefix
+-- @local
+-- @field prefixes
+-- @table chance.dataSets
+chance.set("prefixes", {
+        ["short"] = {
+            "Mr.",
+            "Ms.",
+            "Mrs.",
+            "Doc.",
+            "Prof.",
+            "Rev.",
+            "Hon.",
+        },
+        ["long"] = {
+            "Mister",
+            "Miss",
+            "Doctor",
+            "Professor",
+            "Reverend",
+            "Honorable",
+        }})
+
+--- Returns a random prefix for a name.
+--
+-- This function will return a random prefix for a name, e.g. "Mr."
+-- or "Prof.", short prefixes by default.  The function accepts an
+-- optional table of flags, and if the flag <code>type</code> equals
+-- <code>"long"</code> then the function returns prefixes such as
+-- "Mister" and "Professor".  The function uses the
+-- <code>prefixes</code> data set.
+--
+-- @usage chance.prefix() == "Mrs."
+-- @usage chance.prefix { type = "long" } == "Doctor"
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.prefix(flags)
+    local prefixType = "short"
+    if flags and flags["type"] then
+        prefixType = string.lower(flags["type"])
+    end
+    return chance.pick(chance.dataSets["prefixes"][prefixType])
+end
+
+--- Possible words returned by @{chance.suffix}
+--
+-- @see chance.suffix
+-- @local
+-- @field suffixes
+-- @table chance.dataSets
+chance.set("suffixes", {
+        ["short"] = {
+            "Ph.D.",
+            "Esq.",
+            "Jr.",
+            "Sr.",
+            "M.D.",
+            "J.D.",
+        },
+        ["long"] = {
+            "Doctor of Philosophy",
+            "Esquire",
+            "Junior",
+            "Senior",
+            "Medical Doctor",
+            "Juris Doctor",
+        },
+    }
+)
+
+--- Returns a random suffix for names.
+--
+-- This function will return a random suffix for a name, e.g. "Jr."
+-- or "M.D.", short prefixes by default.  The function accepts an
+-- optional table of flags, and if the flag <code>type</code> equals
+-- <code>"long"</code> then the function returns prefixes such as
+-- "Junior" and "Juris Doctor".  The function uses the
+-- <code>suffixes</code> data set.
+--
+-- @usage chance.suffix() == "Sr."
+-- @usage chance.suffix { type = "long" } == "Senior"
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.suffix(flags)
+    local suffixType = "short"
+    if flags and flags["type"] then
+        suffixType = string.lower(flags["type"])
+    end
+    return chance.pick(chance.dataSets["suffixes"][suffixType])
+end
+
+--- Ranges for various types of ages.
+--
+-- @see chance.age
+-- @local
+-- @field ages
+-- @table chance.dataSets
+chance.set("ages", {
+        ["child"]  = {1, 12},
+        ["teen"]   = {13, 19},
+        ["adult"]  = {18, 65},
+        ["senior"] = {65, 100},
+    })
+
+--- Returns a random age for a person.
+--
+-- By default this function return an integer in the range of one and
+-- one-hundred twenty.  It accepts an optional <code>type</code> flag
+-- which must be one of the following strings, which limit the range
+-- of the generated age:
+--
+-- <ol>
+-- <li><code>"child" = [1, 12]</code></li>
+-- <li><code>"teen" = [13, 19]</code></li>
+-- <li><code>"adult" = [18, 65]</code></li>
+-- <li><code>"senior" = [65, 100]</code></li>
+-- </ol>
+--
+-- These ranges are defined in the <code>ages</code> data set, meaning
+-- one can use @{chance.set} and @{chance.appendSet} to redefine the
+-- ranges for types and/or add new types.
+--
+-- @usage chance.age() == 33
+-- @usage chance.age { type = "teen" } == 17
+-- @usage chance.age { type = "adult" } == 40
+--
+-- @param[opt] flags
+-- @treturn int
+function chance.age(flags)
+    if flags and flags["type"] then
+        local group = chance.dataSets["ages"][flags["type"]]
+        return chance.random(group[1], group[2])
+    end
+    return chance.random(1, 120)
+end
+
 --- Time
 --
 -- These are functions for generating random times.
@@ -640,6 +835,8 @@ function chance.rpg(notation)
     return results
 end
 
+--- Create a short-cut function for rolling dice.
+--
 -- This utility function accepts a die as a string, i.e. the number of
 -- sides on the die, and creates a public API function which returns
 -- one number by rolling that die.  For example, after calling...
@@ -648,6 +845,8 @@ end
 --
 -- ...we end up with the function chance.d10(), which will return the
 -- result of rolling a ten-sided die once.
+--
+-- @local
 local function createDieRollFunction(die)
     chance["d" .. die] = function ()
         local roll = chance.rpg("1d" .. die)
@@ -759,4 +958,5 @@ function chance.shuffle(array)
     return shuffled
 end
 
+-- Return the module.  This should always be the final line of code.
 return chance
