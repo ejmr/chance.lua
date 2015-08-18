@@ -10,6 +10,9 @@ Chance: A Library for Generating Random Data
 
 --]]--
 
+--- The table representing the entire module.
+--
+-- @local
 local chance = {}
 
 --- Core
@@ -907,4 +910,5 @@ function chance.shuffle(array)
     return shuffled
 end
 
+-- Return the module.  This should always be the final line of code.
 return chance
