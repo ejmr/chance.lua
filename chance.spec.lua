@@ -184,6 +184,18 @@ describe("The Basic API", function ()
 
 end)
 
+describe("The Text API", function ()
+
+    before_each(function () chance.seed(1) end)
+
+    describe("chance.syllable()", function ()
+        it("Returns syllables of two to six characters in length", function ()
+            assert.is_within_range(string.len(chance.syllable()), 2, 6)
+        end)
+    end)
+
+end)
+
 describe("The Person API", function ()
 
     before_each(function () chance.seed(1) end)

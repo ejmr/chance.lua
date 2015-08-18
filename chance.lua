@@ -373,6 +373,79 @@ function chance.string(flags)
     return result
 end
 
+--- Text
+--
+-- These are functions for generating random text.
+--
+-- @section Text
+
+--- Data used to build random syllables.
+--
+-- @see chance.syllable
+-- @local
+-- @field syllables
+-- @table chance.dataSets
+chance.set("syllables", {
+        ["consonants"] = {
+            "b",
+            "c",
+            "ch",
+            "d",
+            "f",
+            "g",
+            "gh",
+            "h",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "p",
+            "qu",
+            "r",
+            "s",
+            "sh",
+            "t",
+            "th",
+            "y",
+            "w",
+            "z",
+        },
+        ["vowels"] = {
+            "a",
+            "e",
+            "i",
+            "o",
+            "u",
+            "ea",
+            "ao",
+            "oo",
+            "ou",
+        }})
+
+--- Returns a random syllable.
+--
+-- This functions returns a randomly generated syllable that will be
+-- between two to six characters in length.  It uses the
+-- <code>syllables</code> data set, which contains a collection of
+-- consonants and vowels used to create the syllable.
+--
+-- @treturn string
+function chance.syllable()
+    local initial = chance.pick(chance.dataSets["syllables"]["consonants"])
+    local vowel = chance.pick(chance.dataSets["syllables"]["vowels"])
+    local ending = chance.pick(chance.dataSets["syllables"]["consonants"])
+    local syllable = initial .. vowel
+
+    -- Fifty percent of the time we add an additional consonant sound
+    -- to the end of the syllable.
+    if chance.bool() == true then
+        syllable = syllable .. ending
+    end
+
+    return syllable
+end
+
 --- Person
 --
 -- These are functions for generating random data about people.
