@@ -4,7 +4,7 @@ This document describes notable changes to this project, which adheres
 to [Semantic Versioning](http://semver.org/).
 
 
-## Unreleased
+## [0.2.0] - 2015-08-18
 
 ### Added
 
