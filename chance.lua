@@ -470,6 +470,54 @@ function chance.prefix(flags)
     return chance.pick(chance.dataSets["prefixes"][prefixType])
 end
 
+--- Possible words returned by @{chance.suffix}
+--
+-- @see chance.suffix
+-- @local
+-- @field suffixes
+-- @table chance.dataSets
+chance.set("suffixes", {
+        ["short"] = {
+            "Ph.D.",
+            "Esq.",
+            "Jr.",
+            "Sr.",
+            "M.D.",
+            "J.D.",
+        },
+        ["long"] = {
+            "Doctor of Philosophy",
+            "Esquire",
+            "Junior",
+            "Senior",
+            "Medical Doctor",
+            "Juris Doctor",
+        },
+    }
+)
+
+--- Returns a random suffix for names.
+--
+-- This function will return a random suffix for a name, e.g. "Jr."
+-- or "M.D.", short prefixes by default.  The function accepts an
+-- optional table of flags, and if the flag <code>type</code> equals
+-- <code>"long"</code> then the function returns prefixes such as
+-- "Junior" and "Juris Doctor".  The function uses the
+-- <code>suffixes</code> data set.
+--
+-- @usage chance.suffix() == "Sr."
+-- @usage chance.suffix { type = "long" } == "Senior"
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.suffix(flags)
+    local suffixType = "short"
+    if flags and flags["type"] then
+        suffixType = string.lower(flags["type"])
+    end
+    return chance.pick(chance.dataSets["suffixes"][suffixType])
+end
+
 --- Ranges for various types of ages.
 --
 -- @see chance.age

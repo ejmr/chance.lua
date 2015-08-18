@@ -198,6 +198,16 @@ describe("The Person API", function ()
         end)
     end)
 
+    describe("chance.suffix()", function ()
+        it("Returns a short suffix by default", function ()
+            assert.is.in_array(chance.suffix(), chance.dataSets["suffixes"]["short"])
+        end)
+
+        it("Can return a long suffix", function ()
+            assert.is.in_array(chance.suffix { type = "long" }, chance.dataSets["suffixes"]["long"])
+        end)
+    end)
+
     describe("chance.gender()", function ()
         it("Returns a value from the 'genders' data set by default", function ()
             assert.in_array(chance.gender(), chance.dataSets["genders"])

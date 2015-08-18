@@ -19,6 +19,7 @@ to [Semantic Versioning](http://semver.org/).
     - `chance.gender()`
     - `chance.age()`
     - `chance.prefix()`
+    - `chance.suffix()`
 
 ### Changed
 
