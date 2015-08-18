@@ -12,6 +12,12 @@ to [Semantic Versioning](http://semver.org/).
 - The `Text` API:
     - `chance.syllable()`
 
+### Changed
+
+- `is_within_range()` is now simply `within_range()`, which makes it
+  more flexible for use in assertions.
+
+
 
 ## [0.2.0] - 2015-08-18
 
