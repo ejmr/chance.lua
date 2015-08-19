@@ -211,7 +211,7 @@ describe("The Text API", function ()
         setup(function ()
             split_string = function (s)
                 local words = {}
-                for w in string.gmatch(s, "%S+") do
+                for w in string.gmatch(s, "%A+") do
                     table.insert(words, w)
                 end
                 return words

@@ -487,20 +487,27 @@ end
 -- This function returns a sentence of random words, between twelve to
 -- eighteen words by default.  The optional <code>words</code> flag
 -- allows controling exactly how many words appear in the sentence.
+-- The first word in the sentence will be capitalized and the sentence
+-- will end with a period.
 --
--- @usage chance.sentence { words = 3 } == "hob the rag"
+-- @usage chance.sentence { words = 3 } == "Hob the rag."
 -- @see chance.word
 --
 -- @param[opt] flags
 -- @treturn string
 function chance.sentence(flags)
+    local words = {}
     local wordCount = chance.random(12, 18)
 
     if flags and flags["words"] then
         wordCount = flags["words"]
     end
 
-    return table.concat(chance.n(chance.word, wordCount), " ")
+    words = chance.n(chance.word, wordCount)
+    words[1] = string.gsub(words[1], "^%l", string.upper)
+    table.insert(words, ".")
+
+    return table.concat(words, " ")
 end
 
 --- Person
