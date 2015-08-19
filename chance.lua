@@ -418,6 +418,7 @@ chance.set("syllables", {
             "o",
             "u",
             "ea",
+            "ee",
             "ao",
             "oo",
             "ou",
@@ -429,6 +430,9 @@ chance.set("syllables", {
 -- between two to six characters in length.  It uses the
 -- <code>syllables</code> data set, which contains a collection of
 -- consonants and vowels used to create the syllable.
+--
+-- @usage chance.syllable() == "peep"
+-- @see chance.word
 --
 -- @treturn string
 function chance.syllable()
@@ -456,6 +460,7 @@ end
 --
 -- @usage chance.word() == "beepbop"
 -- @usage chance.word { syllables = 4 } == "thadoobgerlu"
+-- @see chance.syllable
 --
 -- @param[opt] flags
 -- @treturn string
