@@ -15,6 +15,9 @@ to [Semantic Versioning](http://semver.org/).
     - `chance.sentence()`
     - `chance.paragraph()`
 
+- The `Miscellaneous` API:
+    - `chance.unique()`
+
 ### Changed
 
 - `is_within_range()` is now simply `within_range()`, which makes it

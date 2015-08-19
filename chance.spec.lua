@@ -496,4 +496,22 @@ describe("The Miscellaneous API", function ()
         end)
     end)
 
+    describe("chance.unique()", function ()
+        it("Creates an array of unique data from a generator function", function ()
+            local months = chance.unique(chance.month, 3)
+
+            for _,m in ipairs(months) do
+                local matches = 0
+
+                for _,n in ipairs(months) do
+                    if m == n then
+                        matches = matches + 1
+                    end
+                end
+
+                assert.is.equal(matches, 1)
+            end
+        end)
+    end)
+
 end)
