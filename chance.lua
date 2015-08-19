@@ -496,7 +496,7 @@ end
 -- @param[opt] flags
 -- @treturn string
 function chance.sentence(flags)
-    local words = {}
+    local words
     local wordCount = chance.random(12, 18)
 
     if flags and flags["words"] then
