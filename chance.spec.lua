@@ -88,13 +88,13 @@ assert:register("assertion", "in_array", in_array,
 describe("The Core API", function ()
 
     it("Accepts a number to seed the RNG", function ()
-        assert.has_no.errors(function () chance.seed(1) end)
+        assert.has_no.errors(function () chance.seed(os.time()) end)
         assert.has.errors(function () chance.seed("foo") end)
     end)
 
     describe("chance.random()", function ()
 
-        before_each(function () chance.seed(1) end)
+        before_each(function () chance.seed(os.time()) end)
 
         it("Returns a number in the range [0, 1) given no arguments", function ()
             assert.is.within_range(chance.random(), 0, 1, { exclusiveMax = true })
@@ -155,7 +155,7 @@ end)
 
 describe("The Basic API", function ()
 
-    before_each(function () chance.seed(1) end)
+    before_each(function () chance.seed(os.time()) end)
 
     describe("chance.bool()", function ()
         it("Can return true with a given probability", function ()
@@ -218,7 +218,7 @@ end)
 
 describe("The Text API", function ()
 
-    before_each(function () chance.seed(1) end)
+    before_each(function () chance.seed(os.time()) end)
 
     describe("chance.syllable()", function ()
         it("Returns syllables of two to six characters in length", function ()
@@ -291,7 +291,7 @@ end)
 
 describe("The Person API", function ()
 
-    before_each(function () chance.seed(1) end)
+    before_each(function () chance.seed(os.time()) end)
 
     describe("chance.prefix()", function ()
         it("Returns a short prefix by default", function ()
@@ -346,7 +346,7 @@ end)
 
 describe("The Time API", function ()
 
-    before_each(function () chance.seed(1) end)
+    before_each(function () chance.seed(os.time()) end)
 
     it("Can generate random hours", function ()
         assert.is.within_range(chance.hour(), 1, 12)
@@ -436,7 +436,7 @@ end)
 
 describe("The Helper API", function ()
 
-    before_each(function () chance.seed(1) end)
+    before_each(function () chance.seed(os.time()) end)
 
     describe("chance.pick()", function ()
         it("Randomly selects an element from a table", function ()
@@ -481,7 +481,7 @@ end)
 
 describe("The Miscellaneous API", function ()
 
-    before_each(function () chance.seed(1) end)
+    before_each(function () chance.seed(os.time()) end)
 
     describe("chance.rpg()", function ()
         it("Creates an array of numbers simulating table-top RPG die rolls", function ()
