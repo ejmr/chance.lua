@@ -13,6 +13,7 @@ to [Semantic Versioning](http://semver.org/).
     - `chance.syllable()`
     - `chance.word()`
     - `chance.sentence()`
+    - `chance.paragraph()`
 
 ### Changed
 

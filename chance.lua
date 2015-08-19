@@ -510,6 +510,28 @@ function chance.sentence(flags)
     return table.concat(words, " ")
 end
 
+--- Generates a random paragraph via @{chance.sentence}.
+--
+-- This function returns a paragraph of random sentences, created by
+-- calling @{chance.sentence}.  By default the paragraph will contain
+-- three to seven sentences.  However, the optional integer flag
+-- <code>sentences</code> controls exactly how many sentences to
+-- create for the paragraph.
+--
+-- @see chance.sentence
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.paragraph(flags)
+    local count = chance.random(3, 7)
+
+    if flags and flags["sentences"] then
+        count = flags["sentences"]
+    end
+
+    return table.concat(chance.n(chance.sentence, count), " ")
+end
+
 --- Person
 --
 -- These are functions for generating random data about people.

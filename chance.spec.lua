@@ -230,6 +230,31 @@ describe("The Text API", function ()
         end)
     end)
 
+    describe("chance.paragraph()", function ()
+        local split_string
+
+        setup(function ()
+            split_string = function (s)
+                local sentences = {}
+                for n in string.gmatch(s, "[%a%s]+%.") do
+                    table.insert(sentences, n)
+                end
+                return sentences
+            end
+        end)
+
+        it("Returns a paragraph of three to seven sentences by default", function ()
+            local sentences = split_string(chance.paragraph())
+            assert.is.within_range(#sentences, 3, 7)
+        end)
+
+        it("Can generate a specific number of sentences", function ()
+            local count = 10
+            local sentences = split_string(chance.paragraph { sentences = count })
+            assert.is.equal(#sentences, count)
+        end)
+    end)
+
 end)
 
 describe("The Person API", function ()
