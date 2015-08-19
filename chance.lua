@@ -429,7 +429,8 @@ chance.set("syllables", {
 -- This functions returns a randomly generated syllable that will be
 -- between two to six characters in length.  It uses the
 -- <code>syllables</code> data set, which contains a collection of
--- consonants and vowels used to create the syllable.
+-- consonants and vowels used to create the syllable.  Each syllable
+-- will contain between two to six characters.
 --
 -- @usage chance.syllable() == "peep"
 -- @see chance.word

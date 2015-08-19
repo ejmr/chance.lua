@@ -228,7 +228,7 @@ describe("The Text API", function ()
 
     describe("chance.word()", function ()
         it("Returns a word of one to three syllables by default", function ()
-            assert.is.within_range(string.len(chance.word()), 6, 18)
+            assert.is.within_range(string.len(chance.word()), 2, 18)
         end)
 
         it("Can create words with a specific number of syllables", function ()
