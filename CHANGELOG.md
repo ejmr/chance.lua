@@ -4,6 +4,24 @@ This document describes notable changes to this project, which adheres
 to [Semantic Versioning](http://semver.org/).
 
 
+
+## Unreleased
+
+### Added
+
+- The `Text` API:
+    - `chance.syllable()`
+    - `chance.word()`
+    - `chance.sentence()`
+    - `chance.paragraph()`
+
+### Changed
+
+- `is_within_range()` is now simply `within_range()`, which makes it
+  more flexible for use in assertions.
+
+
+
 ## [0.2.0] - 2015-08-18
 
 ### Added

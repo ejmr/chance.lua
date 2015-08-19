@@ -11,7 +11,7 @@ say:set_namespace("en")
 -- optional fourth argument can be a table with the key-value pair
 -- "exclusiveMax = true".  If present then the test against the
 -- maximum value will be exclusive.
-local function is_within_range(state, arguments)
+local function within_range(state, arguments)
     local value = arguments[1]
     local minimum = arguments[2]
     local maximum = arguments[3]
@@ -23,11 +23,11 @@ local function is_within_range(state, arguments)
     end
 end
 
-say:set("assertion.is_within_range.positive", "Expected value %s to be within range:\n%s and %s")
-say:set("assertion.is_within_range.negative", "Expected value %s to not be within range:\n%s and %s")
-assert:register("assertion", "is_within_range", is_within_range,
-                "assertion.is_within_range.positive",
-                "assertion.is_within_range.negative")
+say:set("assertion.within_range.positive", "Expected value %s to be within range:\n%s and %s")
+say:set("assertion.within_range.negative", "Expected value %s to not be within range:\n%s and %s")
+assert:register("assertion", "within_range", within_range,
+                "assertion.within_range.positive",
+                "assertion.within_range.negative")
 
 -- This assertion requires two arguments.  The first argument can be
 -- any type of value.  The second argument must be a table.  The
@@ -65,15 +65,15 @@ describe("The Core API", function ()
         before_each(function () chance.seed(1) end)
 
         it("Returns a number in the range [0, 1) given no arguments", function ()
-            assert.is_within_range(chance.random(), 0, 1, { exclusiveMax = true })
+            assert.is.within_range(chance.random(), 0, 1, { exclusiveMax = true })
         end)
 
         it("Returns a number in the range [1, m] given one argument", function ()
-            assert.is_within_range(chance.random(5), 1, 5)
+            assert.is.within_range(chance.random(5), 1, 5)
         end)
 
         it("Returns a number in the range [m, n] given two arguments", function ()
-            assert.is_within_range(chance.random(5, 10), 5, 10)
+            assert.is.within_range(chance.random(5, 10), 5, 10)
         end)
 
     end)
@@ -134,31 +134,31 @@ describe("The Basic API", function ()
 
     describe("chance.float()", function ()
         it("Returns a number in the range [0,1)", function ()
-            assert.is_within_range(chance.float(), 0, 1, { exclusiveMax = true })
+            assert.is.within_range(chance.float(), 0, 1, { exclusiveMax = true })
         end)
     end)
 
     describe("chance.integer()", function ()
         it("Returns a number in the range (-INF, INF) given no arguments", function ()
-            assert.is_within_range(chance.integer(), -math.huge, math.huge)
+            assert.is.within_range(chance.integer(), -math.huge, math.huge)
         end)
 
         it("Allows explicitly restricting the minimum and maximum ranges", function ()
-            assert.is_within_range(chance.integer { min = 0 }, 0, math.huge)
-            assert.is_within_range(chance.integer { max = 1 }, -math.huge, 1)
-            assert.is_within_range(chance.integer { min = 1, max = 3 }, 1, 3)
+            assert.is.within_range(chance.integer { min = 0 }, 0, math.huge)
+            assert.is.within_range(chance.integer { max = 1 }, -math.huge, 1)
+            assert.is.within_range(chance.integer { min = 1, max = 3 }, 1, 3)
         end)
     end)
 
     describe("chance.natural()", function ()
         it("Returns a number in the range [0, INF) given no arguments", function ()
-            assert.is_within_range(chance.natural(), 0, math.huge)
+            assert.is.within_range(chance.natural(), 0, math.huge)
         end)
 
         it("Allows explicitly restricting the minimum and maximum ranges", function ()
-            assert.is_within_range(chance.natural { min = 1 }, 1, math.huge)
-            assert.is_within_range(chance.natural { max = 1 }, 0, 1)
-            assert.is_within_range(chance.natural { min = 1, max = 3 }, 1, 3)
+            assert.is.within_range(chance.natural { min = 1 }, 1, math.huge)
+            assert.is.within_range(chance.natural { max = 1 }, 0, 1)
+            assert.is.within_range(chance.natural { min = 1, max = 3 }, 1, 3)
         end)
 
         it("Will not produce negative numbers", function ()
@@ -179,6 +179,79 @@ describe("The Basic API", function ()
     describe("chance.string()", function ()
         it("Can generate strings of a fixed length", function ()
             assert.equals(5, string.len(chance.string { length = 5 }))
+        end)
+    end)
+
+end)
+
+describe("The Text API", function ()
+
+    before_each(function () chance.seed(1) end)
+
+    describe("chance.syllable()", function ()
+        it("Returns syllables of two to six characters in length", function ()
+            assert.is.within_range(string.len(chance.syllable()), 2, 6)
+        end)
+    end)
+
+    describe("chance.word()", function ()
+        it("Returns a word of one to three syllables by default", function ()
+            assert.is.within_range(string.len(chance.word()), 6, 18)
+        end)
+
+        it("Can create words with a specific number of syllables", function ()
+            local word = chance.word { syllables = 10 }
+            assert.is.within_range(string.len(word), 20, 60)
+        end)
+    end)
+
+    describe("chance.sentence()", function ()
+        local split_string
+
+        setup(function ()
+            split_string = function (s)
+                local words = {}
+                for w in string.gmatch(s, "%A+") do
+                    table.insert(words, w)
+                end
+                return words
+            end
+        end)
+
+        it("Returns a sentence between twelve and eighteen words by default", function ()
+            local words = split_string(chance.sentence())
+            assert.is.within_range(#words, 12, 18)
+        end)
+
+        it("Can return a sentence with a specific number of words", function ()
+            local count = 5
+            local words = split_string(chance.sentence { words = count })
+            assert.is.equal(#words, count)
+        end)
+    end)
+
+    describe("chance.paragraph()", function ()
+        local split_string
+
+        setup(function ()
+            split_string = function (s)
+                local sentences = {}
+                for n in string.gmatch(s, "[%a%s]+%.") do
+                    table.insert(sentences, n)
+                end
+                return sentences
+            end
+        end)
+
+        it("Returns a paragraph of three to seven sentences by default", function ()
+            local sentences = split_string(chance.paragraph())
+            assert.is.within_range(#sentences, 3, 7)
+        end)
+
+        it("Can generate a specific number of sentences", function ()
+            local count = 10
+            local sentences = split_string(chance.paragraph { sentences = count })
+            assert.is.equal(#sentences, count)
         end)
     end)
 
@@ -226,14 +299,14 @@ describe("The Person API", function ()
 
     describe("chance.age()", function ()
         it("Returns an age in the range [1, 120] by default", function ()
-            assert.is_within_range(chance.age(), 1, 120)
+            assert.is.within_range(chance.age(), 1, 120)
         end)
 
         it("Has predefined age types", function ()
-            assert.is_within_range(chance.age { type = "child" }, 1, 12)
-            assert.is_within_range(chance.age { type = "teen" }, 13, 19)
-            assert.is_within_range(chance.age { type = "adult" }, 18, 65)
-            assert.is_within_range(chance.age { type = "senior" }, 65, 100)
+            assert.is.within_range(chance.age { type = "child" }, 1, 12)
+            assert.is.within_range(chance.age { type = "teen" }, 13, 19)
+            assert.is.within_range(chance.age { type = "adult" }, 18, 65)
+            assert.is.within_range(chance.age { type = "senior" }, 65, 100)
         end)
     end)
 
@@ -244,20 +317,20 @@ describe("The Time API", function ()
     before_each(function () chance.seed(1) end)
 
     it("Can generate random hours", function ()
-        assert.is_within_range(chance.hour(), 1, 12)
-        assert.is_within_range(chance.hour { twentyfour = true }, 1, 24)
+        assert.is.within_range(chance.hour(), 1, 12)
+        assert.is.within_range(chance.hour { twentyfour = true }, 1, 24)
     end)
 
     it("Can generate random minutes", function ()
-        assert.is_within_range(chance.minute(), 0, 59)
+        assert.is.within_range(chance.minute(), 0, 59)
     end)
 
     it("Can generate random seconds", function ()
-        assert.is_within_range(chance.second(), 0, 59)
+        assert.is.within_range(chance.second(), 0, 59)
     end)
 
     it("Can generate random milliseconds", function ()
-        assert.is_within_range(chance.millisecond(), 0, 999)
+        assert.is.within_range(chance.millisecond(), 0, 999)
     end)
 
     it("Can randomly produce 'am' or 'pm' for times", function ()
@@ -269,14 +342,14 @@ describe("The Time API", function ()
         it("By default returns a year between the current and a century later", function ()
             local random_year = chance.year()
             local current_date = os.date("*t")
-            assert.is_within_range(random_year, current_date["year"], current_date["year"] + 100)
+            assert.is.within_range(random_year, current_date["year"], current_date["year"] + 100)
         end)
 
         it("Can be restricted to a minimum and/or maximum range", function ()
             local current_date = os.date("*t")
-            assert.is_within_range(chance.year { min = 1700 }, 1700, 1800)
-            assert.is_within_range(chance.year { max = 2200 }, current_date["year"], 2200)
-            assert.is_within_range(chance.year { min = 1984, max = 2002 }, 1984, 2002)
+            assert.is.within_range(chance.year { min = 1700 }, 1700, 1800)
+            assert.is.within_range(chance.year { max = 2200 }, current_date["year"], 2200)
+            assert.is.within_range(chance.year { min = 1984, max = 2002 }, 1984, 2002)
         end)
     end)
 
@@ -285,7 +358,7 @@ describe("The Time API", function ()
     end)
 
     it("Can generate a random Unix timestamp", function ()
-        assert.is_within_range(chance.timestamp(), 0, os.time())
+        assert.is.within_range(chance.timestamp(), 0, os.time())
     end)
 
     describe("chance.day()", function ()
@@ -390,7 +463,7 @@ describe("The Miscellaneous API", function ()
 
             local testRolls = function (rolls, max)
                 for _,value in ipairs(rolls) do
-                    assert.is_within_range(value, 1, max)
+                    assert.is.within_range(value, 1, max)
                 end
             end
 
@@ -404,7 +477,7 @@ describe("The Miscellaneous API", function ()
         local dice = { 4, 6, 8, 10, 12, 20, 100 }
 
         for _,die in ipairs(dice) do
-            assert.is_within_range(chance["d" .. die](), 1, die)
+            assert.is.within_range(chance["d" .. die](), 1, die)
         end
     end)
 
@@ -418,7 +491,7 @@ describe("The Miscellaneous API", function ()
             local numbers = chance.n(chance.natural, 10, { max = 3 })
             assert.equals(10, #numbers)
             for _,value in ipairs(numbers) do
-                assert.is_within_range(value, 0, 3)
+                assert.is.within_range(value, 0, 3)
             end
         end)
     end)

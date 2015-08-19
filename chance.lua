@@ -373,6 +373,165 @@ function chance.string(flags)
     return result
 end
 
+--- Text
+--
+-- These are functions for generating random text.
+--
+-- @section Text
+
+--- Data used to build random syllables.
+--
+-- @see chance.syllable
+-- @local
+-- @field syllables
+-- @table chance.dataSets
+chance.set("syllables", {
+        ["consonants"] = {
+            "b",
+            "c",
+            "ch",
+            "d",
+            "f",
+            "g",
+            "gh",
+            "h",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "p",
+            "qu",
+            "r",
+            "s",
+            "sh",
+            "t",
+            "th",
+            "y",
+            "w",
+            "z",
+        },
+        ["vowels"] = {
+            "a",
+            "e",
+            "i",
+            "o",
+            "u",
+            "ea",
+            "ee",
+            "ao",
+            "oo",
+            "ou",
+        }})
+
+--- Returns a random syllable.
+--
+-- This functions returns a randomly generated syllable that will be
+-- between two to six characters in length.  It uses the
+-- <code>syllables</code> data set, which contains a collection of
+-- consonants and vowels used to create the syllable.
+--
+-- @usage chance.syllable() == "peep"
+-- @see chance.word
+--
+-- @treturn string
+function chance.syllable()
+    local initial = chance.pick(chance.dataSets["syllables"]["consonants"])
+    local vowel = chance.pick(chance.dataSets["syllables"]["vowels"])
+    local ending = chance.pick(chance.dataSets["syllables"]["consonants"])
+    local syllable = initial .. vowel
+
+    -- Fifty percent of the time we add an additional consonant sound
+    -- to the end of the syllable.
+    if chance.bool() == true then
+        syllable = syllable .. ending
+    end
+
+    return syllable
+end
+
+--- Returns a random word.
+--
+-- The word, by default, will contain one to three syllables.
+-- However, the optional flag <code>syllables</code> can specify
+-- exactly how many syllables to use in the word.  Note that
+-- "syllable" in this context means anything which @{chance.syllable}
+-- will return.
+--
+-- @usage chance.word() == "beepbop"
+-- @usage chance.word { syllables = 4 } == "thadoobgerlu"
+-- @see chance.syllable
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.word(flags)
+    local syllableCount = chance.random(1, 3)
+    local word = ""
+
+    if flags and flags["syllables"] then
+        syllableCount = flags["syllables"]
+    end
+
+    if syllableCount < 1 then return word end
+
+    while syllableCount > 0 do
+        syllableCount = syllableCount - 1
+        word = word .. chance.syllable()
+    end
+
+    return word
+end
+
+--- Generates a random sentence of words via @{chance.word}.
+--
+-- This function returns a sentence of random words, between twelve to
+-- eighteen words by default.  The optional <code>words</code> flag
+-- allows controling exactly how many words appear in the sentence.
+-- The first word in the sentence will be capitalized and the sentence
+-- will end with a period.
+--
+-- @usage chance.sentence { words = 3 } == "Hob the rag."
+-- @see chance.word
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.sentence(flags)
+    local words
+    local wordCount = chance.random(12, 18)
+
+    if flags and flags["words"] then
+        wordCount = flags["words"]
+    end
+
+    words = chance.n(chance.word, wordCount)
+    words[1] = string.gsub(words[1], "^%l", string.upper)
+    table.insert(words, ".")
+
+    return table.concat(words, " ")
+end
+
+--- Generates a random paragraph via @{chance.sentence}.
+--
+-- This function returns a paragraph of random sentences, created by
+-- calling @{chance.sentence}.  By default the paragraph will contain
+-- three to seven sentences.  However, the optional integer flag
+-- <code>sentences</code> controls exactly how many sentences to
+-- create for the paragraph.
+--
+-- @see chance.sentence
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.paragraph(flags)
+    local count = chance.random(3, 7)
+
+    if flags and flags["sentences"] then
+        count = flags["sentences"]
+    end
+
+    return table.concat(chance.n(chance.sentence, count), " ")
+end
+
 --- Person
 --
 -- These are functions for generating random data about people.
