@@ -12,6 +12,7 @@ to [Semantic Versioning](http://semver.org/).
 - The `Text` API:
     - `chance.syllable()`
     - `chance.word()`
+    - `chance.sentence()`
 
 ### Changed
 

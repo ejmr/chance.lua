@@ -205,6 +205,31 @@ describe("The Text API", function ()
         end)
     end)
 
+    describe("chance.sentence()", function ()
+        local split_string
+
+        setup(function ()
+            split_string = function (s)
+                local words = {}
+                for w in string.gmatch(s, "%S+") do
+                    table.insert(words, w)
+                end
+                return words
+            end
+        end)
+
+        it("Returns a sentence between twelve and eighteen words by default", function ()
+            local words = split_string(chance.sentence())
+            assert.is.within_range(#words, 12, 18)
+        end)
+
+        it("Can return a sentence with a specific number of words", function ()
+            local count = 5
+            local words = split_string(chance.sentence { words = count })
+            assert.is.equal(#words, count)
+        end)
+    end)
+
 end)
 
 describe("The Person API", function ()

@@ -482,6 +482,27 @@ function chance.word(flags)
     return word
 end
 
+--- Generates a random sentence of words via @{chance.word}.
+--
+-- This function returns a sentence of random words, between twelve to
+-- eighteen words by default.  The optional <code>words</code> flag
+-- allows controling exactly how many words appear in the sentence.
+--
+-- @usage chance.sentence { words = 3 } == "hob the rag"
+-- @see chance.word
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.sentence(flags)
+    local wordCount = chance.random(12, 18)
+
+    if flags and flags["words"] then
+        wordCount = flags["words"]
+    end
+
+    return table.concat(chance.n(chance.word, wordCount), " ")
+end
+
 --- Person
 --
 -- These are functions for generating random data about people.
