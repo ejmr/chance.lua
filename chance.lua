@@ -969,11 +969,11 @@ end
 -- This function returns an array of random numbers simulating the
 -- results of rolling dice of the kind found in most table-top RPGs
 -- such as Dungeons and Dragons.  The argument to the function must be
--- a string of the form <code>#d#</code> where each <code>#</code> is
--- a number; the first represents the number of rolls to make, and the
--- second represents the number of sides on the die, e.g. <code>3d6</code>
--- returns an array with three numbers, each being the result of rolling
--- a six-sided die.
+-- a string of the form <code>#d#</code> (case-insensitive) where each
+-- <code>#</code> is a number; the first represents the number of
+-- rolls to make, and the second represents the number of sides on the
+-- die, e.g. <code>3d6</code> returns an array with three numbers,
+-- each being the result of rolling a six-sided die.
 --
 -- @usage chance.rpg("1d8") == {4}
 -- @usage chance.rpg("3d20") == {10, 4, 17}
@@ -981,7 +981,7 @@ end
 -- @param notation
 -- @treturn table The values of each die roll.
 function chance.rpg(notation)
-    local _,middle = notation:find("d")
+    local _,middle = notation:lower():find("d")
     local rolls = tonumber(notation:sub(1, middle - 1))
     local die = tonumber(notation:sub(middle + 1))
     local results = {}

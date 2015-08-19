@@ -454,7 +454,7 @@ describe("The Miscellaneous API", function ()
     describe("chance.rpg()", function ()
         it("Creates an array of numbers simulating table-top RPG die rolls", function ()
             local oneD100 = chance.rpg("1d100")
-            local threeD6 = chance.rpg("3d6")
+            local threeD6 = chance.rpg("3D6")
             local fiveD20 = chance.rpg("5d20")
 
             assert.equals(1, #oneD100)

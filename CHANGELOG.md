@@ -20,6 +20,9 @@ to [Semantic Versioning](http://semver.org/).
 - `is_within_range()` is now simply `within_range()`, which makes it
   more flexible for use in assertions.
 
+- The input to `chance.rpg()` is case-insensitive, so one can write
+  both `chance.rpg("3d6")` and `chance.rpg("3D6")`.
+
 
 
 ## [0.2.0] - 2015-08-18
