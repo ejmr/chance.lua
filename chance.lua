@@ -973,7 +973,11 @@ end
 -- function.  However, unlike @{chance.n}, the items in the array are
 -- guaranteed to be unique.
 --
+-- Any additional arguments will be given to the generator function on
+-- each invocation.
+--
 -- @usage chance.unique(chance.month, 3) == { "May", "February", "April" }
+-- @usage chance.unique(chance.character, 2, { pool = "aeiou" }) == { "e", "u" }
 --
 -- @param generator A function that returns random data.
 -- @param count The number of times to call the generator.

@@ -512,6 +512,22 @@ describe("The Miscellaneous API", function ()
                 assert.is.equal(matches, 1)
             end
         end)
+
+        it("Passes additional arguments to the generator function", function ()
+            local characters = chance.unique(chance.character, 3, { pool = "aeiou" })
+
+            for _,x in ipairs(characters) do
+                local matches = 0
+
+                for _,y in ipairs(characters) do
+                    if x == y then
+                        matches = matches + 1
+                    end
+                end
+
+                assert.is.equal(matches, 1)
+            end
+        end)
     end)
 
 end)
