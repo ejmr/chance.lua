@@ -18,6 +18,8 @@ to [Semantic Versioning](http://semver.org/).
 - The `Miscellaneous` API:
     - `chance.unique()`
 
+- `unique_array()` assertion for the test suite.
+
 ### Changed
 
 - `is_within_range()` is now simply `within_range()`, which makes it

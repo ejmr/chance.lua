@@ -4,6 +4,38 @@ local say    = require("say")
 
 say:set_namespace("en")
 
+-- This assertion requires one argument: an array.  The assertion is
+-- true if the array contains unique values.  For example, the
+-- assertion is true for `{ 1, 2, 3 }` but false for `{ 1, 1, 2 }`.
+-- The assertion uses the simple `==` operator for testing equality,
+-- meaning the assertion will not ensure elements are unique for any
+-- nested arrays.
+local function unique_array(state, arguments)
+    local array = arguments[1]
+
+    for _,x in ipairs(array) do
+        local matches = 0
+
+        for _,y in ipairs(array) do
+            if x == y then
+                matches = matches + 1
+            end
+        end
+
+        if matches ~= 1 then
+            return false
+        end
+    end
+
+    return true
+end
+
+say:set("assertion.unique_array.positive", "Expected array to have all unique values:\n%s")
+say:set("assertion.unique_array.negative", "Expected array to have some duplicate values:\n%s")
+assert:register("assertion", "unique_array", unique_array,
+                "assertion.unique_array.positive",
+                "assertion.unique_array.negative")
+
 -- This assertion requires three arguments, which all must be numbers.
 -- The assertion is true if the first number is within the range of
 -- the second and third numbers, the minimum and maximum of the range,
@@ -498,35 +530,11 @@ describe("The Miscellaneous API", function ()
 
     describe("chance.unique()", function ()
         it("Creates an array of unique data from a generator function", function ()
-            local months = chance.unique(chance.month, 3)
-
-            for _,m in ipairs(months) do
-                local matches = 0
-
-                for _,n in ipairs(months) do
-                    if m == n then
-                        matches = matches + 1
-                    end
-                end
-
-                assert.is.equal(matches, 1)
-            end
+            assert.is.unique_array(chance.unique(chance.month, 3))
         end)
 
         it("Passes additional arguments to the generator function", function ()
-            local characters = chance.unique(chance.character, 3, { pool = "aeiou" })
-
-            for _,x in ipairs(characters) do
-                local matches = 0
-
-                for _,y in ipairs(characters) do
-                    if x == y then
-                        matches = matches + 1
-                    end
-                end
-
-                assert.is.equal(matches, 1)
-            end
+            assert.is.unique_array(chance.unique(chance.character, 3, { pool = "aeiou" }))
         end)
     end)
 
