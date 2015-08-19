@@ -446,6 +446,37 @@ function chance.syllable()
     return syllable
 end
 
+--- Returns a random word.
+--
+-- The word, by default, will contain one to three syllables.
+-- However, the optional flag <code>syllables</code> can specify
+-- exactly how many syllables to use in the word.  Note that
+-- "syllable" in this context means anything which @{chance.syllable}
+-- will return.
+--
+-- @usage chance.word() == "beepbop"
+-- @usage chance.word { syllables = 4 } == "thadoobgerlu"
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.word(flags)
+    local syllableCount = chance.random(1, 3)
+    local word = ""
+
+    if flags and flags["syllables"] then
+        syllableCount = flags["syllables"]
+    end
+
+    if syllableCount < 1 then return word end
+
+    while syllableCount > 0 do
+        syllableCount = syllableCount - 1
+        word = word .. chance.syllable()
+    end
+
+    return word
+end
+
 --- Person
 --
 -- These are functions for generating random data about people.

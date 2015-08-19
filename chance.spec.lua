@@ -194,6 +194,17 @@ describe("The Text API", function ()
         end)
     end)
 
+    describe("chance.word()", function ()
+        it("Returns a word of one to three syllables by default", function ()
+            assert.is.within_range(string.len(chance.word()), 6, 18)
+        end)
+
+        it("Can create words with a specific number of syllables", function ()
+            local word = chance.word { syllables = 10 }
+            assert.is.within_range(string.len(word), 20, 60)
+        end)
+    end)
+
 end)
 
 describe("The Person API", function ()
