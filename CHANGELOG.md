@@ -7,6 +7,11 @@ to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Fixed
+
+- `chance.day()` now always returns the correct values when using the
+   optional `weekdays` or `weekends` flags.
+
 ### Added
 
 - The `Text` API:

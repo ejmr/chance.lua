@@ -856,14 +856,17 @@ end
 -- @field days
 -- @table chance.dataSets
 chance.set("days", {
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-})
+        ["weekdays"] = {
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+        },
+        ["weekends"] = {
+            "Saturday",
+            "Sunday",
+        }})
 
 --- Returns a random day of the week.
 --
@@ -881,18 +884,24 @@ chance.set("days", {
 -- @param[opt] flags
 -- @treturn string
 function chance.day(flags)
-    local days = makeShallowCopy(chance.dataSets["days"])
+    local category = "all"
+    local days = {}
 
-    -- This logic takes advantage of the specific order of the `days`
-    -- table above.
     if flags then
         if flags["weekdays"] == false then
-            for i = 1, 5 do
-                table.remove(days, i)
-            end
+            category = "weekends"
         elseif flags["weekends"] == false then
-            table.remove(days)
-            table.remove(days)
+            category = "weekdays"
+        end
+    end
+
+    if category == "weekdays" or category == "weekends" then
+        days = makeShallowCopy(chance.dataSets["days"][category])
+    elseif category == "all" then
+        for _,category in pairs(chance.dataSets["days"]) do
+            for _,day in ipairs(category) do
+                table.insert(days, day)
+            end
         end
     end
 
