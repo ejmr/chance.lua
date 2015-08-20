@@ -296,6 +296,7 @@ local character_groups = {}
 character_groups["lower"]  = "abcdefghijklmnopqrstuvwxyz"
 character_groups["upper"]  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 character_groups["digit"]  = "0123456789"
+character_groups["hex"]    = "0123456789abcdef"
 character_groups["letter"] = character_groups["lower"]  .. character_groups["upper"]
 character_groups["all"]    = character_groups["letter"] .. character_groups["digit"]
 
@@ -1014,6 +1015,29 @@ function chance.unique(generator, count, ...)
     end
 
     return results
+end
+
+--- Create a random hash in hexadecimal.
+--
+-- This function returns a string representing a hash as a hexadecimal
+-- number.  By default the function returns a number with 40 digits
+-- (i.e. a string with 40 characters), but the optional flag
+-- <code>digits</code> can specify exactly how many digits the hash
+-- will have.
+--
+-- @usage chance.hash() == "9f3cbf2466d865d82310b9b1e785401556daedce"
+-- @usage chance.hash { digits = 8 } == "5d82310b"
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.hash(flags)
+    local digits = 40
+
+    if flags and flags["digits"] then
+        digits = flags["digits"]
+    end
+
+    return chance.string { group = "hex", length = digits }
 end
 
 --- Create an array of die rolls using Dungeons and Dragons notation.

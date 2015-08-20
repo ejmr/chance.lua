@@ -22,6 +22,7 @@ to [Semantic Versioning](http://semver.org/).
 
 - The `Miscellaneous` API:
     - `chance.unique()`
+    - `chance.hash()`
 
 - `unique_array()` assertion for the test suite.
 

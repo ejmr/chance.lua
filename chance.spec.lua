@@ -485,6 +485,20 @@ describe("The Miscellaneous API", function ()
 
     before_each(function () chance.seed(os.time()) end)
 
+    describe("chance.hash()", function ()
+        it("Returns a 40 digit hexadecimal number as a string by default", function ()
+            local hash = chance.hash()
+            assert.is.equal(hash:len(), 40)
+            assert.is.truthy(hash:match("^%x+$"))
+        end)
+
+        it("Can return a hash with an specific number of digits", function ()
+            local count = 10
+            local hash = chance.hash { digits = count }
+            assert.is.equal(hash:len(), count)
+        end)
+    end)
+
     describe("chance.rpg()", function ()
         it("Creates an array of numbers simulating table-top RPG die rolls", function ()
             local oneD100 = chance.rpg("1d100")
