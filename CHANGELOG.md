@@ -33,6 +33,9 @@ to [Semantic Versioning](http://semver.org/).
 - The input to `chance.rpg()` is case-insensitive, so one can write
   both `chance.rpg("3d6")` and `chance.rpg("3D6")`.
 
+- `chance.day()` accepts both boolean true and false values for the
+  optional `weekdays` and `weekends` flags.
+
 
 
 ## [0.2.0] - 2015-08-18

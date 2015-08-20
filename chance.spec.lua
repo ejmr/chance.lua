@@ -424,10 +424,12 @@ describe("The Time API", function ()
         end)
 
         it("Can return only weekdays", function ()
+            assert.in_array(chance.day { weekdays = true }, weekdays)
             assert.in_array(chance.day { weekends = false }, weekdays)
         end)
 
         it("Can return only weekends", function ()
+            assert.in_array(chance.day { weekends = true }, weekends)
             assert.in_array(chance.day { weekdays = false }, weekends)
         end)
     end)

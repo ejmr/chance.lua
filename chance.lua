@@ -873,12 +873,12 @@ chance.set("days", {
 -- By default this function will return the name of a day of the week,
 -- chosen from the <code>days</code> data set.  The function accepts
 -- an optional table of flags which control the possible days it
--- returns.  If the flags <code>weekdays</code> or
--- <code>weekends</code> are false then the function will not return
--- those types of days.
+-- returns.  The optional boolean flags <code>weekdays</code> and
+-- <code>weekends</code> will restrict the output to those types of
+-- days.
 --
 -- @usage chance.day() == "Monday"
--- @usage chance.day { weekdays = false } == "Sunday"
+-- @usage chance.day { weekends = true } == "Sunday"
 -- @usage chance.day { weekends = false } == "Thursday"
 --
 -- @param[opt] flags
@@ -888,9 +888,11 @@ function chance.day(flags)
     local days = {}
 
     if flags then
-        if flags["weekdays"] == false then
+        if flags["weekdays"] == false
+        or flags["weekends"] == true then
             category = "weekends"
-        elseif flags["weekends"] == false then
+        elseif flags["weekends"] == false
+        or flags["weekdays"] == true then
             category = "weekdays"
         end
     end
@@ -898,8 +900,8 @@ function chance.day(flags)
     if category == "weekdays" or category == "weekends" then
         days = makeShallowCopy(chance.dataSets["days"][category])
     elseif category == "all" then
-        for _,category in pairs(chance.dataSets["days"]) do
-            for _,day in ipairs(category) do
+        for _,set in pairs(chance.dataSets["days"]) do
+            for _,day in ipairs(set) do
                 table.insert(days, day)
             end
         end
