@@ -938,6 +938,41 @@ function chance.ampm()
     end
 end
 
+--- Web
+--
+-- These are functions for generating random data related to the World
+-- Wide Web.
+--
+-- @section Web
+
+--- Top-Level Domains
+--
+-- @see chance.tld
+-- @local
+-- @field tlds
+-- @table chance.dataSets
+chance.set("tlds", {
+        "com",
+        "org",
+        "net",
+        "edu",
+        "gov",
+        "int",
+        "mil",
+})
+
+--- Generate a random top-level domain.
+--
+-- This function returns a random top-level domain as a string.  It
+-- chooses a domain from the <code>tlds</code> data set.
+--
+-- @usage chance.tld() == "net"
+--
+-- @treturn string
+function chance.tld()
+    return chance.fromSet("tlds")
+end
+
 --- Miscellaneous
 --
 -- These are functions for generating data which does not easily fall

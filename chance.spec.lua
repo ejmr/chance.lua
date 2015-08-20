@@ -436,6 +436,18 @@ describe("The Time API", function ()
 
 end)
 
+describe("The Web API", function ()
+
+    before_each(function () chance.seed(os.time()) end)
+
+    describe("chance.tld()", function ()
+        it("Returns a random top-level domain from the 'tlds' data set", function ()
+            assert.is.in_array(chance.tld(), chance.dataSets["tlds"])
+        end)
+    end)
+
+end)
+
 describe("The Helper API", function ()
 
     before_each(function () chance.seed(os.time()) end)

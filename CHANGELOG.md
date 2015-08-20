@@ -24,6 +24,9 @@ to [Semantic Versioning](http://semver.org/).
     - `chance.unique()`
     - `chance.hash()`
 
+- The `Web` API:
+    - `chance.tld()`
+
 - `unique_array()` assertion for the test suite.
 
 ### Changed
