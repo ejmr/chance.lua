@@ -446,6 +446,24 @@ describe("The Web API", function ()
         end)
     end)
 
+    describe("chance.domain()", function ()
+        it("Returns a domain of random words and a random TLD by default", function ()
+            local domain = chance.domain()
+            for name,tld in string.gmatch(domain, "(%w+)%.([%w%.]+)") do
+                -- The length of one to three words.
+                assert.is.within_range(string.len(name), 2, 54)
+                assert.is.in_array(tld, chance.dataSets["tlds"])
+            end
+        end)
+
+        it("Can use an explicit top-level domain", function ()
+            local domain = chance.domain { tld = "name" }
+            for tld in string.gmatch(domain, "%w+%.(%w+)") do
+                assert.is.equal(tld, "name")
+            end
+        end)
+    end)
+
 end)
 
 describe("The Helper API", function ()

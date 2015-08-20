@@ -973,6 +973,39 @@ function chance.tld()
     return chance.fromSet("tlds")
 end
 
+--- Generate a random domain.
+--
+-- This function returns a random web domain.  By default the domain
+-- name contains one to three words and a random top-level domain.
+-- The optional flag <code>words</code> controls exactly how many
+-- words appear in the domain, and the flag <code>tld</code> will
+-- ensure the result uses that specific top-level domain.
+--
+-- @usage chance.domain() == "paroo.net"
+-- @usage chance.domain { words = 1 } == "fee.gov"
+-- @usage chance.domain { tld = "co.bh" } == "havashi.co.bh"
+--
+-- @see chance.word
+-- @see chance.tld
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.domain(flags)
+    local wordCount = chance.random(1, 3)
+    local tld = chance.tld()
+
+    if flags then
+        if flags["words"] then
+            wordCount = flags["words"]
+        end
+        if flags["tld"] then
+            tld = flags["tld"]
+        end
+    end
+
+    return table.concat(chance.n(chance.word, wordCount)) .. "." .. tld
+end
+
 --- Miscellaneous
 --
 -- These are functions for generating data which does not easily fall
