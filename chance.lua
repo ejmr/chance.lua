@@ -1006,6 +1006,31 @@ function chance.domain(flags)
     return table.concat(chance.n(chance.word, wordCount)) .. "." .. tld
 end
 
+--- Returns a random email address.
+--
+-- This function will return an email address consisting of random
+-- words, belonging to a random domain.  The optional flag
+-- <code>domain</code> can specify the exact domain to use.
+--
+-- @usage chance.email() == "foo@boohoo.edu"
+-- @usage chance.email { domain = "example.com" } == "lepiwoa@example.com"
+--
+-- @see chance.word
+-- @see chance.domain
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.email(flags)
+    local name = chance.word()
+    local domain = chance.domain()
+
+    if flags and flags["domain"] then
+        domain = flags["domain"]
+    end
+
+    return name .. "@" .. domain
+end
+
 --- Miscellaneous
 --
 -- These are functions for generating data which does not easily fall

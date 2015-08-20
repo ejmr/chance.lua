@@ -464,6 +464,22 @@ describe("The Web API", function ()
         end)
     end)
 
+    describe("chance.email()", function ()
+        it("Returns a random name with a random domain by default", function ()
+            local email = chance.email()
+            for name,domain,tld in string.gmatch(email, "(%w+)@(%w+)%.(%w+)") do
+                assert.is.in_array(tld, chance.dataSets["tlds"])
+            end
+        end)
+
+        it("Can create an email address for an explicit domain", function ()
+            local email = chance.email { domain = "example.com" }
+            for name,domain in string.gmatch(email, "(%w+)@([%w%.]+)") do
+                assert.is.equal(domain, "example.com")
+            end
+        end)
+    end)
+
 end)
 
 describe("The Helper API", function ()

@@ -27,6 +27,7 @@ to [Semantic Versioning](http://semver.org/).
 - The `Web` API:
     - `chance.tld()`
     - `chance.domain()`
+    - `chance.email()`
 
 - `unique_array()` assertion for the test suite.
 
