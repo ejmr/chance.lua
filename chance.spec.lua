@@ -4,6 +4,23 @@ local say    = require("say")
 
 say:set_namespace("en")
 
+-- This assertion requires two arguments: a pattern (as a string) and
+-- another string to test against that pattern.  In this context
+-- "pattern" means the kind acceptable to string.match() and similar
+-- standard Lua functions.  This assertion is true if the given string
+-- matches the pattern.
+local function like_pattern(state, arguments)
+    local pattern = arguments[1]
+    local datum = arguments[2]
+    return string.match(datum, pattern)
+end
+
+say:set("assertion.like_pattern.positive", "Expected %s to match the pattern:\n%s")
+say:set("assertion.like_pattern.negative", "Expected %s to not match the pattern:\n%s")
+assert:register("assertion", "like_pattern", like_pattern,
+                "assertion.like_pattern.positive",
+                "assertion.like_pattern.negative")
+
 -- This assertion requires one argument: an array.  The assertion is
 -- true if the array contains unique values.  For example, the
 -- assertion is true for `{ 1, 2, 3 }` but false for `{ 1, 1, 2 }`.
@@ -482,13 +499,13 @@ describe("The Web API", function ()
 
     describe("chance.hashtag()", function ()
         it("Returns a Twitter hashtag built of random words", function ()
-            assert.is.truthy(string.match(chance.hashtag(), "^#%w+$"))
+            assert.is.like_pattern("^#%w+$", chance.hashtag())
         end)
     end)
 
     describe("chance.twitter()", function ()
         it("Returns a random Twitter handle/username", function ()
-            assert.is.truthy(string.match(chance.twitter(), "^@%w+$"))
+            assert.is.like_pattern("^@%w+$", chance.twitter())
         end)
     end)
 

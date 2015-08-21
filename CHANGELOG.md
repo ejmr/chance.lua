@@ -31,7 +31,9 @@ to [Semantic Versioning](http://semver.org/).
     - `chance.hashtag()`
     - `chance.twitter()`
 
-- `unique_array()` assertion for the test suite.
+- The Test Suite:
+    - The `unique_array()` assertion
+    - The `like_pattern()` assertion
 
 ### Changed
 
