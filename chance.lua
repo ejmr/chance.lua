@@ -1113,6 +1113,13 @@ function chance.uri(flags)
     return uri
 end
 
+--- Generates a random URL.
+--
+-- This function is an alias for @{chance.uri}.
+--
+-- @function chance.url
+chance.url = chance.uri
+
 --- Miscellaneous
 --
 -- These are functions for generating data which does not easily fall
