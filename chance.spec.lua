@@ -486,6 +486,12 @@ describe("The Web API", function ()
         end)
     end)
 
+    describe("chance.twitter()", function ()
+        it("Returns a random Twitter handle/username", function ()
+            assert.is.truthy(string.match(chance.twitter(), "^@%w+$"))
+        end)
+    end)
+
 end)
 
 describe("The Helper API", function ()

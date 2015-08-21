@@ -29,6 +29,7 @@ to [Semantic Versioning](http://semver.org/).
     - `chance.domain()`
     - `chance.email()`
     - `chance.hashtag()`
+    - `chance.twitter()`
 
 - `unique_array()` assertion for the test suite.
 

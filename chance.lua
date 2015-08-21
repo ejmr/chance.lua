@@ -1038,10 +1038,25 @@ end
 -- random words.
 --
 -- @usage chance.hashtag() == "#namarob"
+-- @see chance.twitter
 --
 -- @treturn string
 function chance.hashtag()
     return "#" .. table.concat(chance.n(chance.word, chance.random(1, 3)), "")
+end
+
+--- Generates a random Twitter handle.
+--
+-- This function returns a string representing a random Twitter
+-- account name.  The string will begin with '@' followed by one to
+-- five words.
+--
+-- @usage chance.twitter() == "@meepboat"
+-- @see chance.hashtag
+--
+-- @treturn string
+function chance.twitter()
+    return "@" .. table.concat(chance.n(chance.word, chance.random(1, 5)), "")
 end
 
 --- Miscellaneous
