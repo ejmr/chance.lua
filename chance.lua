@@ -1031,6 +1031,19 @@ function chance.email(flags)
     return name .. "@" .. domain
 end
 
+--- Returns a random Twitter hashtag.
+--
+-- This function returns a string representing a Twitter hashtag.  The
+-- string will begin with the '#' character and contain one to three
+-- random words.
+--
+-- @usage chance.hashtag() == "#namarob"
+--
+-- @treturn string
+function chance.hashtag()
+    return "#" .. table.concat(chance.n(chance.word, chance.random(1, 3)), "")
+end
+
 --- Miscellaneous
 --
 -- These are functions for generating data which does not easily fall

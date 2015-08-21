@@ -480,6 +480,12 @@ describe("The Web API", function ()
         end)
     end)
 
+    describe("chance.hashtag()", function ()
+        it("Returns a Twitter hashtag built of random words", function ()
+            assert.is.truthy(string.match(chance.hashtag(), "^#%w+$"))
+        end)
+    end)
+
 end)
 
 describe("The Helper API", function ()
