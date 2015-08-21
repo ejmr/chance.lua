@@ -1059,6 +1059,60 @@ function chance.twitter()
     return "@" .. table.concat(chance.n(chance.word, chance.random(1, 5)), "")
 end
 
+--- Generates a random URI.
+--
+-- This function returns a random URI.  By default it uses the
+-- <code>http</code> protocol, with random names generated for the
+-- domain and path.  The function accepts a number of optional flags
+-- though:
+--
+-- <ul>
+-- <li><code>domain</code> - Sets an explicit domain name.</li>
+-- <li><code>path</code> - Sets an explicit path.</li>
+-- <li><code>protocol</code> Sets an explicit protocol.</li>
+-- <li><code>extensions</code> - Uses one of the given extensions.</li>
+-- </ul>
+--
+-- @usage chance.uri() == "http://foobar.net/baz"
+-- @usage chance.uri { domain = "example.com" } == "http://example.com/wee"
+-- @usage chance.uri { path = "foo/bar" } == "http://narofu.edu/foo/bar"
+-- @usage chance.uri { extensions = { "png", "gif" }} == "http://benhoo.gov/dao.png"
+-- @usage chance.uri { protocol = "ftp" } == "ftp://fufoo.net/veto"
+--
+-- @see chance.domain
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.uri(flags)
+    local protocol = "http"
+    local domain = chance.domain()
+    local path = table.concat(chance.n(chance.word, chance.random(1, 2)), "")
+    local extensions = {}
+
+    if flags then
+        if flags["protocol"] then
+            protocol = flags["protocol"]
+        end
+        if flags["domain"] then
+            domain = flags["domain"]
+        end
+        if flags["path"] then
+            path = flags["path"]
+        end
+        if flags["extensions"] then
+            extensions = flags["extensions"]
+        end
+    end
+
+    local uri = protocol .. "://" .. domain .. "/" .. path
+
+    if #extensions > 0 then
+        uri = uri .. chance.pick(extensions)
+    end
+
+    return uri
+end
+
 --- Miscellaneous
 --
 -- These are functions for generating data which does not easily fall

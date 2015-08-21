@@ -509,6 +509,38 @@ describe("The Web API", function ()
         end)
     end)
 
+    describe("chance.uri()", function ()
+        it("Returns a random domain and path by default", function ()
+            assert.is.like_pattern("^http://[%w%.]+/%w+$", chance.uri())
+        end)
+
+        it("Allows setting an explicit path", function ()
+            local path = "foo/bar"
+            assert.is.like_pattern("^http://[%w%.]+/" .. path .. "$",
+                                   chance.uri { path = path })
+        end)
+
+        it("Allows setting an explicit domain", function ()
+            local domain = "www.example.com"
+            assert.is.like_pattern("^http://" .. domain .. "/%w+$",
+                                   chance.uri { domain = domain })
+        end)
+
+        it("Allows setting an explicit protocol", function ()
+            local protocol = "ftp"
+            assert.is.like_pattern("^" .. protocol .. "://[%w%.]+/%w+$",
+                                   chance.uri { protocol = protocol })
+        end)
+
+        it("Allows setting explicit possible file extensions", function ()
+            local extensions = { "png", "jpeg", "gif" }
+            local uri = chance.uri { extensions = extensions }
+            for x in string.gmatch(uri, "%.(%w+)$") do
+                assert.is.in_array(x, extensions)
+            end
+        end)
+    end)
+
 end)
 
 describe("The Helper API", function ()
