@@ -543,6 +543,12 @@ describe("The Web API", function ()
         end)
     end)
 
+    describe("chance.ipv6()", function ()
+        it("Returns a random IPv6 address", function ()
+            assert.is.like_pattern("^%x+:%x+:%x+:%x+:%x+:%x+:%x+:%x+$", chance.ipv6())
+        end)
+    end)
+
     describe("chance.tld()", function ()
         it("Returns a random top-level domain from the 'tlds' data set", function ()
             assert.is.in_array(chance.tld(), chance.dataSets["tlds"])

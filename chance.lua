@@ -1011,6 +1011,8 @@ end
 -- @usage chance.ip { class = "B" } == "190.1.24.30"
 -- @usage chance.ip { octets = { 192, 128 }} == "192.128.0.1"
 --
+-- @see chance.ipv6
+--
 -- @param[opt] flags
 -- @treturn string
 function chance.ip(flags)
@@ -1038,6 +1040,18 @@ function chance.ip(flags)
                          octets[2],
                          octets[3],
                          octets[4])
+end
+
+--- Generates a random IPv6 address.
+--
+-- @see chance.ip
+--
+-- @treturn string
+function chance.ipv6()
+    local octet = function ()
+        return chance.string { length = 4, group = "hex" }
+    end
+    return makeStringFrom(octet, 8, ":")
 end
 
 --- Top-Level Domains

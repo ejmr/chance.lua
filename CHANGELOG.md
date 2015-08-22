@@ -33,6 +33,7 @@ to [Semantic Versioning](http://semver.org/).
     - `chance.uri()` and `chance.url()`
     - `chance.color()`
     - `chance.ip()`
+    - `chance.ipv6()`
 
 - The Test Suite:
     - The `unique_array()` assertion
