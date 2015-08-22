@@ -482,6 +482,67 @@ describe("The Web API", function ()
         end)
     end)
 
+    describe("chance.ip()", function ()
+        local ipPattern = "^(%d+)%.(%d+)%.(%d+)%.(%d+)$"
+
+        local extractOctets = function (ip)
+            local octets = {}
+            for value in string.gmatch(ip, "(%d+)") do
+                table.insert(octets, tonumber(value))
+            end
+            return octets
+        end
+
+        it("Returns a completely random IP address by default", function ()
+            local ip = chance.ip()
+            assert.is.like_pattern(ipPattern, ip)
+            for _,octet in ipairs(extractOctets(ip)) do
+                assert.is_true(octet >= 0 and octet <= 255)
+            end
+        end)
+
+        it("Can create IP addresses of the A class", function ()
+            local ip = chance.ip { class = "A" }
+            local octets = extractOctets(ip)
+            assert.is.like_pattern(ipPattern, ip)
+            assert.is_true(octets[1] >= 0 and octets[1] <= 127)
+            for i = 2, 4 do
+                assert.is_true(octets[i] >= 0 and octets[i] <= 255)
+            end
+        end)
+
+        it("Can create IP addresses of the B class", function ()
+            local ip = chance.ip { class = "B" }
+            local octets = extractOctets(ip)
+            assert.is.like_pattern(ipPattern, ip)
+            assert.is_true(octets[1] >= 128 and octets[1] <= 191)
+            for i = 2, 4 do
+                assert.is_true(octets[i] >= 0 and octets[i] <= 255)
+            end
+        end)
+
+        it("Can create IP addresses of the C class", function ()
+            local ip = chance.ip { class = "C" }
+            local octets = extractOctets(ip)
+            assert.is.like_pattern(ipPattern, ip)
+            assert.is_true(octets[1] >= 192 and octets[1] <= 223)
+            for i = 2, 4 do
+                assert.is_true(octets[i] >= 0 and octets[i] <= 255)
+            end
+        end)
+
+        it("Can set explicit values for octets", function ()
+            local ip = chance.ip { octets = { 192, 168 }}
+            local octets = extractOctets(ip)
+            assert.is.like_pattern(ipPattern, ip)
+            assert.is.equal(octets[1], 192)
+            assert.is.equal(octets[2], 168)
+            for i = 3, 4 do
+                assert.is_true(octets[i] >= 0 and octets[i] <= 255)
+            end
+        end)
+    end)
+
     describe("chance.tld()", function ()
         it("Returns a random top-level domain from the 'tlds' data set", function ()
             assert.is.in_array(chance.tld(), chance.dataSets["tlds"])

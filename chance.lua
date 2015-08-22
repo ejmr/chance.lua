@@ -999,6 +999,47 @@ function chance.color(flags)
     return color
 end
 
+--- Generates a random IP address.
+--
+-- This function generates a random IPv4 address and returns it as a
+-- string.  By default the four octets can have any value in the range
+-- <code>[0,255]</code>.  However, the function accepts optional flags
+-- that will create addresses of a specific class, or addresses with
+-- explicit values for certain octets.
+--
+-- @usage chance.ip() == "132.89.0.200"
+-- @usage chance.ip { class = "B" } == "190.1.24.30"
+-- @usage chance.ip { octets = { 192, 128 }} == "192.128.0.1"
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.ip(flags)
+    local octets = chance.n(chance.natural, 4, { max = 255 })
+    local rangesForClass = {
+        ["A"] = {0, 127},
+        ["B"] = {128, 191},
+        ["C"] = {192, 223},
+    }
+
+    if flags then
+        if flags["class"] then
+            local range = rangesForClass[string.upper(flags["class"])]
+            octets[1] = chance.random(range[1], range[2])
+        end
+        if flags["octets"] then
+            for index,value in ipairs(flags["octets"]) do
+                octets[index] = value
+            end
+        end
+    end
+
+    return string.format("%i.%i.%i.%i",
+                         octets[1],
+                         octets[2],
+                         octets[3],
+                         octets[4])
+end
+
 --- Top-Level Domains
 --
 -- @see chance.tld
