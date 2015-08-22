@@ -12,11 +12,11 @@ say:set_namespace("en")
 local function like_pattern(state, arguments)
     local pattern = arguments[1]
     local datum = arguments[2]
-    return string.match(datum, pattern)
+    return string.match(datum, pattern) ~= nil
 end
 
-say:set("assertion.like_pattern.positive", "Expected %s to match the pattern:\n%s")
-say:set("assertion.like_pattern.negative", "Expected %s to not match the pattern:\n%s")
+say:set("assertion.like_pattern.positive", "Expected pattern %s to match the string:\n%s")
+say:set("assertion.like_pattern.negative", "Expected pattern %s to not match the string:\n%s")
 assert:register("assertion", "like_pattern", like_pattern,
                 "assertion.like_pattern.positive",
                 "assertion.like_pattern.negative")
