@@ -457,6 +457,31 @@ describe("The Web API", function ()
 
     before_each(function () chance.seed(os.time()) end)
 
+    describe("chance.color()", function ()
+        local hexPattern = "^#%x+$"
+
+        it("Returns a color in six-digit hexadecimal format by default", function ()
+            local color = chance.color()
+            assert.is.like_pattern(hexPattern, color)
+            assert.is.equal(string.len(color), 7)
+        end)
+
+        it("Can return a color in short hexadecimal format", function ()
+            local color = chance.color { format = "shorthex" }
+            assert.is.like_pattern(hexPattern, color)
+            assert.is.equal(string.len(color), 4)
+        end)
+
+        it("Can return a color in rgb() format", function ()
+            local color = chance.color { format = "rgb" }
+            for r,g,b in string.gmatch(color, "^rgb%(%s?(%d+),%s?(%d+),%s?(%d+)%s?%)$") do
+                assert.is.truthy(r >= 0 and r <= 255)
+                assert.is.truthy(g >= 0 and g <= 255)
+                assert.is.truthy(b >= 0 and b <= 255)
+            end
+        end)
+    end)
+
     describe("chance.tld()", function ()
         it("Returns a random top-level domain from the 'tlds' data set", function ()
             assert.is.in_array(chance.tld(), chance.dataSets["tlds"])
@@ -541,7 +566,7 @@ describe("The Web API", function ()
             local extensions = { "png", "jpeg", "gif" }
             local uri = chance.uri { extensions = extensions }
             local url = chance.url { extensions = extensions }
-            
+
             for x in string.gmatch(uri, "%.(%w+)$") do
                 assert.is.in_array(x, extensions)
             end

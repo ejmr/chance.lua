@@ -962,6 +962,43 @@ end
 --
 -- @section Web
 
+--- Returns a random color for use in HTML and CSS.
+--
+-- This function returns a random color (as a string) suitable for use
+-- in HTML or Cascading Style Sheets.  By default the function returns
+-- a color in six-digit hex notation, e.g <code>#a034cc</code>.
+-- However, the optional flag <code>format</code> can affect the
+-- representation of the color via the following values:
+--
+-- <ol>
+-- <li><code>hex</code> The default.</li>
+-- <li><code>shorthex</code> E.g. <code>#3ca</code></li>
+-- <li><code>rgb</code> E.g. <code>rgb(120, 80, 255)</code></li>
+-- </ol>
+--
+-- @usage chance.color() == "#a034cc"
+-- @usage chance.color { format = "shorthex" } == "#eeb"
+-- @usage chance.color { format = "rgb" } == "rgb(120, 80, 255)"
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.color(flags)
+    local color = "#" .. chance.string { length = 6, group = "hex" }
+
+    if flags then
+        if flags["format"] == "shorthex" then
+            color = "#" .. chance.string { length = 3, group = "hex" }
+        elseif flags["format"] == "rgb" then
+            color = string.format("rgb(%i, %i, %i)",
+                                  chance.random(0, 255),
+                                  chance.random(0, 255),
+                                  chance.random(0, 255))
+        end
+    end
+
+    return color
+end
+
 --- Top-Level Domains
 --
 -- @see chance.tld
