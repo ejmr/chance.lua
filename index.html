@@ -31,8 +31,10 @@
 <ul>
 <li><a href="#Core">Core </a></li>
 <li><a href="#Basic">Basic </a></li>
+<li><a href="#Text">Text </a></li>
 <li><a href="#Person">Person </a></li>
 <li><a href="#Time">Time </a></li>
+<li><a href="#Web">Web </a></li>
 <li><a href="#Miscellaneous">Miscellaneous </a></li>
 <li><a href="#Helpers">Helpers </a></li>
 </ul>
@@ -118,6 +120,25 @@
 	<td class="summary">Returns a random string.</td>
 	</tr>
 </table>
+<h2><a href="#Text">Text </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#syllable">syllable ()</a></td>
+	<td class="summary">Returns a random syllable.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#word">word ([flags])</a></td>
+	<td class="summary">Returns a random word.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sentence">sentence ([flags])</a></td>
+	<td class="summary">Generates a random sentence of words via <a href="index.html#word">chance.word</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#paragraph">paragraph ([flags])</a></td>
+	<td class="summary">Generates a random paragraph via <a href="index.html#sentence">chance.sentence</a>.</td>
+	</tr>
+</table>
 <h2><a href="#Person">Person </a></h2>
 <table class="function_list">
 	<tr>
@@ -176,11 +197,62 @@
 	<td class="summary">Returns 'am' or 'pm' for use with times.</td>
 	</tr>
 </table>
+<h2><a href="#Web">Web </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#color">color ([flags])</a></td>
+	<td class="summary">Returns a random color for use in HTML and CSS.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ip">ip ([flags])</a></td>
+	<td class="summary">Generates a random IP address.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ipv6">ipv6 ()</a></td>
+	<td class="summary">Generates a random IPv6 address.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tld">tld ()</a></td>
+	<td class="summary">Generate a random top-level domain.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#domain">domain ([flags])</a></td>
+	<td class="summary">Generate a random domain.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#email">email ([flags])</a></td>
+	<td class="summary">Returns a random email address.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hashtag">hashtag ()</a></td>
+	<td class="summary">Returns a random Twitter hashtag.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#twitter">twitter ()</a></td>
+	<td class="summary">Generates a random Twitter handle.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uri">uri ([flags])</a></td>
+	<td class="summary">Generates a random URI.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#url">url ()</a></td>
+	<td class="summary">Generates a random URL.</td>
+	</tr>
+</table>
 <h2><a href="#Miscellaneous">Miscellaneous </a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#n">n (generator, count[, ...])</a></td>
 	<td class="summary">Create an array of random data from a given generator.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#unique">unique (generator, count[, ...])</a></td>
+	<td class="summary">Creates an array of unique values from a given generator.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hash">hash ([flags])</a></td>
+	<td class="summary">Create a random hash in hexadecimal.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#rpg">rpg (notation)</a></td>
@@ -743,6 +815,168 @@
 
 </dd>
 </dl>
+    <h2 class="section-header has-description"><a name="Text"></a>Text </h2>
+
+          <div class="section-description">
+           These are functions for generating random text.
+
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "syllable"></a>
+    <strong>syllable ()</strong>
+    </dt>
+    <dd>
+    Returns a random syllable.
+<p> This functions returns a randomly generated syllable that will be
+ between two to six characters in length.  It uses the
+ <code>syllables</code> data set, which contains a collection of
+ consonants and vowels used to create the syllable.  Each syllable
+ will contain between two to six characters.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#word">chance.word</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">chance.syllable() == <span class="string">"peep"</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "word"></a>
+    <strong>word ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random word.
+<p> The word, by default, will contain one to three syllables.
+ However, the optional flag <code>syllables</code> can specify
+ exactly how many syllables to use in the word.  Note that
+ "syllable" in this context means anything which <a href="index.html#syllable">chance.syllable</a>
+ will return.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#syllable">chance.syllable</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.word() == <span class="string">"beepbop"</span></pre></li>
+        <li><pre class="example">chance.word { syllables = <span class="number">4</span> } == <span class="string">"thadoobgerlu"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "sentence"></a>
+    <strong>sentence ([flags])</strong>
+    </dt>
+    <dd>
+    Generates a random sentence of words via <a href="index.html#word">chance.word</a>.
+<p> This function returns a sentence of random words, between twelve to
+ eighteen words by default.  The optional <code>words</code> flag
+ allows controling exactly how many words appear in the sentence.
+ The first word in the sentence will be capitalized and the sentence
+ will end with a period.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#word">chance.word</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">chance.sentence { words = <span class="number">3</span> } == <span class="string">"Hob the rag."</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "paragraph"></a>
+    <strong>paragraph ([flags])</strong>
+    </dt>
+    <dd>
+    Generates a random paragraph via <a href="index.html#sentence">chance.sentence</a>.
+<p> This function returns a paragraph of random sentences, created by
+ calling <a href="index.html#sentence">chance.sentence</a>.  By default the paragraph will contain
+ three to seven sentences.  However, the optional integer flag
+ <code>sentences</code> controls exactly how many sentences to
+ create for the paragraph.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#sentence">chance.sentence</a>
+    </ul>
+
+
+</dd>
+</dl>
     <h2 class="section-header has-description"><a name="Person"></a>Person </h2>
 
           <div class="section-description">
@@ -1106,9 +1340,9 @@
 <p> By default this function will return the name of a day of the week,
  chosen from the <code>days</code> data set.  The function accepts
  an optional table of flags which control the possible days it
- returns.  If the flags <code>weekdays</code> or
- <code>weekends</code> are false then the function will not return
- those types of days.
+ returns.  The optional boolean flags <code>weekdays</code> and
+ <code>weekends</code> will restrict the output to those types of
+ days.
 
 
 
@@ -1132,7 +1366,7 @@
     <h3>Usage:</h3>
     <ul>
         <li><pre class="example">chance.day() == <span class="string">"Monday"</span></pre></li>
-        <li><pre class="example">chance.day { weekdays = <span class="keyword">false</span> } == <span class="string">"Sunday"</span></pre></li>
+        <li><pre class="example">chance.day { weekends = <span class="keyword">true</span> } == <span class="string">"Sunday"</span></pre></li>
         <li><pre class="example">chance.day { weekends = <span class="keyword">false</span> } == <span class="string">"Thursday"</span></pre></li>
     </ul>
 
@@ -1178,6 +1412,372 @@
            <span class="types"><a class="type" href="index.html#string">string</a></span>
         <code>"am"</code> or <code>"pm"</code>
     </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Web"></a>Web </h2>
+
+          <div class="section-description">
+           These are functions for generating random data related to the World
+ Wide Web.
+
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "color"></a>
+    <strong>color ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random color for use in HTML and CSS.
+<p> This function returns a random color (as a string) suitable for use
+ in HTML or Cascading Style Sheets.  By default the function returns
+ a color in six-digit hex notation, e.g <code>#a034cc</code>.
+ However, the optional flag <code>format</code> can affect the
+ representation of the color via the following values:
+<p> <ol>
+ <li><code>hex</code> e.g. <code>#a034cc</code> (Default)</li>
+ <li><code>shorthex</code> e.g. <code>#3ca</code></li>
+ <li><code>rgb</code> e.g. <code>rgb(120, 80, 255)</code></li>
+ </ol>
+<p> If the flag <code>greyscale</code> is true then the function
+ generates a greyscale color.  The flag <code>grayscale</code> (with
+ an 'a') is an acceptable alias.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.color() == <span class="string">"#a034cc"</span></pre></li>
+        <li><pre class="example">chance.color { format = <span class="string">"shorthex"</span> } == <span class="string">"#eeb"</span></pre></li>
+        <li><pre class="example">chance.color { format = <span class="string">"rgb"</span> } == <span class="string">"rgb(120, 80, 255)"</span></pre></li>
+        <li><pre class="example">chance.color { greyscale = <span class="keyword">true</span> } == <span class="string">"#3c3c3c"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "ip"></a>
+    <strong>ip ([flags])</strong>
+    </dt>
+    <dd>
+    Generates a random IP address.
+<p> This function generates a random IPv4 address and returns it as a
+ string.  By default the four octets can have any value in the range
+ <code>[0,255]</code>.  However, the function accepts optional flags
+ that will create addresses of a specific class, or addresses with
+ explicit values for certain octets.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#ipv6">chance.ipv6</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.ip() == <span class="string">"132.89.0.200"</span></pre></li>
+        <li><pre class="example">chance.ip { class = <span class="string">"B"</span> } == <span class="string">"190.1.24.30"</span></pre></li>
+        <li><pre class="example">chance.ip { octets = { <span class="number">192</span>, <span class="number">128</span> }} == <span class="string">"192.128.0.1"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "ipv6"></a>
+    <strong>ipv6 ()</strong>
+    </dt>
+    <dd>
+    Generates a random IPv6 address.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#ip">chance.ip</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "tld"></a>
+    <strong>tld ()</strong>
+    </dt>
+    <dd>
+    Generate a random top-level domain.
+<p> This function returns a random top-level domain as a string.  It
+ chooses a domain from the <code>tlds</code> data set.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">chance.tld() == <span class="string">"net"</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "domain"></a>
+    <strong>domain ([flags])</strong>
+    </dt>
+    <dd>
+    Generate a random domain.
+<p> This function returns a random web domain.  By default the domain
+ name contains one to three words and a random top-level domain.
+ The optional flag <code>words</code> controls exactly how many
+ words appear in the domain, and the flag <code>tld</code> will
+ ensure the result uses that specific top-level domain.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="index.html#word">chance.word</a></li>
+         <li><a href="index.html#tld">chance.tld</a></li>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.domain() == <span class="string">"paroo.net"</span></pre></li>
+        <li><pre class="example">chance.domain { words = <span class="number">1</span> } == <span class="string">"fee.gov"</span></pre></li>
+        <li><pre class="example">chance.domain { tld = <span class="string">"co.bh"</span> } == <span class="string">"havashi.co.bh"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "email"></a>
+    <strong>email ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random email address.
+<p> This function will return an email address consisting of random
+ words, belonging to a random domain.  The optional flag
+ <code>domain</code> can specify the exact domain to use.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="index.html#word">chance.word</a></li>
+         <li><a href="index.html#domain">chance.domain</a></li>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.email() == <span class="string">"foo@boohoo.edu"</span></pre></li>
+        <li><pre class="example">chance.email { domain = <span class="string">"example.com"</span> } == <span class="string">"lepiwoa@example.com"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "hashtag"></a>
+    <strong>hashtag ()</strong>
+    </dt>
+    <dd>
+    Returns a random Twitter hashtag.
+<p> This function returns a string representing a Twitter hashtag.  The
+ string will begin with the '#' character and contain one to three
+ random words.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#twitter">chance.twitter</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">chance.hashtag() == <span class="string">"#namarob"</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "twitter"></a>
+    <strong>twitter ()</strong>
+    </dt>
+    <dd>
+    Generates a random Twitter handle.
+<p> This function returns a string representing a random Twitter
+ account name.  The string will begin with '@' followed by one to
+ five words.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#hashtag">chance.hashtag</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">chance.twitter() == <span class="string">"@meepboat"</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "uri"></a>
+    <strong>uri ([flags])</strong>
+    </dt>
+    <dd>
+    Generates a random URI.
+<p> This function returns a random URI.  By default it uses the
+ <code>http</code> protocol, with random names generated for the
+ domain and path.  The function accepts a number of optional flags
+ though:
+<p> <ul>
+ <li><code>domain</code> - Sets an explicit domain name.</li>
+ <li><code>path</code> - Sets an explicit path.</li>
+ <li><code>protocol</code> Sets an explicit protocol.</li>
+ <li><code>extensions</code> - Uses one of the given extensions.</li>
+ </ul>
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#domain">chance.domain</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.uri() == <span class="string">"http://foobar.net/baz"</span></pre></li>
+        <li><pre class="example">chance.uri { domain = <span class="string">"example.com"</span> } == <span class="string">"http://example.com/wee"</span></pre></li>
+        <li><pre class="example">chance.uri { path = <span class="string">"foo/bar"</span> } == <span class="string">"http://narofu.edu/foo/bar"</span></pre></li>
+        <li><pre class="example">chance.uri { extensions = { <span class="string">"png"</span>, <span class="string">"gif"</span> }} == <span class="string">"http://benhoo.gov/dao.png"</span></pre></li>
+        <li><pre class="example">chance.uri { protocol = <span class="string">"ftp"</span> } == <span class="string">"ftp://fufoo.net/veto"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "url"></a>
+    <strong>url ()</strong>
+    </dt>
+    <dd>
+    Generates a random URL.
+<p> This function is an alias for <a href="index.html#uri">chance.uri</a>.
+
+
+
+
 
 
 
@@ -1241,6 +1841,91 @@
 
 </dd>
     <dt>
+    <a name = "unique"></a>
+    <strong>unique (generator, count[, ...])</strong>
+    </dt>
+    <dd>
+    Creates an array of unique values from a given generator.
+<p> This function is similar to <a href="index.html#n">chance.n</a> in that it accepts a
+ generator function, often another <code>chance</code> function, and
+ a number of items to generate.  The function will return an array
+ containing that many items, randomly generated by the given
+ function.  However, unlike <a href="index.html#n">chance.n</a>, the items in the array are
+ guaranteed to be unique.
+<p> Any additional arguments will be given to the generator function on
+ each invocation.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">generator</span>
+         A function that returns random data.
+        </li>
+        <li><span class="parameter">count</span>
+         The number of times to call the generator.
+        </li>
+        <li><span class="parameter">...</span>
+         Additional arguments passed to the generator.
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.unique(chance.month, <span class="number">3</span>) == { <span class="string">"May"</span>, <span class="string">"February"</span>, <span class="string">"April"</span> }</pre></li>
+        <li><pre class="example">chance.unique(chance.character, <span class="number">2</span>, { pool = <span class="string">"aeiou"</span> }) == { <span class="string">"e"</span>, <span class="string">"u"</span> }</pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "hash"></a>
+    <strong>hash ([flags])</strong>
+    </dt>
+    <dd>
+    Create a random hash in hexadecimal.
+<p> This function returns a string representing a hash as a hexadecimal
+ number.  By default the function returns a number with 40 digits
+ (i.e. a string with 40 characters), but the optional flag
+ <code>digits</code> can specify exactly how many digits the hash
+ will have.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#string">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.hash() == <span class="string">"9f3cbf2466d865d82310b9b1e785401556daedce"</span></pre></li>
+        <li><pre class="example">chance.hash { digits = <span class="number">8</span> } == <span class="string">"5d82310b"</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
     <a name = "rpg"></a>
     <strong>rpg (notation)</strong>
     </dt>
@@ -1249,11 +1934,11 @@
 <p> This function returns an array of random numbers simulating the
  results of rolling dice of the kind found in most table-top RPGs
  such as Dungeons and Dragons.  The argument to the function must be
- a string of the form <code>#d#</code> where each <code>#</code> is
- a number; the first represents the number of rolls to make, and the
- second represents the number of sides on the die, e.g. <code>3d6</code>
- returns an array with three numbers, each being the result of rolling
- a six-sided die.
+ a string of the form <code>#d#</code> (case-insensitive) where each
+ <code>#</code> is a number; the first represents the number of
+ rolls to make, and the second represents the number of sides on the
+ die, e.g. <code>3d6</code> returns an array with three numbers,
+ each being the result of rolling a six-sided die.
 
 
 
@@ -1508,7 +2193,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
-<i style="float:right;">Last updated 2015-08-18 13:08:23 </i>
+<i style="float:right;">Last updated 2015-08-22 07:07:50 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
