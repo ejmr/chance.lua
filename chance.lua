@@ -971,9 +971,9 @@ end
 -- representation of the color via the following values:
 --
 -- <ol>
--- <li><code>hex</code> The default.</li>
--- <li><code>shorthex</code> E.g. <code>#3ca</code></li>
--- <li><code>rgb</code> E.g. <code>rgb(120, 80, 255)</code></li>
+-- <li><code>hex</code> e.g. <code>#a034cc</code> (Default)</li>
+-- <li><code>shorthex</code> e.g. <code>#3ca</code></li>
+-- <li><code>rgb</code> e.g. <code>rgb(120, 80, 255)</code></li>
 -- </ol>
 --
 -- @usage chance.color() == "#a034cc"
