@@ -976,27 +976,38 @@ end
 -- <li><code>rgb</code> e.g. <code>rgb(120, 80, 255)</code></li>
 -- </ol>
 --
+-- If the flag <code>greyscale</code> is true then the function
+-- generates a greyscale color.  The flag <code>grayscale</code> (with
+-- an 'a') is an acceptable alias.
+--
 -- @usage chance.color() == "#a034cc"
 -- @usage chance.color { format = "shorthex" } == "#eeb"
 -- @usage chance.color { format = "rgb" } == "rgb(120, 80, 255)"
+-- @usage chance.color { greyscale = true } == "#3c3c3c"
 --
 -- @param[opt] flags
 -- @treturn string
 function chance.color(flags)
-    local color = "#" .. chance.string { length = 6, group = "hex" }
+    local red, green, blue = unpack(chance.n(chance.string, 3, { length = 2, group = "hex" }))
 
     if flags then
         if flags["format"] == "shorthex" then
-            color = "#" .. chance.string { length = 3, group = "hex" }
+            red, green, blue = unpack(chance.n(chance.string, 3, { length = 1, group = "hex" }))
         elseif flags["format"] == "rgb" then
-            color = string.format("rgb(%i, %i, %i)",
-                                  chance.random(0, 255),
-                                  chance.random(0, 255),
-                                  chance.random(0, 255))
+            red, green, blue = unpack(chance.n(chance.natural, 3, { min = 0, max = 255 }))
+        end
+
+        if flags["greyscale"] or flags["grayscale"] then
+            green = red
+            blue = red
         end
     end
 
-    return color
+    if flags and flags["format"] == "rgb" then
+        return string.format("rgb(%i, %i, %i)", red, green, blue)
+    else
+        return "#" .. red .. green .. blue
+    end
 end
 
 --- Generates a random IP address.

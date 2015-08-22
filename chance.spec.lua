@@ -480,6 +480,13 @@ describe("The Web API", function ()
                 assert.is.truthy(b >= 0 and b <= 255)
             end
         end)
+
+        it("Can return a random greyscale color", function ()
+            local hexColor = chance.color { greyscale = true }
+            local rgbColor = chance.color { greyscale = true, format = "rgb" }
+            assert.is.like_pattern("^#(%x+)%1%1$", hexColor)
+            assert.is.like_pattern("^rgb%((%d+), %1, %1%)$", rgbColor)
+        end)
     end)
 
     describe("chance.ip()", function ()
