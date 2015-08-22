@@ -64,6 +64,23 @@ local function makeShallowCopy(array)
     return copy
 end
 
+--- Creates a string by calling a generator repeatedly.
+--
+-- @local
+-- @tparam func generator
+-- @tparam int|{int,int} count
+-- @tparam[opt] string separator
+-- @treturn string
+local function makeStringFrom(generator, count, separator)
+    local amount = count
+
+    if type(count) == "table" then
+        amount = chance.random(count[1], count[2])
+    end
+
+    return table.concat(chance.n(generator, amount), separator or "")
+end
+
 --- Seeds the random number generator.
 --
 -- This function accepts one parameter: a seed, which it uses to seed
@@ -531,7 +548,7 @@ function chance.paragraph(flags)
         count = flags["sentences"]
     end
 
-    return table.concat(chance.n(chance.sentence, count), " ")
+    return makeStringFrom(chance.sentence, count)
 end
 
 --- Person
@@ -1003,7 +1020,7 @@ function chance.domain(flags)
         end
     end
 
-    return table.concat(chance.n(chance.word, wordCount)) .. "." .. tld
+    return makeStringFrom(chance.word, wordCount) .. "." .. tld
 end
 
 --- Returns a random email address.
@@ -1042,7 +1059,7 @@ end
 --
 -- @treturn string
 function chance.hashtag()
-    return "#" .. table.concat(chance.n(chance.word, chance.random(1, 3)), "")
+    return "#" .. makeStringFrom(chance.word, {1, 3})
 end
 
 --- Generates a random Twitter handle.
@@ -1056,7 +1073,7 @@ end
 --
 -- @treturn string
 function chance.twitter()
-    return "@" .. table.concat(chance.n(chance.word, chance.random(1, 5)), "")
+    return "@" .. makeStringFrom(chance.word, {1, 5})
 end
 
 --- Generates a random URI.
@@ -1086,7 +1103,7 @@ end
 function chance.uri(flags)
     local protocol = "http"
     local domain = chance.domain()
-    local path = table.concat(chance.n(chance.word, chance.random(1, 2)), "")
+    local path = makeStringFrom(chance.word, {1, 2})
     local extensions = {}
 
     if flags then

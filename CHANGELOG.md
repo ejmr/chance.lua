@@ -36,6 +36,9 @@ to [Semantic Versioning](http://semver.org/).
     - The `unique_array()` assertion
     - The `like_pattern()` assertion
 
+- Internal Utilities that are **not** part of the public API:
+    - `makeStringFrom()`
+
 ### Changed
 
 - `is_within_range()` is now simply `within_range()`, which makes it
