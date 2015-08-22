@@ -64,6 +64,23 @@ local function makeShallowCopy(array)
     return copy
 end
 
+--- Creates a string by calling a generator repeatedly.
+--
+-- @local
+-- @tparam func generator
+-- @tparam int|{int,int} count
+-- @tparam[opt] string separator
+-- @treturn string
+local function makeStringFrom(generator, count, separator)
+    local amount = count
+
+    if type(count) == "table" then
+        amount = chance.random(count[1], count[2])
+    end
+
+    return table.concat(chance.n(generator, amount), separator or "")
+end
+
 --- Seeds the random number generator.
 --
 -- This function accepts one parameter: a seed, which it uses to seed
@@ -531,7 +548,7 @@ function chance.paragraph(flags)
         count = flags["sentences"]
     end
 
-    return table.concat(chance.n(chance.sentence, count), " ")
+    return makeStringFrom(chance.sentence, count)
 end
 
 --- Person
@@ -937,6 +954,291 @@ function chance.ampm()
         return "pm"
     end
 end
+
+--- Web
+--
+-- These are functions for generating random data related to the World
+-- Wide Web.
+--
+-- @section Web
+
+--- Returns a random color for use in HTML and CSS.
+--
+-- This function returns a random color (as a string) suitable for use
+-- in HTML or Cascading Style Sheets.  By default the function returns
+-- a color in six-digit hex notation, e.g <code>#a034cc</code>.
+-- However, the optional flag <code>format</code> can affect the
+-- representation of the color via the following values:
+--
+-- <ol>
+-- <li><code>hex</code> e.g. <code>#a034cc</code> (Default)</li>
+-- <li><code>shorthex</code> e.g. <code>#3ca</code></li>
+-- <li><code>rgb</code> e.g. <code>rgb(120, 80, 255)</code></li>
+-- </ol>
+--
+-- If the flag <code>greyscale</code> is true then the function
+-- generates a greyscale color.  The flag <code>grayscale</code> (with
+-- an 'a') is an acceptable alias.
+--
+-- @usage chance.color() == "#a034cc"
+-- @usage chance.color { format = "shorthex" } == "#eeb"
+-- @usage chance.color { format = "rgb" } == "rgb(120, 80, 255)"
+-- @usage chance.color { greyscale = true } == "#3c3c3c"
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.color(flags)
+    local red, green, blue = unpack(chance.n(chance.string, 3, { length = 2, group = "hex" }))
+
+    if flags then
+        if flags["format"] == "shorthex" then
+            red, green, blue = unpack(chance.n(chance.string, 3, { length = 1, group = "hex" }))
+        elseif flags["format"] == "rgb" then
+            red, green, blue = unpack(chance.n(chance.natural, 3, { min = 0, max = 255 }))
+        end
+
+        if flags["greyscale"] or flags["grayscale"] then
+            green = red
+            blue = red
+        end
+    end
+
+    if flags and flags["format"] == "rgb" then
+        return string.format("rgb(%i, %i, %i)", red, green, blue)
+    else
+        return "#" .. red .. green .. blue
+    end
+end
+
+--- Generates a random IP address.
+--
+-- This function generates a random IPv4 address and returns it as a
+-- string.  By default the four octets can have any value in the range
+-- <code>[0,255]</code>.  However, the function accepts optional flags
+-- that will create addresses of a specific class, or addresses with
+-- explicit values for certain octets.
+--
+-- @usage chance.ip() == "132.89.0.200"
+-- @usage chance.ip { class = "B" } == "190.1.24.30"
+-- @usage chance.ip { octets = { 192, 128 }} == "192.128.0.1"
+--
+-- @see chance.ipv6
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.ip(flags)
+    local octets = chance.n(chance.natural, 4, { max = 255 })
+    local rangesForClass = {
+        ["A"] = {0, 127},
+        ["B"] = {128, 191},
+        ["C"] = {192, 223},
+    }
+
+    if flags then
+        if flags["class"] then
+            local range = rangesForClass[string.upper(flags["class"])]
+            octets[1] = chance.random(range[1], range[2])
+        end
+        if flags["octets"] then
+            for index,value in ipairs(flags["octets"]) do
+                octets[index] = value
+            end
+        end
+    end
+
+    return string.format("%i.%i.%i.%i",
+                         octets[1],
+                         octets[2],
+                         octets[3],
+                         octets[4])
+end
+
+--- Generates a random IPv6 address.
+--
+-- @see chance.ip
+--
+-- @treturn string
+function chance.ipv6()
+    local octet = function ()
+        return chance.string { length = 4, group = "hex" }
+    end
+    return makeStringFrom(octet, 8, ":")
+end
+
+--- Top-Level Domains
+--
+-- @see chance.tld
+-- @local
+-- @field tlds
+-- @table chance.dataSets
+chance.set("tlds", {
+        "com",
+        "org",
+        "net",
+        "edu",
+        "gov",
+        "int",
+        "mil",
+})
+
+--- Generate a random top-level domain.
+--
+-- This function returns a random top-level domain as a string.  It
+-- chooses a domain from the <code>tlds</code> data set.
+--
+-- @usage chance.tld() == "net"
+--
+-- @treturn string
+function chance.tld()
+    return chance.fromSet("tlds")
+end
+
+--- Generate a random domain.
+--
+-- This function returns a random web domain.  By default the domain
+-- name contains one to three words and a random top-level domain.
+-- The optional flag <code>words</code> controls exactly how many
+-- words appear in the domain, and the flag <code>tld</code> will
+-- ensure the result uses that specific top-level domain.
+--
+-- @usage chance.domain() == "paroo.net"
+-- @usage chance.domain { words = 1 } == "fee.gov"
+-- @usage chance.domain { tld = "co.bh" } == "havashi.co.bh"
+--
+-- @see chance.word
+-- @see chance.tld
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.domain(flags)
+    local wordCount = chance.random(1, 3)
+    local tld = chance.tld()
+
+    if flags then
+        if flags["words"] then
+            wordCount = flags["words"]
+        end
+        if flags["tld"] then
+            tld = flags["tld"]
+        end
+    end
+
+    return makeStringFrom(chance.word, wordCount) .. "." .. tld
+end
+
+--- Returns a random email address.
+--
+-- This function will return an email address consisting of random
+-- words, belonging to a random domain.  The optional flag
+-- <code>domain</code> can specify the exact domain to use.
+--
+-- @usage chance.email() == "foo@boohoo.edu"
+-- @usage chance.email { domain = "example.com" } == "lepiwoa@example.com"
+--
+-- @see chance.word
+-- @see chance.domain
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.email(flags)
+    local name = chance.word()
+    local domain = chance.domain()
+
+    if flags and flags["domain"] then
+        domain = flags["domain"]
+    end
+
+    return name .. "@" .. domain
+end
+
+--- Returns a random Twitter hashtag.
+--
+-- This function returns a string representing a Twitter hashtag.  The
+-- string will begin with the '#' character and contain one to three
+-- random words.
+--
+-- @usage chance.hashtag() == "#namarob"
+-- @see chance.twitter
+--
+-- @treturn string
+function chance.hashtag()
+    return "#" .. makeStringFrom(chance.word, {1, 3})
+end
+
+--- Generates a random Twitter handle.
+--
+-- This function returns a string representing a random Twitter
+-- account name.  The string will begin with '@' followed by one to
+-- five words.
+--
+-- @usage chance.twitter() == "@meepboat"
+-- @see chance.hashtag
+--
+-- @treturn string
+function chance.twitter()
+    return "@" .. makeStringFrom(chance.word, {1, 5})
+end
+
+--- Generates a random URI.
+--
+-- This function returns a random URI.  By default it uses the
+-- <code>http</code> protocol, with random names generated for the
+-- domain and path.  The function accepts a number of optional flags
+-- though:
+--
+-- <ul>
+-- <li><code>domain</code> - Sets an explicit domain name.</li>
+-- <li><code>path</code> - Sets an explicit path.</li>
+-- <li><code>protocol</code> Sets an explicit protocol.</li>
+-- <li><code>extensions</code> - Uses one of the given extensions.</li>
+-- </ul>
+--
+-- @usage chance.uri() == "http://foobar.net/baz"
+-- @usage chance.uri { domain = "example.com" } == "http://example.com/wee"
+-- @usage chance.uri { path = "foo/bar" } == "http://narofu.edu/foo/bar"
+-- @usage chance.uri { extensions = { "png", "gif" }} == "http://benhoo.gov/dao.png"
+-- @usage chance.uri { protocol = "ftp" } == "ftp://fufoo.net/veto"
+--
+-- @see chance.domain
+--
+-- @param[opt] flags
+-- @treturn string
+function chance.uri(flags)
+    local protocol = "http"
+    local domain = chance.domain()
+    local path = makeStringFrom(chance.word, {1, 2})
+    local extensions = {}
+
+    if flags then
+        if flags["protocol"] then
+            protocol = flags["protocol"]
+        end
+        if flags["domain"] then
+            domain = flags["domain"]
+        end
+        if flags["path"] then
+            path = flags["path"]
+        end
+        if flags["extensions"] then
+            extensions = flags["extensions"]
+        end
+    end
+
+    local uri = protocol .. "://" .. domain .. "/" .. path
+
+    if #extensions > 0 then
+        uri = uri .. chance.pick(extensions)
+    end
+
+    return uri
+end
+
+--- Generates a random URL.
+--
+-- This function is an alias for @{chance.uri}.
+--
+-- @function chance.url
+chance.url = chance.uri
 
 --- Miscellaneous
 --

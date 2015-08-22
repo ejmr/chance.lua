@@ -24,7 +24,23 @@ to [Semantic Versioning](http://semver.org/).
     - `chance.unique()`
     - `chance.hash()`
 
-- `unique_array()` assertion for the test suite.
+- The `Web` API:
+    - `chance.tld()`
+    - `chance.domain()`
+    - `chance.email()`
+    - `chance.hashtag()`
+    - `chance.twitter()`
+    - `chance.uri()` and `chance.url()`
+    - `chance.color()`
+    - `chance.ip()`
+    - `chance.ipv6()`
+
+- The Test Suite:
+    - The `unique_array()` assertion
+    - The `like_pattern()` assertion
+
+- Internal Utilities that are **not** part of the public API:
+    - `makeStringFrom()`
 
 ### Changed
 

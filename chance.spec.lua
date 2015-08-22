@@ -4,6 +4,23 @@ local say    = require("say")
 
 say:set_namespace("en")
 
+-- This assertion requires two arguments: a pattern (as a string) and
+-- another string to test against that pattern.  In this context
+-- "pattern" means the kind acceptable to string.match() and similar
+-- standard Lua functions.  This assertion is true if the given string
+-- matches the pattern.
+local function like_pattern(state, arguments)
+    local pattern = arguments[1]
+    local datum = arguments[2]
+    return string.match(datum, pattern) ~= nil
+end
+
+say:set("assertion.like_pattern.positive", "Expected pattern %s to match the string:\n%s")
+say:set("assertion.like_pattern.negative", "Expected pattern %s to not match the string:\n%s")
+assert:register("assertion", "like_pattern", like_pattern,
+                "assertion.like_pattern.positive",
+                "assertion.like_pattern.negative")
+
 -- This assertion requires one argument: an array.  The assertion is
 -- true if the array contains unique values.  For example, the
 -- assertion is true for `{ 1, 2, 3 }` but false for `{ 1, 1, 2 }`.
@@ -431,6 +448,206 @@ describe("The Time API", function ()
         it("Can return only weekends", function ()
             assert.in_array(chance.day { weekends = true }, weekends)
             assert.in_array(chance.day { weekdays = false }, weekends)
+        end)
+    end)
+
+end)
+
+describe("The Web API", function ()
+
+    before_each(function () chance.seed(os.time()) end)
+
+    describe("chance.color()", function ()
+        local hexPattern = "^#%x+$"
+
+        it("Returns a color in six-digit hexadecimal format by default", function ()
+            local color = chance.color()
+            assert.is.like_pattern(hexPattern, color)
+            assert.is.equal(string.len(color), 7)
+        end)
+
+        it("Can return a color in short hexadecimal format", function ()
+            local color = chance.color { format = "shorthex" }
+            assert.is.like_pattern(hexPattern, color)
+            assert.is.equal(string.len(color), 4)
+        end)
+
+        it("Can return a color in rgb() format", function ()
+            local color = chance.color { format = "rgb" }
+            for r,g,b in string.gmatch(color, "^rgb%(%s?(%d+),%s?(%d+),%s?(%d+)%s?%)$") do
+                assert.is.truthy(r >= 0 and r <= 255)
+                assert.is.truthy(g >= 0 and g <= 255)
+                assert.is.truthy(b >= 0 and b <= 255)
+            end
+        end)
+
+        it("Can return a random greyscale color", function ()
+            local hexColor = chance.color { greyscale = true }
+            local rgbColor = chance.color { greyscale = true, format = "rgb" }
+            assert.is.like_pattern("^#(%x+)%1%1$", hexColor)
+            assert.is.like_pattern("^rgb%((%d+), %1, %1%)$", rgbColor)
+        end)
+    end)
+
+    describe("chance.ip()", function ()
+        local ipPattern = "^(%d+)%.(%d+)%.(%d+)%.(%d+)$"
+
+        local extractOctets = function (ip)
+            local octets = {}
+            for value in string.gmatch(ip, "(%d+)") do
+                table.insert(octets, tonumber(value))
+            end
+            return octets
+        end
+
+        it("Returns a completely random IP address by default", function ()
+            local ip = chance.ip()
+            assert.is.like_pattern(ipPattern, ip)
+            for _,octet in ipairs(extractOctets(ip)) do
+                assert.is_true(octet >= 0 and octet <= 255)
+            end
+        end)
+
+        it("Can create IP addresses of the A class", function ()
+            local ip = chance.ip { class = "A" }
+            local octets = extractOctets(ip)
+            assert.is.like_pattern(ipPattern, ip)
+            assert.is_true(octets[1] >= 0 and octets[1] <= 127)
+            for i = 2, 4 do
+                assert.is_true(octets[i] >= 0 and octets[i] <= 255)
+            end
+        end)
+
+        it("Can create IP addresses of the B class", function ()
+            local ip = chance.ip { class = "B" }
+            local octets = extractOctets(ip)
+            assert.is.like_pattern(ipPattern, ip)
+            assert.is_true(octets[1] >= 128 and octets[1] <= 191)
+            for i = 2, 4 do
+                assert.is_true(octets[i] >= 0 and octets[i] <= 255)
+            end
+        end)
+
+        it("Can create IP addresses of the C class", function ()
+            local ip = chance.ip { class = "C" }
+            local octets = extractOctets(ip)
+            assert.is.like_pattern(ipPattern, ip)
+            assert.is_true(octets[1] >= 192 and octets[1] <= 223)
+            for i = 2, 4 do
+                assert.is_true(octets[i] >= 0 and octets[i] <= 255)
+            end
+        end)
+
+        it("Can set explicit values for octets", function ()
+            local ip = chance.ip { octets = { 192, 168 }}
+            local octets = extractOctets(ip)
+            assert.is.like_pattern(ipPattern, ip)
+            assert.is.equal(octets[1], 192)
+            assert.is.equal(octets[2], 168)
+            for i = 3, 4 do
+                assert.is_true(octets[i] >= 0 and octets[i] <= 255)
+            end
+        end)
+    end)
+
+    describe("chance.ipv6()", function ()
+        it("Returns a random IPv6 address", function ()
+            assert.is.like_pattern("^%x+:%x+:%x+:%x+:%x+:%x+:%x+:%x+$", chance.ipv6())
+        end)
+    end)
+
+    describe("chance.tld()", function ()
+        it("Returns a random top-level domain from the 'tlds' data set", function ()
+            assert.is.in_array(chance.tld(), chance.dataSets["tlds"])
+        end)
+    end)
+
+    describe("chance.domain()", function ()
+        it("Returns a domain of random words and a random TLD by default", function ()
+            local domain = chance.domain()
+            for name,tld in string.gmatch(domain, "(%w+)%.([%w%.]+)") do
+                -- The length of one to three words.
+                assert.is.within_range(string.len(name), 2, 54)
+                assert.is.in_array(tld, chance.dataSets["tlds"])
+            end
+        end)
+
+        it("Can use an explicit top-level domain", function ()
+            local domain = chance.domain { tld = "name" }
+            for tld in string.gmatch(domain, "%w+%.(%w+)") do
+                assert.is.equal(tld, "name")
+            end
+        end)
+    end)
+
+    describe("chance.email()", function ()
+        it("Returns a random name with a random domain by default", function ()
+            local email = chance.email()
+            for name,domain,tld in string.gmatch(email, "(%w+)@(%w+)%.(%w+)") do
+                assert.is.in_array(tld, chance.dataSets["tlds"])
+            end
+        end)
+
+        it("Can create an email address for an explicit domain", function ()
+            local email = chance.email { domain = "example.com" }
+            for name,domain in string.gmatch(email, "(%w+)@([%w%.]+)") do
+                assert.is.equal(domain, "example.com")
+            end
+        end)
+    end)
+
+    describe("chance.hashtag()", function ()
+        it("Returns a Twitter hashtag built of random words", function ()
+            assert.is.like_pattern("^#%w+$", chance.hashtag())
+        end)
+    end)
+
+    describe("chance.twitter()", function ()
+        it("Returns a random Twitter handle/username", function ()
+            assert.is.like_pattern("^@%w+$", chance.twitter())
+        end)
+    end)
+
+    describe("chance.uri() and chance.url()", function ()
+        it("Returns a random domain and path by default", function ()
+            assert.is.like_pattern("^http://[%w%.]+/%w+$", chance.uri())
+            assert.is.like_pattern("^http://[%w%.]+/%w+$", chance.url())
+        end)
+
+        it("Allows setting an explicit path", function ()
+            local path = "foo/bar"
+            assert.is.like_pattern("^http://[%w%.]+/" .. path .. "$",
+                                   chance.uri { path = path })
+            assert.is.like_pattern("^http://[%w%.]+/" .. path .. "$",
+                                   chance.url { path = path })
+        end)
+
+        it("Allows setting an explicit domain", function ()
+            local domain = "www.example.com"
+            assert.is.like_pattern("^http://" .. domain .. "/%w+$",
+                                   chance.uri { domain = domain })
+        end)
+
+        it("Allows setting an explicit protocol", function ()
+            local protocol = "ftp"
+            assert.is.like_pattern("^" .. protocol .. "://[%w%.]+/%w+$",
+                                   chance.uri { protocol = protocol })
+            assert.is.like_pattern("^" .. protocol .. "://[%w%.]+/%w+$",
+                                   chance.url { protocol = protocol })
+        end)
+
+        it("Allows setting explicit possible file extensions", function ()
+            local extensions = { "png", "jpeg", "gif" }
+            local uri = chance.uri { extensions = extensions }
+            local url = chance.url { extensions = extensions }
+
+            for x in string.gmatch(uri, "%.(%w+)$") do
+                assert.is.in_array(x, extensions)
+            end
+
+            for x in string.gmatch(url, "%.(%w+)$") do
+                assert.is.in_array(x, extensions)
+            end
         end)
     end)
 
