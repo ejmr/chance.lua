@@ -1295,7 +1295,7 @@ end
 -- select from, and the second a table of numbers indicating the
 -- weight for each value, i.e. the probability the function will
 -- select that value.  <strong>If the two arguments are not tables of
--- the same length then the function returns <code>nil<code>.</strong>
+-- the same length then the function returns <code>nil</code>.</strong>
 --
 -- @usage chance.weighted({"a", "b"}, {100, 1})
 -- -- This will return "a" one-hundred times more often than
