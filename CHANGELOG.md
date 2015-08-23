@@ -11,6 +11,7 @@ to [Semantic Versioning](http://semver.org/).
 
 - The `Miscellaneous` API:
     - `chance.normal()`
+    - `chance.weighted()`
 
 ### Changed
 

@@ -716,6 +716,31 @@ describe("The Miscellaneous API", function ()
         end)
     end)
 
+    describe("chance.weighted()", function ()
+        it("Returns a random element from an array based on given weights", function ()
+            local iteration = 1
+            local countA, countB = 0, 0
+
+            repeat
+                local choice = chance.weighted({"a", "b"}, {10, 1})
+
+                if choice == "a" then
+                    countA = countA + 1
+                elseif choice == "b" then
+                    countB = countB + 1
+                end
+
+                iteration = iteration + 1
+            until iteration == 100
+
+            assert.is_true(countA >= countB)
+        end)
+
+        it("Returns nil if the arguments do not have the same length", function ()
+            assert.is.equal(nil, chance.weighted({"foo"}, {1, 2, 3}))
+        end)
+    end)
+
     describe("chance.hash()", function ()
         it("Returns a 40 digit hexadecimal number as a string by default", function ()
             local hash = chance.hash()

@@ -1289,6 +1289,43 @@ function chance.normal(flags)
     return deviation * normal + mean
 end
 
+--- Randomly selects an item from an array of weighted values.
+--
+-- This function accepts two arrays: the first a table of values to
+-- select from, and the second a table of numbers indicating the
+-- weight for each value, i.e. the probability the function will
+-- select that value.  <strong>If the two arguments are not tables of
+-- the same length then the function returns <code>nil<code>.</strong>
+--
+-- @usage chance.weighted({"a", "b"}, {100, 1})
+-- -- This will return "a" one-hundred times more often than
+-- -- it will return "b".
+--
+-- @tparam table values
+-- @tparam table weights
+-- @return A element from the <code>values</code> array
+function chance.weighted(values, weights)
+    if #values ~= #weights then return nil end
+
+    local sum = 0
+    for _,weight in ipairs(weights) do
+        sum = sum + weight
+    end
+
+    local chosenIndex = chance.natural { min = 1, max = sum }
+    local total = 0
+    for index,weight in ipairs(weights) do
+        if chosenIndex <= total + weight then
+            chosenIndex = index
+            break
+        else
+            total = total + weight
+        end
+    end
+
+    return values[chosenIndex]
+end
+
 --- Create an array of random data from a given generator.
 --
 -- This function requires two arguments: a function which generates
