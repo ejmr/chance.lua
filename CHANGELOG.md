@@ -5,6 +5,14 @@ to [Semantic Versioning](http://semver.org/).
 
 
 
+## Unreleased
+
+### Changed
+
+- Improved the documentation for `chance.url()`
+
+
+
 ## [0.3.0] - 2015-08-22
 
 ### Fixed

@@ -1237,6 +1237,8 @@ end
 --
 -- This function is an alias for @{chance.uri}.
 --
+-- @param[opt] flags
+-- @treturn string
 -- @function chance.url
 chance.url = chance.uri
 
