@@ -36,7 +36,7 @@ local chance = {}
 chance.VERSION = setmetatable(
     {
         ["MAJOR"] = 0,
-        ["MINOR"] = 3,
+        ["MINOR"] = 4,
         ["PATCH"] = 0,
         ["LABEL"] = "-pre-release",
     },
