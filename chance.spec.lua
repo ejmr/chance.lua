@@ -702,6 +702,20 @@ describe("The Miscellaneous API", function ()
 
     before_each(function () chance.seed(os.time()) end)
 
+    describe("chance.normal()", function ()
+        it("Returns a number with a mean of zero a standard deviation of one by default", function ()
+            assert.is.within_range(chance.normal(), -2, 2)
+        end)
+
+        it("Accepts an optional mean", function ()
+            assert.is.within_range(chance.normal { mean = 100 }, 98, 102)
+        end)
+
+        it("Accepts an optional standard deviation", function ()
+            assert.is.within_range(chance.normal { mean = 100, deviation = 15 }, 85, 115)
+        end)
+    end)
+
     describe("chance.hash()", function ()
         it("Returns a 40 digit hexadecimal number as a string by default", function ()
             local hash = chance.hash()

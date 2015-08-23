@@ -1249,6 +1249,46 @@ chance.url = chance.uri
 --
 -- @section Miscellaneous
 
+--- Returns a normally-distributed random value.
+--
+-- By default the function returns a value with a mean of zero and a
+-- standard deviation of one.  However, the optional flags
+-- <code>mean</code> and <code>deviation</code> can provide different
+-- values to use for each.
+--
+-- @usage chance.normal() == 0.2938473
+-- @usage chance.normal { mean = 100 } == 99.172493
+-- @usage chance.normal { mean = 100, deviation = 15 } == 85.83741
+--
+-- @param[opt] flags
+-- @treturn number
+function chance.normal(flags)
+    local mean, deviation = 0, 1
+
+    if flags then
+        if flags["mean"] then
+            mean = flags["mean"]
+        end
+        if flags["dev"] then
+            deviation = flags["dev"]
+        end
+    end
+
+    -- The Marsaglia Polar Method
+    -- https://en.wikipedia.org/wiki/Marsaglia_polar_method
+    local s, u, v
+
+    repeat
+        u = chance.random() * 2 - 1
+        v = chance.random() * 2 - 1
+        s = u * u + v * v
+    until s < 1
+
+    local normal = u * math.sqrt(-2 * math.log(s) / s)
+
+    return deviation * normal + mean
+end
+
 --- Create an array of random data from a given generator.
 --
 -- This function requires two arguments: a function which generates

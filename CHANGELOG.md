@@ -7,6 +7,11 @@ to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Added
+
+- The `Miscellaneous` API:
+    - `chance.normal()`
+
 ### Changed
 
 - Improved the documentation for `chance.url()`
