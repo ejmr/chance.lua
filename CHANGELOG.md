@@ -7,6 +7,11 @@ to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## Added
+
+- The `Person` API
+    - `chance.ssn()`
+
 ### Changed
 
 - Both `chance.lua` and `chance.spec.lua` now have form feed

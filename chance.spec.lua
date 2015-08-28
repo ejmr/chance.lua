@@ -361,6 +361,25 @@ describe("The Person API", function ()
         end)
     end)
 
+    describe("chance.ssn()", function ()
+        it("Creates a random United States Social Security Number", function ()
+            assert.is.like_pattern("^%d%d%d%-%d%d%-%d%d%d%d$", chance.ssn())
+        end)
+
+        it("Never creates all zeros for any part of the number", function ()
+            local ssn = chance.ssn()
+            assert.is_not.like_pattern("^000%-%d%d%-%d%d%d%d$", ssn)
+            assert.is_not.like_pattern("^%d%d%d%-00%-%d%d%d%d$", ssn)
+            assert.is_not.like_pattern("^%d%d%d%-%d%d%-0000$", ssn)
+        end)
+
+        it("Never uses 666 or 900-999 for the first three digits", function ()
+            local ssn = chance.ssn()
+            assert.is_not.like_pattern("^666%-%d%d%-%d%d%d%d$", ssn)
+            assert.is_not.like_pattern("^9%d%d%-%d%d%-%d%d%d%d$", ssn)
+        end)
+    end)
+
 end)
 
 

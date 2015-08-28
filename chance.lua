@@ -560,6 +560,45 @@ end
 --
 -- @section Person
 
+--- Generates a random United States Social Security Number.
+--
+-- This function generates a random United States Social Security
+-- Number and returns it as a string, <code>AAA-GG-SSSS</code>, where
+-- the digits represent the Area, Group, and Serial numbers,
+-- respectively.  The function will not return all zeros for any part
+-- of the number, nor will the Area ever be '666' or '900-999', per
+-- the standards on Social Security Numbers.
+--
+-- @usage chance.ssn() == "343-74-0571"
+--
+-- @treturn string
+function chance.ssn()
+    local area, group, serial
+
+    while true do
+        area = chance.string { length = 3, group = "digit" }
+        if not area:match("000") and not area:match("9%d%d") then
+            break
+        end
+    end
+
+    while true do
+        group = chance.string { length = 2, group = "digit" }
+        if not group:match("00") then
+            break
+        end
+    end
+
+    while true do
+        serial = chance.string { length = 4, group = "digit" }
+        if not serial:match("0000") then
+            break
+        end
+    end
+
+    return string.format("%s-%s-%s", area, group, serial)
+end
+
 --- The possible genders returned by @{chance.gender}.
 --
 -- This is a table of strings which the @{chance.gender} function will
