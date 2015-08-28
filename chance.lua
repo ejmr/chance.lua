@@ -223,6 +223,7 @@ function chance.fromSet(key)
     end
 end
 
+
 --- Basic
 --
 -- These are functions that generate simple types of data such as
@@ -391,6 +392,7 @@ function chance.string(flags)
     return result
 end
 
+
 --- Text
 --
 -- These are functions for generating random text.
@@ -551,6 +553,7 @@ function chance.paragraph(flags)
     return makeStringFrom(chance.sentence, count)
 end
 
+
 --- Person
 --
 -- These are functions for generating random data about people.
@@ -741,6 +744,7 @@ function chance.age(flags)
     return chance.random(1, 120)
 end
 
+
 --- Time
 --
 -- These are functions for generating random times.
@@ -955,6 +959,7 @@ function chance.ampm()
     end
 end
 
+
 --- Web
 --
 -- These are functions for generating random data related to the World
@@ -1242,6 +1247,7 @@ end
 -- @function chance.url
 chance.url = chance.uri
 
+
 --- Miscellaneous
 --
 -- These are functions for generating data which does not easily fall
@@ -1512,6 +1518,7 @@ createDieRollFunction("20")
 -- @treturn number
 createDieRollFunction("100")
 
+
 --- Helpers
 --
 -- These are functions that help select random data from existing
@@ -1574,5 +1581,6 @@ function chance.shuffle(array)
     return shuffled
 end
 
+
 -- Return the module.  This should always be the final line of code.
 return chance

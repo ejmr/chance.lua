@@ -5,6 +5,15 @@ to [Semantic Versioning](http://semver.org/).
 
 
 
+## Unreleased
+
+### Changed
+
+- Both `chance.lua` and `chance.spec.lua` now have form feed
+  characters that divide up the sections into "pages".
+
+
+
 ## [0.4.0] - 2015-08-23
 
 ### Added

@@ -100,8 +100,7 @@ assert:register("assertion", "in_array", in_array,
                 "assertion.in_array.positive",
                 "assertion.in_array.negative")
 
-
-
+
 describe("The Core API", function ()
 
     it("Accepts a number to seed the RNG", function ()
@@ -170,6 +169,7 @@ describe("The Core API", function ()
     end)
 end)
 
+
 describe("The Basic API", function ()
 
     before_each(function () chance.seed(os.time()) end)
@@ -233,6 +233,7 @@ describe("The Basic API", function ()
 
 end)
 
+
 describe("The Text API", function ()
 
     before_each(function () chance.seed(os.time()) end)
@@ -306,6 +307,7 @@ describe("The Text API", function ()
 
 end)
 
+
 describe("The Person API", function ()
 
     before_each(function () chance.seed(os.time()) end)
@@ -361,6 +363,7 @@ describe("The Person API", function ()
 
 end)
 
+
 describe("The Time API", function ()
 
     before_each(function () chance.seed(os.time()) end)
@@ -453,6 +456,7 @@ describe("The Time API", function ()
 
 end)
 
+
 describe("The Web API", function ()
 
     before_each(function () chance.seed(os.time()) end)
@@ -653,6 +657,7 @@ describe("The Web API", function ()
 
 end)
 
+
 describe("The Helper API", function ()
 
     before_each(function () chance.seed(os.time()) end)
@@ -698,6 +703,7 @@ describe("The Helper API", function ()
 
 end)
 
+
 describe("The Miscellaneous API", function ()
 
     before_each(function () chance.seed(os.time()) end)
