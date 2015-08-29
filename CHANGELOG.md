@@ -7,6 +7,12 @@ to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## Fixed
+
+- The documentation for `chance.core.fromSet()` now correctly says
+  that the `key` parameter can only be a string.  The parameter cannot
+  be a function as the documentation erroneously said.
+
 ## Added
 
 - The `Person` API

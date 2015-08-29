@@ -210,7 +210,7 @@ end
 -- @see chance.core.set
 -- @see chance.core.dataSets
 --
--- @tparam string|function key
+-- @tparam string key
 -- @return Random data of potentially any type, or nil if there is no
 -- data set for the given <code>key</code>
 function chance.core.fromSet(key)
