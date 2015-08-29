@@ -14,6 +14,11 @@ to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+- All API functions now belong to sub-tables named after their
+  "section" or group.  For example, `chance.random()` is now
+  `chance.core.random()`, `chance.bool()` is now named
+  `chance.basic.bool()`, and so on.
+
 - Both `chance.lua` and `chance.spec.lua` now have form feed
   characters that divide up the sections into "pages".
 

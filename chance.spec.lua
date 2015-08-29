@@ -104,29 +104,29 @@ assert:register("assertion", "in_array", in_array,
 describe("The Core API", function ()
 
     it("Accepts a number to seed the RNG", function ()
-        assert.has_no.errors(function () chance.seed(os.time()) end)
-        assert.has.errors(function () chance.seed("foo") end)
+        assert.has_no.errors(function () chance.core.seed(os.time()) end)
+        assert.has.errors(function () chance.core.seed("foo") end)
     end)
 
-    describe("chance.random()", function ()
+    describe("chance.core.random()", function ()
 
-        before_each(function () chance.seed(os.time()) end)
+        before_each(function () chance.core.seed(os.time()) end)
 
         it("Returns a number in the range [0, 1) given no arguments", function ()
-            assert.is.within_range(chance.random(), 0, 1, { exclusiveMax = true })
+            assert.is.within_range(chance.core.random(), 0, 1, { exclusiveMax = true })
         end)
 
         it("Returns a number in the range [1, m] given one argument", function ()
-            assert.is.within_range(chance.random(5), 1, 5)
+            assert.is.within_range(chance.core.random(5), 1, 5)
         end)
 
         it("Returns a number in the range [m, n] given two arguments", function ()
-            assert.is.within_range(chance.random(5, 10), 5, 10)
+            assert.is.within_range(chance.core.random(5, 10), 5, 10)
         end)
 
     end)
 
-    describe("Data sets, i.e. the chance.dataSets table", function ()
+    describe("Data sets, i.e. the chance.core.dataSets table", function ()
         local setName, setData
 
         setup(function ()
@@ -134,37 +134,37 @@ describe("The Core API", function ()
             setData = { "Eric", "Jeff", "Mira", "Ben" }
         end)
 
-        it("Provides chance.set() to create data sets and chance.fromSet() to get data", function ()
-            chance.set(setName, setData)
-            assert.is.truthy(chance.dataSets[setName])
-            assert.is.equal(chance.dataSets[setName], setData)
-            assert.is.in_array(chance.fromSet(setName), setData)
+        it("Provides chance.core.set() to create data sets and chance.core.fromSet() to get data", function ()
+            chance.core.set(setName, setData)
+            assert.is.truthy(chance.core.dataSets[setName])
+            assert.is.equal(chance.core.dataSets[setName], setData)
+            assert.is.in_array(chance.core.fromSet(setName), setData)
         end)
 
-        it("Can create a data set by giving a function to chance.set()", function ()
+        it("Can create a data set by giving a function to chance.core.set()", function ()
             local generator = function ()
-                return chance.pick(setData)
+                return chance.helpers.pick(setData)
             end
-            chance.set(setName, generator)
-            assert.is.in_array(chance.fromSet(setName), setData)
+            chance.core.set(setName, generator)
+            assert.is.in_array(chance.core.fromSet(setName), setData)
         end)
 
-        it("Can add data to an existing set via chance.appendSet()", function ()
-            chance.set(setName, setData)
+        it("Can add data to an existing set via chance.core.appendSet()", function ()
+            chance.core.set(setName, setData)
             local oldSize = #setData
-            assert.is.equal(chance.dataSets[setName], setData)
+            assert.is.equal(chance.core.dataSets[setName], setData)
 
-            chance.appendSet(setName, { "Lobby" })
+            chance.core.appendSet(setName, { "Lobby" })
             local newSize = #setData
-            assert.is.equal(#chance.dataSets[setName], newSize)
+            assert.is.equal(#chance.core.dataSets[setName], newSize)
         end)
 
-        it("Can overwrite an existing data set via chance.set()", function ()
-            chance.set(setName, setData)
-            assert.is.in_array(chance.fromSet(setName), setData)
-            chance.set(setName, { "Foo" })
-            assert.is.in_array(chance.fromSet(setName), { "Foo" })
-            assert.is.not_in_array(chance.fromSet(setName), setData)
+        it("Can overwrite an existing data set via chance.core.set()", function ()
+            chance.core.set(setName, setData)
+            assert.is.in_array(chance.core.fromSet(setName), setData)
+            chance.core.set(setName, { "Foo" })
+            assert.is.in_array(chance.core.fromSet(setName), { "Foo" })
+            assert.is.not_in_array(chance.core.fromSet(setName), setData)
         end)
     end)
 end)
@@ -172,62 +172,62 @@ end)
 
 describe("The Basic API", function ()
 
-    before_each(function () chance.seed(os.time()) end)
+    before_each(function () chance.core.seed(os.time()) end)
 
-    describe("chance.bool()", function ()
+    describe("chance.basic.bool()", function ()
         it("Can return true with a given probability", function ()
-            assert.equals(true, chance.bool { probability = 100 })
-            assert.equals(false, chance.bool { probability = 0 })
+            assert.equals(true, chance.basic.bool { probability = 100 })
+            assert.equals(false, chance.basic.bool { probability = 0 })
         end)
     end)
 
-    describe("chance.float()", function ()
+    describe("chance.basic.float()", function ()
         it("Returns a number in the range [0,1)", function ()
-            assert.is.within_range(chance.float(), 0, 1, { exclusiveMax = true })
+            assert.is.within_range(chance.basic.float(), 0, 1, { exclusiveMax = true })
         end)
     end)
 
-    describe("chance.integer()", function ()
+    describe("chance.basic.integer()", function ()
         it("Returns a number in the range (-INF, INF) given no arguments", function ()
-            assert.is.within_range(chance.integer(), -math.huge, math.huge)
+            assert.is.within_range(chance.basic.integer(), -math.huge, math.huge)
         end)
 
         it("Allows explicitly restricting the minimum and maximum ranges", function ()
-            assert.is.within_range(chance.integer { min = 0 }, 0, math.huge)
-            assert.is.within_range(chance.integer { max = 1 }, -math.huge, 1)
-            assert.is.within_range(chance.integer { min = 1, max = 3 }, 1, 3)
+            assert.is.within_range(chance.basic.integer { min = 0 }, 0, math.huge)
+            assert.is.within_range(chance.basic.integer { max = 1 }, -math.huge, 1)
+            assert.is.within_range(chance.basic.integer { min = 1, max = 3 }, 1, 3)
         end)
     end)
 
-    describe("chance.natural()", function ()
+    describe("chance.basic.natural()", function ()
         it("Returns a number in the range [0, INF) given no arguments", function ()
-            assert.is.within_range(chance.natural(), 0, math.huge)
+            assert.is.within_range(chance.basic.natural(), 0, math.huge)
         end)
 
         it("Allows explicitly restricting the minimum and maximum ranges", function ()
-            assert.is.within_range(chance.natural { min = 1 }, 1, math.huge)
-            assert.is.within_range(chance.natural { max = 1 }, 0, 1)
-            assert.is.within_range(chance.natural { min = 1, max = 3 }, 1, 3)
+            assert.is.within_range(chance.basic.natural { min = 1 }, 1, math.huge)
+            assert.is.within_range(chance.basic.natural { max = 1 }, 0, 1)
+            assert.is.within_range(chance.basic.natural { min = 1, max = 3 }, 1, 3)
         end)
 
         it("Will not produce negative numbers", function ()
-            assert.equals(0, chance.natural { min = -10, max = 0 })
+            assert.equals(0, chance.basic.natural { min = -10, max = 0 })
         end)
     end)
 
-    describe("chance.character()", function ()
+    describe("chance.basic.character()", function ()
         it("Can return a random character from a given pool", function ()
-            assert.equals("a", chance.character { pool = "a" })
+            assert.equals("a", chance.basic.character { pool = "a" })
         end)
 
         it("Gives explicit pools precedence over predefined groups", function ()
-            assert.equals("a", chance.character { pool = "a", group = "digit" })
+            assert.equals("a", chance.basic.character { pool = "a", group = "digit" })
         end)
     end)
 
-    describe("chance.string()", function ()
+    describe("chance.basic.string()", function ()
         it("Can generate strings of a fixed length", function ()
-            assert.equals(5, string.len(chance.string { length = 5 }))
+            assert.equals(5, string.len(chance.basic.string { length = 5 }))
         end)
     end)
 
@@ -236,26 +236,26 @@ end)
 
 describe("The Text API", function ()
 
-    before_each(function () chance.seed(os.time()) end)
+    before_each(function () chance.core.seed(os.time()) end)
 
-    describe("chance.syllable()", function ()
+    describe("chance.text.syllable()", function ()
         it("Returns syllables of two to six characters in length", function ()
-            assert.is.within_range(string.len(chance.syllable()), 2, 6)
+            assert.is.within_range(string.len(chance.text.syllable()), 2, 6)
         end)
     end)
 
-    describe("chance.word()", function ()
+    describe("chance.text.word()", function ()
         it("Returns a word of one to three syllables by default", function ()
-            assert.is.within_range(string.len(chance.word()), 2, 18)
+            assert.is.within_range(string.len(chance.text.word()), 2, 18)
         end)
 
         it("Can create words with a specific number of syllables", function ()
-            local word = chance.word { syllables = 10 }
+            local word = chance.text.word { syllables = 10 }
             assert.is.within_range(string.len(word), 20, 60)
         end)
     end)
 
-    describe("chance.sentence()", function ()
+    describe("chance.text.sentence()", function ()
         local split_string
 
         setup(function ()
@@ -269,18 +269,18 @@ describe("The Text API", function ()
         end)
 
         it("Returns a sentence between twelve and eighteen words by default", function ()
-            local words = split_string(chance.sentence())
+            local words = split_string(chance.text.sentence())
             assert.is.within_range(#words, 12, 18)
         end)
 
         it("Can return a sentence with a specific number of words", function ()
             local count = 5
-            local words = split_string(chance.sentence { words = count })
+            local words = split_string(chance.text.sentence { words = count })
             assert.is.equal(#words, count)
         end)
     end)
 
-    describe("chance.paragraph()", function ()
+    describe("chance.text.paragraph()", function ()
         local split_string
 
         setup(function ()
@@ -294,13 +294,13 @@ describe("The Text API", function ()
         end)
 
         it("Returns a paragraph of three to seven sentences by default", function ()
-            local sentences = split_string(chance.paragraph())
+            local sentences = split_string(chance.text.paragraph())
             assert.is.within_range(#sentences, 3, 7)
         end)
 
         it("Can generate a specific number of sentences", function ()
             local count = 10
-            local sentences = split_string(chance.paragraph { sentences = count })
+            local sentences = split_string(chance.text.paragraph { sentences = count })
             assert.is.equal(#sentences, count)
         end)
     end)
@@ -310,71 +310,71 @@ end)
 
 describe("The Person API", function ()
 
-    before_each(function () chance.seed(os.time()) end)
+    before_each(function () chance.core.seed(os.time()) end)
 
-    describe("chance.prefix()", function ()
+    describe("chance.person.prefix()", function ()
         it("Returns a short prefix by default", function ()
-            assert.is.in_array(chance.prefix(), chance.dataSets["prefixes"]["short"])
+            assert.is.in_array(chance.person.prefix(), chance.core.dataSets["prefixes"]["short"])
         end)
 
         it("Can return a long prefix", function ()
-            assert.is.in_array(chance.prefix { type = "long" }, chance.dataSets["prefixes"]["long"])
+            assert.is.in_array(chance.person.prefix { type = "long" }, chance.core.dataSets["prefixes"]["long"])
         end)
     end)
 
-    describe("chance.suffix()", function ()
+    describe("chance.person.suffix()", function ()
         it("Returns a short suffix by default", function ()
-            assert.is.in_array(chance.suffix(), chance.dataSets["suffixes"]["short"])
+            assert.is.in_array(chance.person.suffix(), chance.core.dataSets["suffixes"]["short"])
         end)
 
         it("Can return a long suffix", function ()
-            assert.is.in_array(chance.suffix { type = "long" }, chance.dataSets["suffixes"]["long"])
+            assert.is.in_array(chance.person.suffix { type = "long" }, chance.core.dataSets["suffixes"]["long"])
         end)
     end)
 
-    describe("chance.gender()", function ()
+    describe("chance.person.gender()", function ()
         it("Returns a value from the 'genders' data set by default", function ()
-            assert.in_array(chance.gender(), chance.dataSets["genders"])
+            assert.in_array(chance.person.gender(), chance.core.dataSets["genders"])
         end)
 
         it("Can be restricted to binary Male or Female", function ()
-            assert.in_array(chance.gender { binary = true }, { "Male", "Female" })
+            assert.in_array(chance.person.gender { binary = true }, { "Male", "Female" })
         end)
 
         it("Supports customizing its output domain via data sets", function ()
             local genders = { "M", "F", "N" }
-            chance.set("genders", genders)
-            assert.in_array(chance.gender(), chance.dataSets["genders"])
+            chance.core.set("genders", genders)
+            assert.in_array(chance.person.gender(), chance.core.dataSets["genders"])
         end)
     end)
 
-    describe("chance.age()", function ()
+    describe("chance.person.age()", function ()
         it("Returns an age in the range [1, 120] by default", function ()
-            assert.is.within_range(chance.age(), 1, 120)
+            assert.is.within_range(chance.person.age(), 1, 120)
         end)
 
         it("Has predefined age types", function ()
-            assert.is.within_range(chance.age { type = "child" }, 1, 12)
-            assert.is.within_range(chance.age { type = "teen" }, 13, 19)
-            assert.is.within_range(chance.age { type = "adult" }, 18, 65)
-            assert.is.within_range(chance.age { type = "senior" }, 65, 100)
+            assert.is.within_range(chance.person.age { type = "child" }, 1, 12)
+            assert.is.within_range(chance.person.age { type = "teen" }, 13, 19)
+            assert.is.within_range(chance.person.age { type = "adult" }, 18, 65)
+            assert.is.within_range(chance.person.age { type = "senior" }, 65, 100)
         end)
     end)
 
-    describe("chance.ssn()", function ()
+    describe("chance.person.ssn()", function ()
         it("Creates a random United States Social Security Number", function ()
-            assert.is.like_pattern("^%d%d%d%-%d%d%-%d%d%d%d$", chance.ssn())
+            assert.is.like_pattern("^%d%d%d%-%d%d%-%d%d%d%d$", chance.person.ssn())
         end)
 
         it("Never creates all zeros for any part of the number", function ()
-            local ssn = chance.ssn()
+            local ssn = chance.person.ssn()
             assert.is_not.like_pattern("^000%-%d%d%-%d%d%d%d$", ssn)
             assert.is_not.like_pattern("^%d%d%d%-00%-%d%d%d%d$", ssn)
             assert.is_not.like_pattern("^%d%d%d%-%d%d%-0000$", ssn)
         end)
 
         it("Never uses 666 or 900-999 for the first three digits", function ()
-            local ssn = chance.ssn()
+            local ssn = chance.person.ssn()
             assert.is_not.like_pattern("^666%-%d%d%-%d%d%d%d$", ssn)
             assert.is_not.like_pattern("^9%d%d%-%d%d%-%d%d%d%d$", ssn)
         end)
@@ -385,54 +385,54 @@ end)
 
 describe("The Time API", function ()
 
-    before_each(function () chance.seed(os.time()) end)
+    before_each(function () chance.core.seed(os.time()) end)
 
     it("Can generate random hours", function ()
-        assert.is.within_range(chance.hour(), 1, 12)
-        assert.is.within_range(chance.hour { twentyfour = true }, 1, 24)
+        assert.is.within_range(chance.time.hour(), 1, 12)
+        assert.is.within_range(chance.time.hour { twentyfour = true }, 1, 24)
     end)
 
     it("Can generate random minutes", function ()
-        assert.is.within_range(chance.minute(), 0, 59)
+        assert.is.within_range(chance.time.minute(), 0, 59)
     end)
 
     it("Can generate random seconds", function ()
-        assert.is.within_range(chance.second(), 0, 59)
+        assert.is.within_range(chance.time.second(), 0, 59)
     end)
 
     it("Can generate random milliseconds", function ()
-        assert.is.within_range(chance.millisecond(), 0, 999)
+        assert.is.within_range(chance.time.millisecond(), 0, 999)
     end)
 
     it("Can randomly produce 'am' or 'pm' for times", function ()
-        local meridiem = chance.ampm()
+        local meridiem = chance.time.ampm()
         assert.is_true(meridiem == "am" or meridiem == "pm")
     end)
 
-    describe("chance.year()", function ()
+    describe("chance.time.year()", function ()
         it("By default returns a year between the current and a century later", function ()
-            local random_year = chance.year()
+            local random_year = chance.time.year()
             local current_date = os.date("*t")
             assert.is.within_range(random_year, current_date["year"], current_date["year"] + 100)
         end)
 
         it("Can be restricted to a minimum and/or maximum range", function ()
             local current_date = os.date("*t")
-            assert.is.within_range(chance.year { min = 1700 }, 1700, 1800)
-            assert.is.within_range(chance.year { max = 2200 }, current_date["year"], 2200)
-            assert.is.within_range(chance.year { min = 1984, max = 2002 }, 1984, 2002)
+            assert.is.within_range(chance.time.year { min = 1700 }, 1700, 1800)
+            assert.is.within_range(chance.time.year { max = 2200 }, current_date["year"], 2200)
+            assert.is.within_range(chance.time.year { min = 1984, max = 2002 }, 1984, 2002)
         end)
     end)
 
     it("Can randomly generate a month by name", function ()
-        assert.in_array(chance.month(), chance.dataSets["months"])
+        assert.in_array(chance.time.month(), chance.core.dataSets["months"])
     end)
 
     it("Can generate a random Unix timestamp", function ()
-        assert.is.within_range(chance.timestamp(), 0, os.time())
+        assert.is.within_range(chance.time.timestamp(), 0, os.time())
     end)
 
-    describe("chance.day()", function ()
+    describe("chance.time.day()", function ()
         local alldays, weekdays, weekends
 
         setup(function ()
@@ -459,17 +459,17 @@ describe("The Time API", function ()
         end)
 
         it("Can return any day of the week", function ()
-            assert.in_array(chance.day(), alldays)
+            assert.in_array(chance.time.day(), alldays)
         end)
 
         it("Can return only weekdays", function ()
-            assert.in_array(chance.day { weekdays = true }, weekdays)
-            assert.in_array(chance.day { weekends = false }, weekdays)
+            assert.in_array(chance.time.day { weekdays = true }, weekdays)
+            assert.in_array(chance.time.day { weekends = false }, weekdays)
         end)
 
         it("Can return only weekends", function ()
-            assert.in_array(chance.day { weekends = true }, weekends)
-            assert.in_array(chance.day { weekdays = false }, weekends)
+            assert.in_array(chance.time.day { weekends = true }, weekends)
+            assert.in_array(chance.time.day { weekdays = false }, weekends)
         end)
     end)
 
@@ -478,25 +478,25 @@ end)
 
 describe("The Web API", function ()
 
-    before_each(function () chance.seed(os.time()) end)
+    before_each(function () chance.core.seed(os.time()) end)
 
-    describe("chance.color()", function ()
+    describe("chance.web.color()", function ()
         local hexPattern = "^#%x+$"
 
         it("Returns a color in six-digit hexadecimal format by default", function ()
-            local color = chance.color()
+            local color = chance.web.color()
             assert.is.like_pattern(hexPattern, color)
             assert.is.equal(string.len(color), 7)
         end)
 
         it("Can return a color in short hexadecimal format", function ()
-            local color = chance.color { format = "shorthex" }
+            local color = chance.web.color { format = "shorthex" }
             assert.is.like_pattern(hexPattern, color)
             assert.is.equal(string.len(color), 4)
         end)
 
         it("Can return a color in rgb() format", function ()
-            local color = chance.color { format = "rgb" }
+            local color = chance.web.color { format = "rgb" }
             for r,g,b in string.gmatch(color, "^rgb%(%s?(%d+),%s?(%d+),%s?(%d+)%s?%)$") do
                 assert.is.truthy(r >= 0 and r <= 255)
                 assert.is.truthy(g >= 0 and g <= 255)
@@ -505,14 +505,14 @@ describe("The Web API", function ()
         end)
 
         it("Can return a random greyscale color", function ()
-            local hexColor = chance.color { greyscale = true }
-            local rgbColor = chance.color { greyscale = true, format = "rgb" }
+            local hexColor = chance.web.color { greyscale = true }
+            local rgbColor = chance.web.color { greyscale = true, format = "rgb" }
             assert.is.like_pattern("^#(%x+)%1%1$", hexColor)
             assert.is.like_pattern("^rgb%((%d+), %1, %1%)$", rgbColor)
         end)
     end)
 
-    describe("chance.ip()", function ()
+    describe("chance.web.ip()", function ()
         local ipPattern = "^(%d+)%.(%d+)%.(%d+)%.(%d+)$"
 
         local extractOctets = function (ip)
@@ -524,7 +524,7 @@ describe("The Web API", function ()
         end
 
         it("Returns a completely random IP address by default", function ()
-            local ip = chance.ip()
+            local ip = chance.web.ip()
             assert.is.like_pattern(ipPattern, ip)
             for _,octet in ipairs(extractOctets(ip)) do
                 assert.is_true(octet >= 0 and octet <= 255)
@@ -532,7 +532,7 @@ describe("The Web API", function ()
         end)
 
         it("Can create IP addresses of the A class", function ()
-            local ip = chance.ip { class = "A" }
+            local ip = chance.web.ip { class = "A" }
             local octets = extractOctets(ip)
             assert.is.like_pattern(ipPattern, ip)
             assert.is_true(octets[1] >= 0 and octets[1] <= 127)
@@ -542,7 +542,7 @@ describe("The Web API", function ()
         end)
 
         it("Can create IP addresses of the B class", function ()
-            local ip = chance.ip { class = "B" }
+            local ip = chance.web.ip { class = "B" }
             local octets = extractOctets(ip)
             assert.is.like_pattern(ipPattern, ip)
             assert.is_true(octets[1] >= 128 and octets[1] <= 191)
@@ -552,7 +552,7 @@ describe("The Web API", function ()
         end)
 
         it("Can create IP addresses of the C class", function ()
-            local ip = chance.ip { class = "C" }
+            local ip = chance.web.ip { class = "C" }
             local octets = extractOctets(ip)
             assert.is.like_pattern(ipPattern, ip)
             assert.is_true(octets[1] >= 192 and octets[1] <= 223)
@@ -562,7 +562,7 @@ describe("The Web API", function ()
         end)
 
         it("Can set explicit values for octets", function ()
-            local ip = chance.ip { octets = { 192, 168 }}
+            local ip = chance.web.ip { octets = { 192, 168 }}
             local octets = extractOctets(ip)
             assert.is.like_pattern(ipPattern, ip)
             assert.is.equal(octets[1], 192)
@@ -573,96 +573,96 @@ describe("The Web API", function ()
         end)
     end)
 
-    describe("chance.ipv6()", function ()
+    describe("chance.web.ipv6()", function ()
         it("Returns a random IPv6 address", function ()
-            assert.is.like_pattern("^%x+:%x+:%x+:%x+:%x+:%x+:%x+:%x+$", chance.ipv6())
+            assert.is.like_pattern("^%x+:%x+:%x+:%x+:%x+:%x+:%x+:%x+$", chance.web.ipv6())
         end)
     end)
 
-    describe("chance.tld()", function ()
+    describe("chance.web.tld()", function ()
         it("Returns a random top-level domain from the 'tlds' data set", function ()
-            assert.is.in_array(chance.tld(), chance.dataSets["tlds"])
+            assert.is.in_array(chance.web.tld(), chance.core.dataSets["tlds"])
         end)
     end)
 
-    describe("chance.domain()", function ()
+    describe("chance.web.domain()", function ()
         it("Returns a domain of random words and a random TLD by default", function ()
-            local domain = chance.domain()
+            local domain = chance.web.domain()
             for name,tld in string.gmatch(domain, "(%w+)%.([%w%.]+)") do
                 -- The length of one to three words.
                 assert.is.within_range(string.len(name), 2, 54)
-                assert.is.in_array(tld, chance.dataSets["tlds"])
+                assert.is.in_array(tld, chance.core.dataSets["tlds"])
             end
         end)
 
         it("Can use an explicit top-level domain", function ()
-            local domain = chance.domain { tld = "name" }
+            local domain = chance.web.domain { tld = "name" }
             for tld in string.gmatch(domain, "%w+%.(%w+)") do
                 assert.is.equal(tld, "name")
             end
         end)
     end)
 
-    describe("chance.email()", function ()
+    describe("chance.web.email()", function ()
         it("Returns a random name with a random domain by default", function ()
-            local email = chance.email()
+            local email = chance.web.email()
             for name,domain,tld in string.gmatch(email, "(%w+)@(%w+)%.(%w+)") do
-                assert.is.in_array(tld, chance.dataSets["tlds"])
+                assert.is.in_array(tld, chance.core.dataSets["tlds"])
             end
         end)
 
         it("Can create an email address for an explicit domain", function ()
-            local email = chance.email { domain = "example.com" }
+            local email = chance.web.email { domain = "example.com" }
             for name,domain in string.gmatch(email, "(%w+)@([%w%.]+)") do
                 assert.is.equal(domain, "example.com")
             end
         end)
     end)
 
-    describe("chance.hashtag()", function ()
+    describe("chance.web.hashtag()", function ()
         it("Returns a Twitter hashtag built of random words", function ()
-            assert.is.like_pattern("^#%w+$", chance.hashtag())
+            assert.is.like_pattern("^#%w+$", chance.web.hashtag())
         end)
     end)
 
-    describe("chance.twitter()", function ()
+    describe("chance.web.twitter()", function ()
         it("Returns a random Twitter handle/username", function ()
-            assert.is.like_pattern("^@%w+$", chance.twitter())
+            assert.is.like_pattern("^@%w+$", chance.web.twitter())
         end)
     end)
 
-    describe("chance.uri() and chance.url()", function ()
+    describe("chance.web.uri() and chance.web.url()", function ()
         it("Returns a random domain and path by default", function ()
-            assert.is.like_pattern("^http://[%w%.]+/%w+$", chance.uri())
-            assert.is.like_pattern("^http://[%w%.]+/%w+$", chance.url())
+            assert.is.like_pattern("^http://[%w%.]+/%w+$", chance.web.uri())
+            assert.is.like_pattern("^http://[%w%.]+/%w+$", chance.web.url())
         end)
 
         it("Allows setting an explicit path", function ()
             local path = "foo/bar"
             assert.is.like_pattern("^http://[%w%.]+/" .. path .. "$",
-                                   chance.uri { path = path })
+                                   chance.web.uri { path = path })
             assert.is.like_pattern("^http://[%w%.]+/" .. path .. "$",
-                                   chance.url { path = path })
+                                   chance.web.url { path = path })
         end)
 
         it("Allows setting an explicit domain", function ()
             local domain = "www.example.com"
             assert.is.like_pattern("^http://" .. domain .. "/%w+$",
-                                   chance.uri { domain = domain })
+                                   chance.web.uri { domain = domain })
         end)
 
         it("Allows setting an explicit protocol", function ()
             local protocol = "ftp"
             assert.is.like_pattern("^" .. protocol .. "://[%w%.]+/%w+$",
-                                   chance.uri { protocol = protocol })
+                                   chance.web.uri { protocol = protocol })
             assert.is.like_pattern("^" .. protocol .. "://[%w%.]+/%w+$",
-                                   chance.url { protocol = protocol })
+                                   chance.web.url { protocol = protocol })
         end)
 
         it("Allows setting explicit possible file extensions", function ()
             local extensions = { "png", "jpeg", "gif" }
-            local uri = chance.uri { extensions = extensions }
-            local url = chance.url { extensions = extensions }
+            local uri = chance.web.uri { extensions = extensions }
+            local url = chance.web.url { extensions = extensions }
 
             for x in string.gmatch(uri, "%.(%w+)$") do
                 assert.is.in_array(x, extensions)
@@ -679,25 +679,25 @@ end)
 
 describe("The Helper API", function ()
 
-    before_each(function () chance.seed(os.time()) end)
+    before_each(function () chance.core.seed(os.time()) end)
 
-    describe("chance.pick()", function ()
+    describe("chance.helpers.pick()", function ()
         it("Randomly selects an element from a table", function ()
-            local choice = chance.pick({"foo", "bar", "baz"})
+            local choice = chance.helpers.pick({"foo", "bar", "baz"})
             assert.is_true(choice == "foo" or choice == "bar" or choice == "baz")
         end)
 
         it("Can return a new table of more than one randomly selected element", function ()
             local count = 10
-            local choices = chance.pick({"foo", "bar", "baz"}, count)
+            local choices = chance.helpers.pick({"foo", "bar", "baz"}, count)
             assert.equals(count, #choices)
         end)
     end)
 
-    describe("chance.shuffle()", function ()
+    describe("chance.helpers.shuffle()", function ()
         it("Returns an array of randomly shuffled elements", function ()
             local original = { "foo", "bar", "baz" }
-            local shuffled = chance.shuffle(original)
+            local shuffled = chance.helpers.shuffle(original)
 
             assert.equal(#shuffled, #original)
 
@@ -725,29 +725,29 @@ end)
 
 describe("The Miscellaneous API", function ()
 
-    before_each(function () chance.seed(os.time()) end)
+    before_each(function () chance.core.seed(os.time()) end)
 
-    describe("chance.normal()", function ()
+    describe("chance.misc.normal()", function ()
         it("Returns a number with a mean of zero a standard deviation of one by default", function ()
-            assert.is.within_range(chance.normal(), -2, 2)
+            assert.is.within_range(chance.misc.normal(), -2, 2)
         end)
 
         it("Accepts an optional mean", function ()
-            assert.is.within_range(chance.normal { mean = 100 }, 98, 102)
+            assert.is.within_range(chance.misc.normal { mean = 100 }, 98, 102)
         end)
 
         it("Accepts an optional standard deviation", function ()
-            assert.is.within_range(chance.normal { mean = 100, deviation = 15 }, 85, 115)
+            assert.is.within_range(chance.misc.normal { mean = 100, deviation = 15 }, 85, 115)
         end)
     end)
 
-    describe("chance.weighted()", function ()
+    describe("chance.misc.weighted()", function ()
         it("Returns a random element from an array based on given weights", function ()
             local iteration = 1
             local countA, countB = 0, 0
 
             repeat
-                local choice = chance.weighted({"a", "b"}, {10, 1})
+                local choice = chance.misc.weighted({"a", "b"}, {10, 1})
 
                 if choice == "a" then
                     countA = countA + 1
@@ -762,29 +762,29 @@ describe("The Miscellaneous API", function ()
         end)
 
         it("Returns nil if the arguments do not have the same length", function ()
-            assert.is.equal(nil, chance.weighted({"foo"}, {1, 2, 3}))
+            assert.is.equal(nil, chance.misc.weighted({"foo"}, {1, 2, 3}))
         end)
     end)
 
-    describe("chance.hash()", function ()
+    describe("chance.misc.hash()", function ()
         it("Returns a 40 digit hexadecimal number as a string by default", function ()
-            local hash = chance.hash()
+            local hash = chance.misc.hash()
             assert.is.equal(hash:len(), 40)
             assert.is.truthy(hash:match("^%x+$"))
         end)
 
         it("Can return a hash with an specific number of digits", function ()
             local count = 10
-            local hash = chance.hash { digits = count }
+            local hash = chance.misc.hash { digits = count }
             assert.is.equal(hash:len(), count)
         end)
     end)
 
-    describe("chance.rpg()", function ()
+    describe("chance.misc.rpg()", function ()
         it("Creates an array of numbers simulating table-top RPG die rolls", function ()
-            local oneD100 = chance.rpg("1d100")
-            local threeD6 = chance.rpg("3D6")
-            local fiveD20 = chance.rpg("5d20")
+            local oneD100 = chance.misc.rpg("1d100")
+            local threeD6 = chance.misc.rpg("3D6")
+            local fiveD20 = chance.misc.rpg("5d20")
 
             assert.equals(1, #oneD100)
             assert.equals(3, #threeD6)
@@ -806,18 +806,18 @@ describe("The Miscellaneous API", function ()
         local dice = { 4, 6, 8, 10, 12, 20, 100 }
 
         for _,die in ipairs(dice) do
-            assert.is.within_range(chance["d" .. die](), 1, die)
+            assert.is.within_range(chance.misc["d" .. die](), 1, die)
         end
     end)
 
-    describe("chance.n()", function ()
+    describe("chance.misc.n()", function ()
         it("Can create an array of data from any other function", function ()
-            local strings = chance.n(chance.string, 3)
+            local strings = chance.misc.n(chance.basic.string, 3)
             assert.equals(3, #strings)
         end)
 
         it("Passes on extra arguments to the generator function", function ()
-            local numbers = chance.n(chance.natural, 10, { max = 3 })
+            local numbers = chance.misc.n(chance.basic.natural, 10, { max = 3 })
             assert.equals(10, #numbers)
             for _,value in ipairs(numbers) do
                 assert.is.within_range(value, 0, 3)
@@ -825,13 +825,13 @@ describe("The Miscellaneous API", function ()
         end)
     end)
 
-    describe("chance.unique()", function ()
+    describe("chance.misc.unique()", function ()
         it("Creates an array of unique data from a generator function", function ()
-            assert.is.unique_array(chance.unique(chance.month, 3))
+            assert.is.unique_array(chance.misc.unique(chance.time.month, 3))
         end)
 
         it("Passes additional arguments to the generator function", function ()
-            assert.is.unique_array(chance.unique(chance.character, 3, { pool = "aeiou" }))
+            assert.is.unique_array(chance.misc.unique(chance.basic.character, 3, { pool = "aeiou" }))
         end)
     end)
 

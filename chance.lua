@@ -22,6 +22,8 @@ local chance = {}
 --
 -- @section Core
 
+chance.core = {}
+
 --- The library version number.
 --
 -- This table contains four keys: MAJOR, MINOR, PATCH, and LABEL.  The
@@ -36,7 +38,7 @@ local chance = {}
 chance.VERSION = setmetatable(
     {
         ["MAJOR"] = 0,
-        ["MINOR"] = 4,
+        ["MINOR"] = 5,
         ["PATCH"] = 0,
         ["LABEL"] = "-pre-release",
     },
@@ -75,24 +77,24 @@ local function makeStringFrom(generator, count, separator)
     local amount = count
 
     if type(count) == "table" then
-        amount = chance.random(count[1], count[2])
+        amount = chance.core.random(count[1], count[2])
     end
 
-    return table.concat(chance.n(generator, amount), separator or "")
+    return table.concat(chance.misc.n(generator, amount), separator or "")
 end
 
 --- Seeds the random number generator.
 --
 -- This function accepts one parameter: a seed, which it uses to seed
 -- the random number generator.  The seed must be a number, and
--- providing the same seed must result in @{chance.random} producing
--- the same sequence of results.  Beyond that there are no
+-- providing the same seed must result in @{chance.core.random}
+-- producing the same sequence of results.  Beyond that there are no
 -- restrictions on the implementation of how the seed is used or the
 -- underlying random number generation algorithm to be used.
 --
 -- @tparam Number seed
 -- @treturn nil
-function chance.seed(seed)
+function chance.core.seed(seed)
     math.randomseed(seed)
 end
 
@@ -116,15 +118,15 @@ end
 -- Note that this is the same behavior as <code>math.random()</code>
 -- from Lua's standard library.
 --
--- @see chance.seed
--- @usage chance.random() == 0.8273
--- @usage chance.random(10) == 7
--- @usage chance.random(8, 12) == 8
+-- @see chance.core.seed
+-- @usage chance.core.random() == 0.8273
+-- @usage chance.core.random(10) == 7
+-- @usage chance.core.random(8, 12) == 8
 --
 -- @param[opt] m
 -- @param[opt] n
 -- @treturn Number
-function chance.random(m, n)
+function chance.core.random(m, n)
     if m ~= nil then
         if n ~= nil then
             if n <= m then
@@ -142,10 +144,10 @@ end
 --- Sets of data which some functions choose from.
 --
 -- Many functions select random data from a predefined source.  For
--- example, @{chance.month} randomly picks a name from an existing
--- list of names.  This table contains all of those types of
--- predefined sets of data.  Developers can modify or add new sets
--- of data by using the @{chance.set} function.
+-- example, @{chance.time.month} randomly picks a name from an
+-- existing list of names.  This table contains all of those types of
+-- predefined sets of data.  Developers can modify or add new sets of
+-- data by using the @{chance.core.set} function.
 --
 -- The keys for this table must strings, which name the data set.
 --
@@ -156,10 +158,10 @@ end
 -- appropriate type of random data.  The function will receive no
 -- arguments.
 --
--- @see chance.set
--- @see chance.fromSet
+-- @see chance.core.set
+-- @see chance.core.fromSet
 -- @field dataSets
-chance.dataSets = {}
+chance.core.dataSets = {}
 
 --- Define or modify a set of data.
 --
@@ -170,56 +172,56 @@ chance.dataSets = {}
 -- treats it as a generator and will invoke that function with no
 -- arguments whenever random data is requested from that set.
 --
--- @see chance.fromSet
--- @see chance.dataSets
+-- @see chance.core.fromSet
+-- @see chance.core.dataSets
 --
 -- @tparam string key
 -- @tparam table|function data
 -- @treturn nil
-function chance.set(key, data)
-    chance.dataSets[key] = data
+function chance.core.set(key, data)
+    chance.core.dataSets[key] = data
 end
 
 --- Add data to an existing data set.
 --
--- See the documentation on @{chance.set} for details on the
+-- See the documentation on @{chance.core.set} for details on the
 -- <code>key</code> parameter.  The <code>data</code> must be a table
 -- of values which the function will add to the existing data set.
 -- <strong>This does not work for data sets that have generator
 -- functions for their values.</strong>
 --
--- @see chance.set
--- @see chance.dataSets
+-- @see chance.core.set
+-- @see chance.core.dataSets
 --
 -- @tparam string key
 -- @tparam table data
 -- @treturn nil
-function chance.appendSet(key, data)
+function chance.core.appendSet(key, data)
     for _,value in ipairs(data) do
-        table.insert(chance.dataSets[key], value)
+        table.insert(chance.core.dataSets[key], value)
     end
 end
 
 --- Select random data from an existing data set.
 --
--- See the documentation on @{chance.set} for details on the
+-- See the documentation on @{chance.core.set} for details on the
 -- restrictions and semantics of the <code>key</code> parameter.
 --
--- @see chance.set
--- @see chance.dataSets
+-- @see chance.core.set
+-- @see chance.core.dataSets
 --
 -- @tparam string|function key
 -- @return Random data of potentially any type, or nil if there is no
 -- data set for the given <code>key</code>
-function chance.fromSet(key)
-    local data = chance.dataSets[key]
+function chance.core.fromSet(key)
+    local data = chance.core.dataSets[key]
 
     if data == nil then return nil end
 
     if type(data) == "function" then
         return data()
     else
-        return chance.pick(data)
+        return chance.helpers.pick(data)
     end
 end
 
@@ -231,6 +233,8 @@ end
 --
 -- @section Basic
 
+chance.basic = {}
+
 --- Returns a random boolean.
 --
 -- If given no arguments the function has a 50/50 chance of returning
@@ -238,13 +242,13 @@ end
 -- probability of returning true, expressing the probability as a
 -- percentage by using an integer in the range [1, 100].
 --
--- @usage fifty_fifty = chance.bool()
--- @usage ten_percent_true = chance.bool { probability = 10 }
+-- @usage fifty_fifty = chance.basic.bool()
+-- @usage ten_percent_true = chance.basic.bool { probability = 10 }
 --
 -- @param[opt] flags
 -- @treturn true|false
-function chance.bool(flags)
-    local result = chance.random(100)
+function chance.basic.bool(flags)
+    local result = chance.core.random(100)
 
     if flags then
         return result <= flags["probability"]
@@ -260,8 +264,8 @@ end
 -- programming languages.
 --
 -- @treturn number
-function chance.float()
-    return chance.random()
+function chance.basic.float()
+    return chance.core.random()
 end
 
 --- Returns a random integer.
@@ -271,13 +275,13 @@ end
 -- table can provide inclusive "min" and "max" limits, which have the
 -- default values -2^16 and 2^16, respectively.
 --
--- @usage x = chance.integer()
--- @usage y = chance.integer { max = 50 }
--- @usage z = chance.integer { min = 1, max = 20 }
+-- @usage x = chance.basic.integer()
+-- @usage y = chance.basic.integer { max = 50 }
+-- @usage z = chance.basic.integer { min = 1, max = 20 }
 --
 -- @param[opt] flags
 -- @treturn int
-function chance.integer(flags)
+function chance.basic.integer(flags)
     local min, max = -2^16, 2^16
 
     if flags then
@@ -285,7 +289,7 @@ function chance.integer(flags)
         if flags["max"] then max = flags["max"] end
     end
 
-    return chance.random(min, max)
+    return chance.core.random(min, max)
 end
 
 --- Returns a random natural number.
@@ -295,21 +299,21 @@ end
 -- define inclusive "min" and "max" ranges for the result.  Minimum
 -- values less than zero are rounded up to zero.
 --
--- @see chance.integer
+-- @see chance.basic.integer
 --
 -- @param[opt] flags
 -- @treturn int
-function chance.natural(flags)
+function chance.basic.natural(flags)
     if flags then
         if (flags["min"] == nil) or (flags["min"] and flags["min"] < 0) then
             flags["min"] = 0
         end
-        return chance.integer(flags)
+        return chance.basic.integer(flags)
     end
-    return chance.integer { min = 0 }
+    return chance.basic.integer { min = 0 }
 end
 
--- These groups are preset "pools" for chance.character().
+-- These groups are preset "pools" for chance.basic.character().
 local character_groups = {}
 character_groups["lower"]  = "abcdefghijklmnopqrstuvwxyz"
 character_groups["upper"]  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -331,14 +335,14 @@ character_groups["all"]    = character_groups["letter"] .. character_groups["dig
 -- (the default).  If the function receives both "pool" and "group"
 -- then "pool" takes precedence and "group" is ignored.
 --
--- @usage anything = chance.character()
--- @usage anything = chance.character { group = "all" }
--- @usage vowel = chance.character { pool = "aeiou" }
--- @usage capital = chance.character { group = "upper" }
+-- @usage anything = chance.basic.character()
+-- @usage anything = chance.basic.character { group = "all" }
+-- @usage vowel = chance.basic.character { pool = "aeiou" }
+-- @usage capital = chance.basic.character { group = "upper" }
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.character(flags)
+function chance.basic.character(flags)
     local pool = character_groups["all"]
 
     if flags then
@@ -349,7 +353,7 @@ function chance.character(flags)
         end
     end
 
-    local index = chance.random(pool:len())
+    local index = chance.core.random(pool:len())
     return pool:sub(index, index)
 end
 
@@ -360,16 +364,16 @@ end
 -- table can set "length" explicitly.  It also accepts a "group" flag
 -- which determines what kind of characters appear in the string.
 --
--- @see chance.character
+-- @see chance.basic.character
 --
--- @usage chance.string() == "c0Ab3le8"
--- @usage chance.string { length = 3 } == "NIN"
--- @usage chance.string { group = "digit" } = "8374933749"
+-- @usage chance.basic.string() == "c0Ab3le8"
+-- @usage chance.basic.string { length = 3 } == "NIN"
+-- @usage chance.basic.string { group = "digit" } = "8374933749"
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.string(flags)
-    local length = chance.random(5, 20)
+function chance.basic.string(flags)
+    local length = chance.core.random(5, 20)
     local group = "all"
     local result = ""
 
@@ -385,7 +389,7 @@ function chance.string(flags)
 
     local count = 1
     while count <= length do
-        result = result .. chance.character { group = group }
+        result = result .. chance.basic.character { group = group }
         count = count + 1
     end
 
@@ -399,13 +403,15 @@ end
 --
 -- @section Text
 
+chance.text = {}
+
 --- Data used to build random syllables.
 --
--- @see chance.syllable
+-- @see chance.text.syllable
 -- @local
 -- @field syllables
--- @table chance.dataSets
-chance.set("syllables", {
+-- @table chance.core.dataSets
+chance.core.set("syllables", {
         ["consonants"] = {
             "b",
             "c",
@@ -452,19 +458,19 @@ chance.set("syllables", {
 -- consonants and vowels used to create the syllable.  Each syllable
 -- will contain between two to six characters.
 --
--- @usage chance.syllable() == "peep"
--- @see chance.word
+-- @usage chance.text.syllable() == "peep"
+-- @see chance.text.word
 --
 -- @treturn string
-function chance.syllable()
-    local initial = chance.pick(chance.dataSets["syllables"]["consonants"])
-    local vowel = chance.pick(chance.dataSets["syllables"]["vowels"])
-    local ending = chance.pick(chance.dataSets["syllables"]["consonants"])
+function chance.text.syllable()
+    local initial = chance.helpers.pick(chance.core.dataSets["syllables"]["consonants"])
+    local vowel = chance.helpers.pick(chance.core.dataSets["syllables"]["vowels"])
+    local ending = chance.helpers.pick(chance.core.dataSets["syllables"]["consonants"])
     local syllable = initial .. vowel
 
     -- Fifty percent of the time we add an additional consonant sound
     -- to the end of the syllable.
-    if chance.bool() == true then
+    if chance.basic.bool() == true then
         syllable = syllable .. ending
     end
 
@@ -476,17 +482,17 @@ end
 -- The word, by default, will contain one to three syllables.
 -- However, the optional flag <code>syllables</code> can specify
 -- exactly how many syllables to use in the word.  Note that
--- "syllable" in this context means anything which @{chance.syllable}
--- will return.
+-- "syllable" in this context means anything which
+-- @{chance.text.syllable} will return.
 --
--- @usage chance.word() == "beepbop"
--- @usage chance.word { syllables = 4 } == "thadoobgerlu"
--- @see chance.syllable
+-- @usage chance.text.word() == "beepbop"
+-- @usage chance.text.word { syllables = 4 } == "thadoobgerlu"
+-- @see chance.text.syllable
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.word(flags)
-    local syllableCount = chance.random(1, 3)
+function chance.text.word(flags)
+    local syllableCount = chance.core.random(1, 3)
     local word = ""
 
     if flags and flags["syllables"] then
@@ -497,13 +503,13 @@ function chance.word(flags)
 
     while syllableCount > 0 do
         syllableCount = syllableCount - 1
-        word = word .. chance.syllable()
+        word = word .. chance.text.syllable()
     end
 
     return word
 end
 
---- Generates a random sentence of words via @{chance.word}.
+--- Generates a random sentence of words via @{chance.text.word}.
 --
 -- This function returns a sentence of random words, between twelve to
 -- eighteen words by default.  The optional <code>words</code> flag
@@ -511,46 +517,46 @@ end
 -- The first word in the sentence will be capitalized and the sentence
 -- will end with a period.
 --
--- @usage chance.sentence { words = 3 } == "Hob the rag."
--- @see chance.word
+-- @usage chance.text.sentence { words = 3 } == "Hob the rag."
+-- @see chance.text.word
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.sentence(flags)
+function chance.text.sentence(flags)
     local words
-    local wordCount = chance.random(12, 18)
+    local wordCount = chance.core.random(12, 18)
 
     if flags and flags["words"] then
         wordCount = flags["words"]
     end
 
-    words = chance.n(chance.word, wordCount)
+    words = chance.misc.n(chance.text.word, wordCount)
     words[1] = string.gsub(words[1], "^%l", string.upper)
     table.insert(words, ".")
 
     return table.concat(words, " ")
 end
 
---- Generates a random paragraph via @{chance.sentence}.
+--- Generates a random paragraph via @{chance.text.sentence}.
 --
 -- This function returns a paragraph of random sentences, created by
--- calling @{chance.sentence}.  By default the paragraph will contain
--- three to seven sentences.  However, the optional integer flag
--- <code>sentences</code> controls exactly how many sentences to
+-- calling @{chance.text.sentence}.  By default the paragraph will
+-- contain three to seven sentences.  However, the optional integer
+-- flag <code>sentences</code> controls exactly how many sentences to
 -- create for the paragraph.
 --
--- @see chance.sentence
+-- @see chance.text.sentence
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.paragraph(flags)
-    local count = chance.random(3, 7)
+function chance.text.paragraph(flags)
+    local count = chance.core.random(3, 7)
 
     if flags and flags["sentences"] then
         count = flags["sentences"]
     end
 
-    return makeStringFrom(chance.sentence, count)
+    return makeStringFrom(chance.text.sentence, count)
 end
 
 
@@ -559,6 +565,8 @@ end
 -- These are functions for generating random data about people.
 --
 -- @section Person
+
+chance.person = {}
 
 --- Generates a random United States Social Security Number.
 --
@@ -569,28 +577,28 @@ end
 -- of the number, nor will the Area ever be '666' or '900-999', per
 -- the standards on Social Security Numbers.
 --
--- @usage chance.ssn() == "343-74-0571"
+-- @usage chance.person.ssn() == "343-74-0571"
 --
 -- @treturn string
-function chance.ssn()
+function chance.person.ssn()
     local area, group, serial
 
     while true do
-        area = chance.string { length = 3, group = "digit" }
+        area = chance.basic.string { length = 3, group = "digit" }
         if not area:match("000") and not area:match("9%d%d") then
             break
         end
     end
 
     while true do
-        group = chance.string { length = 2, group = "digit" }
+        group = chance.basic.string { length = 2, group = "digit" }
         if not group:match("00") then
             break
         end
     end
 
     while true do
-        serial = chance.string { length = 4, group = "digit" }
+        serial = chance.basic.string { length = 4, group = "digit" }
         if not serial:match("0000") then
             break
         end
@@ -599,21 +607,21 @@ function chance.ssn()
     return string.format("%s-%s-%s", area, group, serial)
 end
 
---- The possible genders returned by @{chance.gender}.
+--- The possible genders returned by @{chance.person.gender}.
 --
--- This is a table of strings which the @{chance.gender} function will
--- randomly choose from when called.  Developers can modify the domain
--- of @{chance.gender} by changing this table to include or remove
--- possible values as needed for their purposes.  The default values
--- are based on common gender identities in modern socities as opposed
--- to gender based on medical qualification (e.g. chromosones) or
--- sexual orientation.
+-- This is a table of strings which the @{chance.person.gender}
+-- function will randomly choose from when called.  Developers can
+-- modify the domain of @{chance.person.gender} by changing this table
+-- to include or remove possible values as needed for their purposes.
+-- The default values are based on common gender identities in modern
+-- socities as opposed to gender based on medical qualification
+-- (e.g. chromosones) or sexual orientation.
 --
--- @see chance.gender
+-- @see chance.person.gender
 -- @local
 -- @field genders
--- @table chance.dataSets
-chance.set("genders", {
+-- @table chance.core.dataSets
+chance.core.set("genders", {
     "Male",
     "Female",
     "Third", -- https://en.m.wikipedia.org/wiki/Third_gender
@@ -629,27 +637,27 @@ chance.set("genders", {
 -- By default, however, the function will return a string from the
 -- <code>genders</code> data set.
 --
--- @usage chance.gender() == "Female"
--- @usage chance.gender { binary = true } == "Male"
+-- @usage chance.person.gender() == "Female"
+-- @usage chance.person.gender { binary = true } == "Male"
 --
--- @see chance.genders
+-- @see chance.person.genders
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.gender(flags)
+function chance.person.gender(flags)
     if flags and flags["binary"] == true then
-        return chance.pick { "Male", "Female" }
+        return chance.helpers.pick { "Male", "Female" }
     end
-    return chance.fromSet("genders")
+    return chance.core.fromSet("genders")
 end
 
---- Possible words returned by @{chance.prefix}
+--- Possible words returned by @{chance.person.prefix}
 --
--- @see chance.prefix
+-- @see chance.person.prefix
 -- @local
 -- @field prefixes
--- @table chance.dataSets
-chance.set("prefixes", {
+-- @table chance.core.dataSets
+chance.core.set("prefixes", {
         ["short"] = {
             "Mr.",
             "Ms.",
@@ -677,26 +685,26 @@ chance.set("prefixes", {
 -- "Mister" and "Professor".  The function uses the
 -- <code>prefixes</code> data set.
 --
--- @usage chance.prefix() == "Mrs."
--- @usage chance.prefix { type = "long" } == "Doctor"
+-- @usage chance.person.prefix() == "Mrs."
+-- @usage chance.person.prefix { type = "long" } == "Doctor"
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.prefix(flags)
+function chance.person.prefix(flags)
     local prefixType = "short"
     if flags and flags["type"] then
         prefixType = string.lower(flags["type"])
     end
-    return chance.pick(chance.dataSets["prefixes"][prefixType])
+    return chance.helpers.pick(chance.core.dataSets["prefixes"][prefixType])
 end
 
---- Possible words returned by @{chance.suffix}
+--- Possible words returned by @{chance.person.suffix}
 --
--- @see chance.suffix
+-- @see chance.person.suffix
 -- @local
 -- @field suffixes
--- @table chance.dataSets
-chance.set("suffixes", {
+-- @table chance.core.dataSets
+chance.core.set("suffixes", {
         ["short"] = {
             "Ph.D.",
             "Esq.",
@@ -725,26 +733,26 @@ chance.set("suffixes", {
 -- "Junior" and "Juris Doctor".  The function uses the
 -- <code>suffixes</code> data set.
 --
--- @usage chance.suffix() == "Sr."
--- @usage chance.suffix { type = "long" } == "Senior"
+-- @usage chance.person.suffix() == "Sr."
+-- @usage chance.person.suffix { type = "long" } == "Senior"
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.suffix(flags)
+function chance.person.suffix(flags)
     local suffixType = "short"
     if flags and flags["type"] then
         suffixType = string.lower(flags["type"])
     end
-    return chance.pick(chance.dataSets["suffixes"][suffixType])
+    return chance.helpers.pick(chance.core.dataSets["suffixes"][suffixType])
 end
 
 --- Ranges for various types of ages.
 --
--- @see chance.age
+-- @see chance.person.age
 -- @local
 -- @field ages
--- @table chance.dataSets
-chance.set("ages", {
+-- @table chance.core.dataSets
+chance.core.set("ages", {
         ["child"]  = {1, 12},
         ["teen"]   = {13, 19},
         ["adult"]  = {18, 65},
@@ -766,21 +774,21 @@ chance.set("ages", {
 -- </ol>
 --
 -- These ranges are defined in the <code>ages</code> data set, meaning
--- one can use @{chance.set} and @{chance.appendSet} to redefine the
--- ranges for types and/or add new types.
+-- one can use @{chance.core.set} and @{chance.core.appendSet} to
+-- redefine the ranges for types and/or add new types.
 --
--- @usage chance.age() == 33
--- @usage chance.age { type = "teen" } == 17
--- @usage chance.age { type = "adult" } == 40
+-- @usage chance.person.age() == 33
+-- @usage chance.person.age { type = "teen" } == 17
+-- @usage chance.person.age { type = "adult" } == 40
 --
 -- @param[opt] flags
 -- @treturn int
-function chance.age(flags)
+function chance.person.age(flags)
     if flags and flags["type"] then
-        local group = chance.dataSets["ages"][flags["type"]]
-        return chance.random(group[1], group[2])
+        local group = chance.core.dataSets["ages"][flags["type"]]
+        return chance.core.random(group[1], group[2])
     end
-    return chance.random(1, 120)
+    return chance.core.random(1, 120)
 end
 
 
@@ -790,22 +798,24 @@ end
 --
 -- @section Time
 
+chance.time = {}
+
 --- Returns a random hour.
 --
 -- By default this will return an hour in the range of one to twelve.
 -- However, if the optional flag <code>twentyfour</code> is true then
 -- the result will be in the range of one to twenty-four.
 --
--- @usage chance.hour() == 3
--- @usage chance.hour { twentyfour = true } == 15
+-- @usage chance.time.hour() == 3
+-- @usage chance.time.hour { twentyfour = true } == 15
 --
 -- @param[opt] flags
 -- @treturn number
-function chance.hour(flags)
+function chance.time.hour(flags)
     if flags and flags["twentyfour"] == true then
-        return chance.random(1, 24)
+        return chance.core.random(1, 24)
     else
-        return chance.random(1, 12)
+        return chance.core.random(1, 12)
     end
 end
 
@@ -814,8 +824,8 @@ end
 -- This will return a number in the range of zero to fifty-nine.
 --
 -- @treturn number
-function chance.minute()
-    return chance.random(0, 59)
+function chance.time.minute()
+    return chance.core.random(0, 59)
 end
 
 --- Returns a random second.
@@ -823,8 +833,8 @@ end
 -- This will return a number in the range of zero to fifty-nine.
 --
 -- @treturn number
-function chance.second()
-    return chance.random(0, 59)
+function chance.time.second()
+    return chance.core.random(0, 59)
 end
 
 --- Returns a random millisecond.
@@ -833,33 +843,33 @@ end
 -- nine.
 --
 -- @treturn number
-function chance.millisecond()
-    return chance.random(0, 999)
+function chance.time.millisecond()
+    return chance.core.random(0, 999)
 end
 
 --- Returns a random year.
 --
 -- By default this function returns a number representing a year in
 -- the range of the current year and a century later.  For example,
--- calling <code>chance.year()</code> in the year 2015 will return
--- a number between 2015 and 2115.
+-- calling <code>chance.time.year()</code> in the year 2015 will
+-- return a number between 2015 and 2115.
 --
 -- The function accepts an optional table of flags which can have
 -- <code>min</code> and <code>max</code> properties to restrict the
 -- range of the output.  If only <code>min</code> is provided then the
 -- maximum range is one century ahead of the minimum, for example
--- <code>chance.year { min = 1750 }</code> returns a year between 1750
--- and 1850.  If only <code>max</code> is provided then the minimum is
--- the current year.
+-- <code>chance.time.year { min = 1750 }</code> returns a year between
+-- 1750 and 1850.  If only <code>max</code> is provided then the
+-- minimum is the current year.
 --
--- @usage chance.year() == 2074
--- @usage chance.year { min = 1800 } == 1884
--- @usage chance.year { max = 2300 } == 2203
--- @usage chance.year { min = 1990, max = 2000 } == 1995
+-- @usage chance.time.year() == 2074
+-- @usage chance.time.year { min = 1800 } == 1884
+-- @usage chance.time.year { max = 2300 } == 2203
+-- @usage chance.time.year { min = 1990, max = 2000 } == 1995
 --
 -- @param[opt] flags
 -- @treturn number
-function chance.year(flags)
+function chance.time.year(flags)
     local current_year = os.date("*t")["year"]
     local minimum = current_year
     local maximum = current_year + 100
@@ -876,16 +886,16 @@ function chance.year(flags)
         end
     end
 
-    return chance.random(minimum, maximum)
+    return chance.core.random(minimum, maximum)
 end
 
 --- Names of months.
 --
--- @see chance.month
+-- @see chance.time.month
 -- @local
 -- @field months
--- @table chance.dataSets
-chance.set("months", {
+-- @table chance.core.dataSets
+chance.core.set("months", {
         "January",
         "February",
         "March",
@@ -906,17 +916,17 @@ chance.set("months", {
 -- <code>months</code> data set.
 --
 -- @treturn string
-function chance.month()
-    return chance.fromSet("months")
+function chance.time.month()
+    return chance.core.fromSet("months")
 end
 
 --- Names of days of the week.
 --
--- @see chance.day
+-- @see chance.time.day
 -- @local
 -- @field days
--- @table chance.dataSets
-chance.set("days", {
+-- @table chance.core.dataSets
+chance.core.set("days", {
         ["weekdays"] = {
             "Monday",
             "Tuesday",
@@ -938,13 +948,13 @@ chance.set("days", {
 -- <code>weekends</code> will restrict the output to those types of
 -- days.
 --
--- @usage chance.day() == "Monday"
--- @usage chance.day { weekends = true } == "Sunday"
--- @usage chance.day { weekends = false } == "Thursday"
+-- @usage chance.time.day() == "Monday"
+-- @usage chance.time.day { weekends = true } == "Sunday"
+-- @usage chance.time.day { weekends = false } == "Thursday"
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.day(flags)
+function chance.time.day(flags)
     local category = "all"
     local days = {}
 
@@ -959,16 +969,16 @@ function chance.day(flags)
     end
 
     if category == "weekdays" or category == "weekends" then
-        days = makeShallowCopy(chance.dataSets["days"][category])
+        days = makeShallowCopy(chance.core.dataSets["days"][category])
     elseif category == "all" then
-        for _,set in pairs(chance.dataSets["days"]) do
+        for _,set in pairs(chance.core.dataSets["days"]) do
             for _,day in ipairs(set) do
                 table.insert(days, day)
             end
         end
     end
 
-    return chance.pick(days)
+    return chance.helpers.pick(days)
 end
 
 --- Returns a random Unix timestamp.
@@ -981,15 +991,15 @@ end
 -- on non-POSIX systems.</strong>
 --
 -- @treturn number
-function chance.timestamp()
-    return chance.random(0, os.time())
+function chance.time.timestamp()
+    return chance.core.random(0, os.time())
 end
 
 --- Returns 'am' or 'pm' for use with times.
 --
 -- @treturn string <code>"am"</code> or <code>"pm"</code>
-function chance.ampm()
-    local probability = chance.random()
+function chance.time.ampm()
+    local probability = chance.core.random()
 
     if probability < 0.5 then
         return "am"
@@ -1005,6 +1015,8 @@ end
 -- Wide Web.
 --
 -- @section Web
+
+chance.web = {}
 
 --- Returns a random color for use in HTML and CSS.
 --
@@ -1024,21 +1036,21 @@ end
 -- generates a greyscale color.  The flag <code>grayscale</code> (with
 -- an 'a') is an acceptable alias.
 --
--- @usage chance.color() == "#a034cc"
--- @usage chance.color { format = "shorthex" } == "#eeb"
--- @usage chance.color { format = "rgb" } == "rgb(120, 80, 255)"
--- @usage chance.color { greyscale = true } == "#3c3c3c"
+-- @usage chance.web.color() == "#a034cc"
+-- @usage chance.web.color { format = "shorthex" } == "#eeb"
+-- @usage chance.web.color { format = "rgb" } == "rgb(120, 80, 255)"
+-- @usage chance.web.color { greyscale = true } == "#3c3c3c"
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.color(flags)
-    local red, green, blue = unpack(chance.n(chance.string, 3, { length = 2, group = "hex" }))
+function chance.web.color(flags)
+    local red, green, blue = unpack(chance.misc.n(chance.basic.string, 3, { length = 2, group = "hex" }))
 
     if flags then
         if flags["format"] == "shorthex" then
-            red, green, blue = unpack(chance.n(chance.string, 3, { length = 1, group = "hex" }))
+            red, green, blue = unpack(chance.misc.n(chance.basic.string, 3, { length = 1, group = "hex" }))
         elseif flags["format"] == "rgb" then
-            red, green, blue = unpack(chance.n(chance.natural, 3, { min = 0, max = 255 }))
+            red, green, blue = unpack(chance.misc.n(chance.basic.natural, 3, { min = 0, max = 255 }))
         end
 
         if flags["greyscale"] or flags["grayscale"] then
@@ -1062,16 +1074,16 @@ end
 -- that will create addresses of a specific class, or addresses with
 -- explicit values for certain octets.
 --
--- @usage chance.ip() == "132.89.0.200"
--- @usage chance.ip { class = "B" } == "190.1.24.30"
--- @usage chance.ip { octets = { 192, 128 }} == "192.128.0.1"
+-- @usage chance.web.ip() == "132.89.0.200"
+-- @usage chance.web.ip { class = "B" } == "190.1.24.30"
+-- @usage chance.web.ip { octets = { 192, 128 }} == "192.128.0.1"
 --
--- @see chance.ipv6
+-- @see chance.web.ipv6
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.ip(flags)
-    local octets = chance.n(chance.natural, 4, { max = 255 })
+function chance.web.ip(flags)
+    local octets = chance.misc.n(chance.basic.natural, 4, { max = 255 })
     local rangesForClass = {
         ["A"] = {0, 127},
         ["B"] = {128, 191},
@@ -1081,7 +1093,7 @@ function chance.ip(flags)
     if flags then
         if flags["class"] then
             local range = rangesForClass[string.upper(flags["class"])]
-            octets[1] = chance.random(range[1], range[2])
+            octets[1] = chance.core.random(range[1], range[2])
         end
         if flags["octets"] then
             for index,value in ipairs(flags["octets"]) do
@@ -1099,23 +1111,23 @@ end
 
 --- Generates a random IPv6 address.
 --
--- @see chance.ip
+-- @see chance.web.ip
 --
 -- @treturn string
-function chance.ipv6()
+function chance.web.ipv6()
     local octet = function ()
-        return chance.string { length = 4, group = "hex" }
+        return chance.basic.string { length = 4, group = "hex" }
     end
     return makeStringFrom(octet, 8, ":")
 end
 
 --- Top-Level Domains
 --
--- @see chance.tld
+-- @see chance.web.tld
 -- @local
 -- @field tlds
--- @table chance.dataSets
-chance.set("tlds", {
+-- @table chance.core.dataSets
+chance.core.set("tlds", {
         "com",
         "org",
         "net",
@@ -1130,11 +1142,11 @@ chance.set("tlds", {
 -- This function returns a random top-level domain as a string.  It
 -- chooses a domain from the <code>tlds</code> data set.
 --
--- @usage chance.tld() == "net"
+-- @usage chance.web.tld() == "net"
 --
 -- @treturn string
-function chance.tld()
-    return chance.fromSet("tlds")
+function chance.web.tld()
+    return chance.core.fromSet("tlds")
 end
 
 --- Generate a random domain.
@@ -1145,18 +1157,18 @@ end
 -- words appear in the domain, and the flag <code>tld</code> will
 -- ensure the result uses that specific top-level domain.
 --
--- @usage chance.domain() == "paroo.net"
--- @usage chance.domain { words = 1 } == "fee.gov"
--- @usage chance.domain { tld = "co.bh" } == "havashi.co.bh"
+-- @usage chance.web.domain() == "paroo.net"
+-- @usage chance.web.domain { words = 1 } == "fee.gov"
+-- @usage chance.web.domain { tld = "co.bh" } == "havashi.co.bh"
 --
--- @see chance.word
--- @see chance.tld
+-- @see chance.text.word
+-- @see chance.web.tld
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.domain(flags)
-    local wordCount = chance.random(1, 3)
-    local tld = chance.tld()
+function chance.web.domain(flags)
+    local wordCount = chance.core.random(1, 3)
+    local tld = chance.web.tld()
 
     if flags then
         if flags["words"] then
@@ -1167,7 +1179,7 @@ function chance.domain(flags)
         end
     end
 
-    return makeStringFrom(chance.word, wordCount) .. "." .. tld
+    return makeStringFrom(chance.text.word, wordCount) .. "." .. tld
 end
 
 --- Returns a random email address.
@@ -1176,17 +1188,17 @@ end
 -- words, belonging to a random domain.  The optional flag
 -- <code>domain</code> can specify the exact domain to use.
 --
--- @usage chance.email() == "foo@boohoo.edu"
--- @usage chance.email { domain = "example.com" } == "lepiwoa@example.com"
+-- @usage chance.web.email() == "foo@boohoo.edu"
+-- @usage chance.web.email { domain = "example.com" } == "lepiwoa@example.com"
 --
--- @see chance.word
--- @see chance.domain
+-- @see chance.text.word
+-- @see chance.web.domain
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.email(flags)
-    local name = chance.word()
-    local domain = chance.domain()
+function chance.web.email(flags)
+    local name = chance.text.word()
+    local domain = chance.web.domain()
 
     if flags and flags["domain"] then
         domain = flags["domain"]
@@ -1201,12 +1213,12 @@ end
 -- string will begin with the '#' character and contain one to three
 -- random words.
 --
--- @usage chance.hashtag() == "#namarob"
--- @see chance.twitter
+-- @usage chance.web.hashtag() == "#namarob"
+-- @see chance.web.twitter
 --
 -- @treturn string
-function chance.hashtag()
-    return "#" .. makeStringFrom(chance.word, {1, 3})
+function chance.web.hashtag()
+    return "#" .. makeStringFrom(chance.text.word, {1, 3})
 end
 
 --- Generates a random Twitter handle.
@@ -1215,12 +1227,12 @@ end
 -- account name.  The string will begin with '@' followed by one to
 -- five words.
 --
--- @usage chance.twitter() == "@meepboat"
--- @see chance.hashtag
+-- @usage chance.web.twitter() == "@meepboat"
+-- @see chance.web.hashtag
 --
 -- @treturn string
-function chance.twitter()
-    return "@" .. makeStringFrom(chance.word, {1, 5})
+function chance.web.twitter()
+    return "@" .. makeStringFrom(chance.text.word, {1, 5})
 end
 
 --- Generates a random URI.
@@ -1237,20 +1249,20 @@ end
 -- <li><code>extensions</code> - Uses one of the given extensions.</li>
 -- </ul>
 --
--- @usage chance.uri() == "http://foobar.net/baz"
--- @usage chance.uri { domain = "example.com" } == "http://example.com/wee"
--- @usage chance.uri { path = "foo/bar" } == "http://narofu.edu/foo/bar"
--- @usage chance.uri { extensions = { "png", "gif" }} == "http://benhoo.gov/dao.png"
--- @usage chance.uri { protocol = "ftp" } == "ftp://fufoo.net/veto"
+-- @usage chance.web.uri() == "http://foobar.net/baz"
+-- @usage chance.web.uri { domain = "example.com" } == "http://example.com/wee"
+-- @usage chance.web.uri { path = "foo/bar" } == "http://narofu.edu/foo/bar"
+-- @usage chance.web.uri { extensions = { "png", "gif" }} == "http://benhoo.gov/dao.png"
+-- @usage chance.web.uri { protocol = "ftp" } == "ftp://fufoo.net/veto"
 --
--- @see chance.domain
+-- @see chance.web.domain
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.uri(flags)
+function chance.web.uri(flags)
     local protocol = "http"
-    local domain = chance.domain()
-    local path = makeStringFrom(chance.word, {1, 2})
+    local domain = chance.web.domain()
+    local path = makeStringFrom(chance.text.word, {1, 2})
     local extensions = {}
 
     if flags then
@@ -1271,7 +1283,7 @@ function chance.uri(flags)
     local uri = protocol .. "://" .. domain .. "/" .. path
 
     if #extensions > 0 then
-        uri = uri .. chance.pick(extensions)
+        uri = uri .. chance.helpers.pick(extensions)
     end
 
     return uri
@@ -1279,12 +1291,12 @@ end
 
 --- Generates a random URL.
 --
--- This function is an alias for @{chance.uri}.
+-- This function is an alias for @{chance.web.uri}.
 --
 -- @param[opt] flags
 -- @treturn string
 -- @function chance.url
-chance.url = chance.uri
+chance.web.url = chance.web.uri
 
 
 --- Miscellaneous
@@ -1294,6 +1306,8 @@ chance.url = chance.uri
 --
 -- @section Miscellaneous
 
+chance.misc = {}
+
 --- Returns a normally-distributed random value.
 --
 -- By default the function returns a value with a mean of zero and a
@@ -1301,13 +1315,13 @@ chance.url = chance.uri
 -- <code>mean</code> and <code>deviation</code> can provide different
 -- values to use for each.
 --
--- @usage chance.normal() == 0.2938473
--- @usage chance.normal { mean = 100 } == 99.172493
--- @usage chance.normal { mean = 100, deviation = 15 } == 85.83741
+-- @usage chance.misc.normal() == 0.2938473
+-- @usage chance.misc.normal { mean = 100 } == 99.172493
+-- @usage chance.misc.normal { mean = 100, deviation = 15 } == 85.83741
 --
 -- @param[opt] flags
 -- @treturn number
-function chance.normal(flags)
+function chance.misc.normal(flags)
     local mean, deviation = 0, 1
 
     if flags then
@@ -1324,8 +1338,8 @@ function chance.normal(flags)
     local s, u, v
 
     repeat
-        u = chance.random() * 2 - 1
-        v = chance.random() * 2 - 1
+        u = chance.core.random() * 2 - 1
+        v = chance.core.random() * 2 - 1
         s = u * u + v * v
     until s < 1
 
@@ -1340,16 +1354,17 @@ end
 -- select from, and the second a table of numbers indicating the
 -- weight for each value, i.e. the probability the function will
 -- select that value.  <strong>If the two arguments are not tables of
--- the same length then the function returns <code>nil</code>.</strong>
+-- the same length then the function returns
+-- <code>nil</code>.</strong>
 --
--- @usage chance.weighted({"a", "b"}, {100, 1})
+-- @usage chance.misc.weighted({"a", "b"}, {100, 1})
 -- -- This will return "a" one-hundred times more often than
 -- -- it will return "b".
 --
 -- @tparam table values
 -- @tparam table weights
 -- @return A element from the <code>values</code> array
-function chance.weighted(values, weights)
+function chance.misc.weighted(values, weights)
     if #values ~= #weights then return nil end
 
     local sum = 0
@@ -1357,7 +1372,7 @@ function chance.weighted(values, weights)
         sum = sum + weight
     end
 
-    local chosenIndex = chance.natural { min = 1, max = sum }
+    local chosenIndex = chance.basic.natural { min = 1, max = sum }
     local total = 0
     for index,weight in ipairs(weights) do
         if chosenIndex <= total + weight then
@@ -1384,14 +1399,14 @@ end
 -- Any additional arguments will be given to the generator function on
 -- each invocation.
 --
--- @usage switches = chance.n(chance.bool, 3)
--- @usage numbers = chance.n(chance.natural, 10, { max = 100 })
+-- @usage switches = chance.misc.n(chance.basic.bool, 3)
+-- @usage numbers = chance.misc.n(chance.basic.natural, 10, { max = 100 })
 --
 -- @param generator A function that returns random data.
 -- @param count The number of times to call the generator.
 -- @param[opt] ... Additional arguments passed to the generator.
 -- @treturn table
-function chance.n(generator, count, ...)
+function chance.misc.n(generator, count, ...)
     local results = {}
 
     if count <= 0 then return results end
@@ -1405,24 +1420,24 @@ end
 
 --- Creates an array of unique values from a given generator.
 --
--- This function is similar to @{chance.n} in that it accepts a
+-- This function is similar to @{chance.misc.n} in that it accepts a
 -- generator function, often another <code>chance</code> function, and
 -- a number of items to generate.  The function will return an array
 -- containing that many items, randomly generated by the given
--- function.  However, unlike @{chance.n}, the items in the array are
--- guaranteed to be unique.
+-- function.  However, unlike @{chance.misc.n}, the items in the array
+-- are guaranteed to be unique.
 --
 -- Any additional arguments will be given to the generator function on
 -- each invocation.
 --
--- @usage chance.unique(chance.month, 3) == { "May", "February", "April" }
--- @usage chance.unique(chance.character, 2, { pool = "aeiou" }) == { "e", "u" }
+-- @usage chance.misc.unique(chance.time.month, 3) == { "May", "February", "April" }
+-- @usage chance.misc.unique(chance.basic.character, 2, { pool = "aeiou" }) == { "e", "u" }
 --
 -- @param generator A function that returns random data.
 -- @param count The number of times to call the generator.
 -- @param[opt] ... Additional arguments passed to the generator.
 -- @treturn table
-function chance.unique(generator, count, ...)
+function chance.misc.unique(generator, count, ...)
     local results = {}
     local alreadyExists = function (datum)
         for _,value in ipairs(results) do
@@ -1451,19 +1466,19 @@ end
 -- <code>digits</code> can specify exactly how many digits the hash
 -- will have.
 --
--- @usage chance.hash() == "9f3cbf2466d865d82310b9b1e785401556daedce"
--- @usage chance.hash { digits = 8 } == "5d82310b"
+-- @usage chance.misc.hash() == "9f3cbf2466d865d82310b9b1e785401556daedce"
+-- @usage chance.misc.hash { digits = 8 } == "5d82310b"
 --
 -- @param[opt] flags
 -- @treturn string
-function chance.hash(flags)
+function chance.misc.hash(flags)
     local digits = 40
 
     if flags and flags["digits"] then
         digits = flags["digits"]
     end
 
-    return chance.string { group = "hex", length = digits }
+    return chance.basic.string { group = "hex", length = digits }
 end
 
 --- Create an array of die rolls using Dungeons and Dragons notation.
@@ -1477,19 +1492,19 @@ end
 -- die, e.g. <code>3d6</code> returns an array with three numbers,
 -- each being the result of rolling a six-sided die.
 --
--- @usage chance.rpg("1d8") == {4}
--- @usage chance.rpg("3d20") == {10, 4, 17}
+-- @usage chance.misc.rpg("1d8") == {4}
+-- @usage chance.misc.rpg("3d20") == {10, 4, 17}
 --
 -- @param notation
 -- @treturn table The values of each die roll.
-function chance.rpg(notation)
+function chance.misc.rpg(notation)
     local _,middle = notation:lower():find("d")
     local rolls = tonumber(notation:sub(1, middle - 1))
     local die = tonumber(notation:sub(middle + 1))
     local results = {}
 
     while rolls > 0 do
-        table.insert(results, chance.random(1, die))
+        table.insert(results, chance.core.random(1, die))
         rolls = rolls - 1
     end
 
@@ -1504,56 +1519,56 @@ end
 --
 --     createDieRollFunction("10")
 --
--- ...we end up with the function chance.d10(), which will return the
--- result of rolling a ten-sided die once.
+-- ...we end up with the function chance.misc.d10(), which will return
+-- the result of rolling a ten-sided die once.
 --
 -- @local
 local function createDieRollFunction(die)
-    chance["d" .. die] = function ()
-        local roll = chance.rpg("1d" .. die)
+    chance.misc["d" .. die] = function ()
+        local roll = chance.misc.rpg("1d" .. die)
         return roll[1]
     end
 end
 
 --- Roll a 4-sided die.
 --
--- @function chance.d4
+-- @function chance.misc.d4
 -- @treturn number
 createDieRollFunction("4")
 
 --- Roll a 6-sided die.
 --
--- @function chance.d6
+-- @function chance.misc.d6
 -- @treturn number
 createDieRollFunction("6")
 
 --- Roll an 8-sided die.
 --
--- @function chance.d8
+-- @function chance.misc.d8
 -- @treturn number
 
 createDieRollFunction("8")
 --- Roll a 10-sided die.
 --
--- @function chance.d10
+-- @function chance.misc.d10
 -- @treturn number
 
 createDieRollFunction("10")
 --- Roll a 12-sided die.
 --
--- @function chance.d12
+-- @function chance.misc.d12
 -- @treturn number
 
 createDieRollFunction("12")
 --- Roll a 20-sided die.
 --
--- @function chance.d20
+-- @function chance.misc.d20
 -- @treturn number
 createDieRollFunction("20")
 
 --- Roll a 100-sided die.
 --
--- @function chance.d100
+-- @function chance.misc.d100
 -- @treturn number
 createDieRollFunction("100")
 
@@ -1564,6 +1579,8 @@ createDieRollFunction("100")
 -- sources or define new random content generation functions.
 --
 -- @section Helpers
+
+chance.helpers = {}
 
 --- Pick a random element from a given array.
 --
@@ -1578,19 +1595,19 @@ createDieRollFunction("100")
 -- @return A single value from <code>array</code> or a table of the
 -- size <code>count</code> containing random values from
 -- <code>array</code>.
-function chance.pick(array, count)
+function chance.helpers.pick(array, count)
     local size = #array
 
     if count ~= nil and count > 0 then
         local results = {}
         while count > 0 do
-            table.insert(results, array[chance.random(1, size)])
+            table.insert(results, array[chance.core.random(1, size)])
             count = count - 1
         end
         return results
     end
 
-    return array[chance.random(1, size)]
+    return array[chance.core.random(1, size)]
 end
 
 --- Randomly shuffle the contents of an array.
@@ -1601,17 +1618,17 @@ end
 -- possibility that the shuffled array will be randomly,
 -- coincidentally equal to the original.
 --
--- @usage chance.shuffle {"foo", "bar", "baz"} == {"bar", "foo", "baz"}
+-- @usage chance.helpers.shuffle {"foo", "bar", "baz"} == {"bar", "foo", "baz"}
 --
 -- @param array
 -- @treturn table
-function chance.shuffle(array)
+function chance.helpers.shuffle(array)
     local original = makeShallowCopy(array)
     local shuffled = {}
     local count = #original
 
     while count > 0 do
-        local position = chance.random(1, count)
+        local position = chance.core.random(1, count)
         table.insert(shuffled, original[position])
         table.remove(original, position)
         count = count - 1
