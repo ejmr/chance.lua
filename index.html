@@ -69,170 +69,174 @@
 	<td class="summary">The library version number.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#seed">seed (seed)</a></td>
+	<td class="name" nowrap><a href="#chance.core.seed">chance.core.seed (seed)</a></td>
 	<td class="summary">Seeds the random number generator.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#random">random ([m[, n]])</a></td>
+	<td class="name" nowrap><a href="#chance.core.random">chance.core.random ([m[, n]])</a></td>
 	<td class="summary">Returns a random number.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#dataSets">dataSets</a></td>
+	<td class="name" nowrap><a href="#chance.core.dataSets">chance.core.dataSets</a></td>
 	<td class="summary">Sets of data which some functions choose from.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#set">set (key, data)</a></td>
+	<td class="name" nowrap><a href="#chance.core.set">chance.core.set (key, data)</a></td>
 	<td class="summary">Define or modify a set of data.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#appendSet">appendSet (key, data)</a></td>
+	<td class="name" nowrap><a href="#chance.core.appendSet">chance.core.appendSet (key, data)</a></td>
 	<td class="summary">Add data to an existing data set.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fromSet">fromSet (key)</a></td>
+	<td class="name" nowrap><a href="#chance.core.fromSet">chance.core.fromSet (key)</a></td>
 	<td class="summary">Select random data from an existing data set.</td>
 	</tr>
 </table>
 <h2><a href="#Basic">Basic </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#bool">bool ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.basic.bool">chance.basic.bool ([flags])</a></td>
 	<td class="summary">Returns a random boolean.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#float">float ()</a></td>
+	<td class="name" nowrap><a href="#chance.basic.float">chance.basic.float ()</a></td>
 	<td class="summary">Returns a random floating-point number.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#integer">integer ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.basic.integer">chance.basic.integer ([flags])</a></td>
 	<td class="summary">Returns a random integer.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#natural">natural ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.basic.natural">chance.basic.natural ([flags])</a></td>
 	<td class="summary">Returns a random natural number.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#character">character ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.basic.character">chance.basic.character ([flags])</a></td>
 	<td class="summary">Returns a random character.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#string">string ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.basic.string">chance.basic.string ([flags])</a></td>
 	<td class="summary">Returns a random string.</td>
 	</tr>
 </table>
 <h2><a href="#Text">Text </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#syllable">syllable ()</a></td>
+	<td class="name" nowrap><a href="#chance.text.syllable">chance.text.syllable ()</a></td>
 	<td class="summary">Returns a random syllable.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#word">word ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.text.word">chance.text.word ([flags])</a></td>
 	<td class="summary">Returns a random word.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#sentence">sentence ([flags])</a></td>
-	<td class="summary">Generates a random sentence of words via <a href="index.html#word">chance.word</a>.</td>
+	<td class="name" nowrap><a href="#chance.text.sentence">chance.text.sentence ([flags])</a></td>
+	<td class="summary">Generates a random sentence of words via <a href="index.html#chance.text.word">chance.text.word</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#paragraph">paragraph ([flags])</a></td>
-	<td class="summary">Generates a random paragraph via <a href="index.html#sentence">chance.sentence</a>.</td>
+	<td class="name" nowrap><a href="#chance.text.paragraph">chance.text.paragraph ([flags])</a></td>
+	<td class="summary">Generates a random paragraph via <a href="index.html#chance.text.sentence">chance.text.sentence</a>.</td>
 	</tr>
 </table>
 <h2><a href="#Person">Person </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#gender">gender ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.person.ssn">chance.person.ssn ()</a></td>
+	<td class="summary">Generates a random United States Social Security Number.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#chance.person.gender">chance.person.gender ([flags])</a></td>
 	<td class="summary">Returns a random gender as a string.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#prefix">prefix ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.person.prefix">chance.person.prefix ([flags])</a></td>
 	<td class="summary">Returns a random prefix for a name.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#suffix">suffix ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.person.suffix">chance.person.suffix ([flags])</a></td>
 	<td class="summary">Returns a random suffix for names.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#age">age ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.person.age">chance.person.age ([flags])</a></td>
 	<td class="summary">Returns a random age for a person.</td>
 	</tr>
 </table>
 <h2><a href="#Time">Time </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#hour">hour ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.time.hour">chance.time.hour ([flags])</a></td>
 	<td class="summary">Returns a random hour.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#minute">minute ()</a></td>
+	<td class="name" nowrap><a href="#chance.time.minute">chance.time.minute ()</a></td>
 	<td class="summary">Returns a random minute.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#second">second ()</a></td>
+	<td class="name" nowrap><a href="#chance.time.second">chance.time.second ()</a></td>
 	<td class="summary">Returns a random second.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#millisecond">millisecond ()</a></td>
+	<td class="name" nowrap><a href="#chance.time.millisecond">chance.time.millisecond ()</a></td>
 	<td class="summary">Returns a random millisecond.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#year">year ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.time.year">chance.time.year ([flags])</a></td>
 	<td class="summary">Returns a random year.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#month">month ()</a></td>
+	<td class="name" nowrap><a href="#chance.time.month">chance.time.month ()</a></td>
 	<td class="summary">Returns the name of a random month.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#day">day ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.time.day">chance.time.day ([flags])</a></td>
 	<td class="summary">Returns a random day of the week.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#timestamp">timestamp ()</a></td>
+	<td class="name" nowrap><a href="#chance.time.timestamp">chance.time.timestamp ()</a></td>
 	<td class="summary">Returns a random Unix timestamp.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#ampm">ampm ()</a></td>
+	<td class="name" nowrap><a href="#chance.time.ampm">chance.time.ampm ()</a></td>
 	<td class="summary">Returns 'am' or 'pm' for use with times.</td>
 	</tr>
 </table>
 <h2><a href="#Web">Web </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#color">color ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.web.color">chance.web.color ([flags])</a></td>
 	<td class="summary">Returns a random color for use in HTML and CSS.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#ip">ip ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.web.ip">chance.web.ip ([flags])</a></td>
 	<td class="summary">Generates a random IP address.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#ipv6">ipv6 ()</a></td>
+	<td class="name" nowrap><a href="#chance.web.ipv6">chance.web.ipv6 ()</a></td>
 	<td class="summary">Generates a random IPv6 address.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#tld">tld ()</a></td>
+	<td class="name" nowrap><a href="#chance.web.tld">chance.web.tld ()</a></td>
 	<td class="summary">Generate a random top-level domain.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#domain">domain ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.web.domain">chance.web.domain ([flags])</a></td>
 	<td class="summary">Generate a random domain.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#email">email ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.web.email">chance.web.email ([flags])</a></td>
 	<td class="summary">Returns a random email address.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#hashtag">hashtag ()</a></td>
+	<td class="name" nowrap><a href="#chance.web.hashtag">chance.web.hashtag ()</a></td>
 	<td class="summary">Returns a random Twitter hashtag.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#twitter">twitter ()</a></td>
+	<td class="name" nowrap><a href="#chance.web.twitter">chance.web.twitter ()</a></td>
 	<td class="summary">Generates a random Twitter handle.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#uri">uri ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.web.uri">chance.web.uri ([flags])</a></td>
 	<td class="summary">Generates a random URI.</td>
 	</tr>
 	<tr>
@@ -243,66 +247,66 @@
 <h2><a href="#Miscellaneous">Miscellaneous </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#normal">normal ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.misc.normal">chance.misc.normal ([flags])</a></td>
 	<td class="summary">Returns a normally-distributed random value.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#weighted">weighted (values, weights)</a></td>
+	<td class="name" nowrap><a href="#chance.misc.weighted">chance.misc.weighted (values, weights)</a></td>
 	<td class="summary">Randomly selects an item from an array of weighted values.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#n">n (generator, count[, ...])</a></td>
+	<td class="name" nowrap><a href="#chance.misc.n">chance.misc.n (generator, count[, ...])</a></td>
 	<td class="summary">Create an array of random data from a given generator.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#unique">unique (generator, count[, ...])</a></td>
+	<td class="name" nowrap><a href="#chance.misc.unique">chance.misc.unique (generator, count[, ...])</a></td>
 	<td class="summary">Creates an array of unique values from a given generator.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#hash">hash ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.misc.hash">chance.misc.hash ([flags])</a></td>
 	<td class="summary">Create a random hash in hexadecimal.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#rpg">rpg (notation)</a></td>
+	<td class="name" nowrap><a href="#chance.misc.rpg">chance.misc.rpg (notation)</a></td>
 	<td class="summary">Create an array of die rolls using Dungeons and Dragons notation.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#d4">d4 ()</a></td>
+	<td class="name" nowrap><a href="#chance.misc.d4">chance.misc.d4 ()</a></td>
 	<td class="summary">Roll a 4-sided die.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#d6">d6 ()</a></td>
+	<td class="name" nowrap><a href="#chance.misc.d6">chance.misc.d6 ()</a></td>
 	<td class="summary">Roll a 6-sided die.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#d8">d8 ()</a></td>
+	<td class="name" nowrap><a href="#chance.misc.d8">chance.misc.d8 ()</a></td>
 	<td class="summary">Roll an 8-sided die.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#d10">d10 ()</a></td>
+	<td class="name" nowrap><a href="#chance.misc.d10">chance.misc.d10 ()</a></td>
 	<td class="summary">Roll a 10-sided die.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#d12">d12 ()</a></td>
+	<td class="name" nowrap><a href="#chance.misc.d12">chance.misc.d12 ()</a></td>
 	<td class="summary">Roll a 12-sided die.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#d20">d20 ()</a></td>
+	<td class="name" nowrap><a href="#chance.misc.d20">chance.misc.d20 ()</a></td>
 	<td class="summary">Roll a 20-sided die.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#d100">d100 ()</a></td>
+	<td class="name" nowrap><a href="#chance.misc.d100">chance.misc.d100 ()</a></td>
 	<td class="summary">Roll a 100-sided die.</td>
 	</tr>
 </table>
 <h2><a href="#Helpers">Helpers </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#pick">pick (array[, count])</a></td>
+	<td class="name" nowrap><a href="#chance.helpers.pick">chance.helpers.pick (array[, count])</a></td>
 	<td class="summary">Pick a random element from a given array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#shuffle">shuffle (array)</a></td>
+	<td class="name" nowrap><a href="#chance.helpers.shuffle">chance.helpers.shuffle (array)</a></td>
 	<td class="summary">Randomly shuffle the contents of an array.</td>
 	</tr>
 </table>
@@ -346,15 +350,15 @@
 
 </dd>
     <dt>
-    <a name = "seed"></a>
-    <strong>seed (seed)</strong>
+    <a name = "chance.core.seed"></a>
+    <strong>chance.core.seed (seed)</strong>
     </dt>
     <dd>
     Seeds the random number generator.
 <p> This function accepts one parameter: a seed, which it uses to seed
  the random number generator.  The seed must be a number, and
- providing the same seed must result in <a href="index.html#random">chance.random</a> producing
- the same sequence of results.  Beyond that there are no
+ providing the same seed must result in <a href="index.html#chance.core.random">chance.core.random</a>
+ producing the same sequence of results.  Beyond that there are no
  restrictions on the implementation of how the seed is used or the
  underlying random number generation algorithm to be used.
 
@@ -380,8 +384,8 @@
 
 </dd>
     <dt>
-    <a name = "random"></a>
-    <strong>random ([m[, n]])</strong>
+    <a name = "chance.core.random"></a>
+    <strong>chance.core.random ([m[, n]])</strong>
     </dt>
     <dd>
     Returns a random number.
@@ -423,28 +427,28 @@
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#seed">chance.seed</a>
+         <a href="index.html#chance.core.seed">chance.core.seed</a>
     </ul>
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.random() == <span class="number">0.8273</span></pre></li>
-        <li><pre class="example">chance.random(<span class="number">10</span>) == <span class="number">7</span></pre></li>
-        <li><pre class="example">chance.random(<span class="number">8</span>, <span class="number">12</span>) == <span class="number">8</span></pre></li>
+        <li><pre class="example">chance.core.random() == <span class="number">0.8273</span></pre></li>
+        <li><pre class="example">chance.core.random(<span class="number">10</span>) == <span class="number">7</span></pre></li>
+        <li><pre class="example">chance.core.random(<span class="number">8</span>, <span class="number">12</span>) == <span class="number">8</span></pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "dataSets"></a>
-    <strong>dataSets</strong>
+    <a name = "chance.core.dataSets"></a>
+    <strong>chance.core.dataSets</strong>
     </dt>
     <dd>
     Sets of data which some functions choose from.
 <p> Many functions select random data from a predefined source.  For
- example, <a href="index.html#month">chance.month</a> randomly picks a name from an existing
- list of names.  This table contains all of those types of
- predefined sets of data.  Developers can modify or add new sets
- of data by using the <a href="index.html#set">chance.set</a> function.
+ example, <a href="index.html#chance.time.month">chance.time.month</a> randomly picks a name from an
+ existing list of names.  This table contains all of those types of
+ predefined sets of data.  Developers can modify or add new sets of
+ data by using the <a href="index.html#chance.core.set">chance.core.set</a> function.
 <p> The keys for this table must strings, which name the data set.
 <p> The values must either be arrays (which can contain any types of
  values), or a single function.  If the value is a function then the
@@ -466,15 +470,15 @@
 
     <h3>See also:</h3>
     <ul>
-         <li><a href="index.html#set">chance.set</a></li>
-         <li><a href="index.html#fromSet">chance.fromSet</a></li>
+         <li><a href="index.html#chance.core.set">chance.core.set</a></li>
+         <li><a href="index.html#chance.core.fromSet">chance.core.fromSet</a></li>
     </ul>
 
 
 </dd>
     <dt>
-    <a name = "set"></a>
-    <strong>set (key, data)</strong>
+    <a name = "chance.core.set"></a>
+    <strong>chance.core.set (key, data)</strong>
     </dt>
     <dd>
     Define or modify a set of data.
@@ -490,7 +494,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">key</span>
-            <span class="types"><a class="type" href="index.html#string">string</a></span>
+            <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
         </li>
         <li><span class="parameter">data</span>
@@ -509,19 +513,19 @@
 
     <h3>See also:</h3>
     <ul>
-         <li><a href="index.html#fromSet">chance.fromSet</a></li>
-         <li><a href="index.html#dataSets">chance.dataSets</a></li>
+         <li><a href="index.html#chance.core.fromSet">chance.core.fromSet</a></li>
+         <li><a href="index.html#chance.core.dataSets">chance.core.dataSets</a></li>
     </ul>
 
 
 </dd>
     <dt>
-    <a name = "appendSet"></a>
-    <strong>appendSet (key, data)</strong>
+    <a name = "chance.core.appendSet"></a>
+    <strong>chance.core.appendSet (key, data)</strong>
     </dt>
     <dd>
     Add data to an existing data set.
-<p> See the documentation on <a href="index.html#set">chance.set</a> for details on the
+<p> See the documentation on <a href="index.html#chance.core.set">chance.core.set</a> for details on the
  <code>key</code> parameter.  The <code>data</code> must be a table
  of values which the function will add to the existing data set.
  <strong>This does not work for data sets that have generator
@@ -532,7 +536,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">key</span>
-            <span class="types"><a class="type" href="index.html#string">string</a></span>
+            <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
         </li>
         <li><span class="parameter">data</span>
@@ -551,19 +555,19 @@
 
     <h3>See also:</h3>
     <ul>
-         <li><a href="index.html#set">chance.set</a></li>
-         <li><a href="index.html#dataSets">chance.dataSets</a></li>
+         <li><a href="index.html#chance.core.set">chance.core.set</a></li>
+         <li><a href="index.html#chance.core.dataSets">chance.core.dataSets</a></li>
     </ul>
 
 
 </dd>
     <dt>
-    <a name = "fromSet"></a>
-    <strong>fromSet (key)</strong>
+    <a name = "chance.core.fromSet"></a>
+    <strong>chance.core.fromSet (key)</strong>
     </dt>
     <dd>
     Select random data from an existing data set.
-<p> See the documentation on <a href="index.html#set">chance.set</a> for details on the
+<p> See the documentation on <a href="index.html#chance.core.set">chance.core.set</a> for details on the
  restrictions and semantics of the <code>key</code> parameter.
 
 
@@ -571,7 +575,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">key</span>
-            <span class="types"><a class="type" href="index.html#string">string</a> or <span class="type">function</span></span>
+            <span class="types"><a class="type" href="index.html#chance.basic.string">string</a> or <span class="type">function</span></span>
 
         </li>
     </ul>
@@ -586,8 +590,8 @@
 
     <h3>See also:</h3>
     <ul>
-         <li><a href="index.html#set">chance.set</a></li>
-         <li><a href="index.html#dataSets">chance.dataSets</a></li>
+         <li><a href="index.html#chance.core.set">chance.core.set</a></li>
+         <li><a href="index.html#chance.core.dataSets">chance.core.dataSets</a></li>
     </ul>
 
 
@@ -602,8 +606,8 @@
           </div>
     <dl class="function">
     <dt>
-    <a name = "bool"></a>
-    <strong>bool ([flags])</strong>
+    <a name = "chance.basic.bool"></a>
+    <strong>chance.basic.bool ([flags])</strong>
     </dt>
     <dd>
     Returns a random boolean.
@@ -633,14 +637,14 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">fifty_fifty = chance.bool()</pre></li>
-        <li><pre class="example">ten_percent_true = chance.bool { probability = <span class="number">10</span> }</pre></li>
+        <li><pre class="example">fifty_fifty = chance.basic.bool()</pre></li>
+        <li><pre class="example">ten_percent_true = chance.basic.bool { probability = <span class="number">10</span> }</pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "float"></a>
-    <strong>float ()</strong>
+    <a name = "chance.basic.float"></a>
+    <strong>chance.basic.float ()</strong>
     </dt>
     <dd>
     Returns a random floating-point number.
@@ -663,8 +667,8 @@
 
 </dd>
     <dt>
-    <a name = "integer"></a>
-    <strong>integer ([flags])</strong>
+    <a name = "chance.basic.integer"></a>
+    <strong>chance.basic.integer ([flags])</strong>
     </dt>
     <dd>
     Returns a random integer.
@@ -694,15 +698,15 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">x = chance.integer()</pre></li>
-        <li><pre class="example">y = chance.integer { max = <span class="number">50</span> }</pre></li>
-        <li><pre class="example">z = chance.integer { min = <span class="number">1</span>, max = <span class="number">20</span> }</pre></li>
+        <li><pre class="example">x = chance.basic.integer()</pre></li>
+        <li><pre class="example">y = chance.basic.integer { max = <span class="number">50</span> }</pre></li>
+        <li><pre class="example">z = chance.basic.integer { min = <span class="number">1</span>, max = <span class="number">20</span> }</pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "natural"></a>
-    <strong>natural ([flags])</strong>
+    <a name = "chance.basic.natural"></a>
+    <strong>chance.basic.natural ([flags])</strong>
     </dt>
     <dd>
     Returns a random natural number.
@@ -731,14 +735,14 @@
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#integer">chance.integer</a>
+         <a href="index.html#chance.basic.integer">chance.basic.integer</a>
     </ul>
 
 
 </dd>
     <dt>
-    <a name = "character"></a>
-    <strong>character ([flags])</strong>
+    <a name = "chance.basic.character"></a>
+    <strong>chance.basic.character ([flags])</strong>
     </dt>
     <dd>
     Returns a random character.
@@ -765,7 +769,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
@@ -773,16 +777,16 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">anything = chance.character()</pre></li>
-        <li><pre class="example">anything = chance.character { group = <span class="string">"all"</span> }</pre></li>
-        <li><pre class="example">vowel = chance.character { pool = <span class="string">"aeiou"</span> }</pre></li>
-        <li><pre class="example">capital = chance.character { group = <span class="string">"upper"</span> }</pre></li>
+        <li><pre class="example">anything = chance.basic.character()</pre></li>
+        <li><pre class="example">anything = chance.basic.character { group = <span class="string">"all"</span> }</pre></li>
+        <li><pre class="example">vowel = chance.basic.character { pool = <span class="string">"aeiou"</span> }</pre></li>
+        <li><pre class="example">capital = chance.basic.character { group = <span class="string">"upper"</span> }</pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "string"></a>
-    <strong>string ([flags])</strong>
+    <a name = "chance.basic.string"></a>
+    <strong>chance.basic.string ([flags])</strong>
     </dt>
     <dd>
     Returns a random string.
@@ -804,21 +808,21 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#character">chance.character</a>
+         <a href="index.html#chance.basic.character">chance.basic.character</a>
     </ul>
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.<span class="global">string</span>() == <span class="string">"c0Ab3le8"</span></pre></li>
-        <li><pre class="example">chance.<span class="global">string</span> { length = <span class="number">3</span> } == <span class="string">"NIN"</span></pre></li>
-        <li><pre class="example">chance.<span class="global">string</span> { group = <span class="string">"digit"</span> } = <span class="string">"8374933749"</span></pre></li>
+        <li><pre class="example">chance.basic.<span class="global">string</span>() == <span class="string">"c0Ab3le8"</span></pre></li>
+        <li><pre class="example">chance.basic.<span class="global">string</span> { length = <span class="number">3</span> } == <span class="string">"NIN"</span></pre></li>
+        <li><pre class="example">chance.basic.<span class="global">string</span> { group = <span class="string">"digit"</span> } = <span class="string">"8374933749"</span></pre></li>
     </ul>
 
 </dd>
@@ -831,8 +835,8 @@
           </div>
     <dl class="function">
     <dt>
-    <a name = "syllable"></a>
-    <strong>syllable ()</strong>
+    <a name = "chance.text.syllable"></a>
+    <strong>chance.text.syllable ()</strong>
     </dt>
     <dd>
     Returns a random syllable.
@@ -848,33 +852,33 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#word">chance.word</a>
+         <a href="index.html#chance.text.word">chance.text.word</a>
     </ul>
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">chance.syllable() == <span class="string">"peep"</span></pre>
+        <pre class="example">chance.text.syllable() == <span class="string">"peep"</span></pre>
     </ul>
 
 </dd>
     <dt>
-    <a name = "word"></a>
-    <strong>word ([flags])</strong>
+    <a name = "chance.text.word"></a>
+    <strong>chance.text.word ([flags])</strong>
     </dt>
     <dd>
     Returns a random word.
 <p> The word, by default, will contain one to three syllables.
  However, the optional flag <code>syllables</code> can specify
  exactly how many syllables to use in the word.  Note that
- "syllable" in this context means anything which <a href="index.html#syllable">chance.syllable</a>
- will return.
+ "syllable" in this context means anything which
+ <a href="index.html#chance.text.syllable">chance.text.syllable</a> will return.
 
 
 
@@ -889,29 +893,29 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#syllable">chance.syllable</a>
+         <a href="index.html#chance.text.syllable">chance.text.syllable</a>
     </ul>
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.word() == <span class="string">"beepbop"</span></pre></li>
-        <li><pre class="example">chance.word { syllables = <span class="number">4</span> } == <span class="string">"thadoobgerlu"</span></pre></li>
+        <li><pre class="example">chance.text.word() == <span class="string">"beepbop"</span></pre></li>
+        <li><pre class="example">chance.text.word { syllables = <span class="number">4</span> } == <span class="string">"thadoobgerlu"</span></pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "sentence"></a>
-    <strong>sentence ([flags])</strong>
+    <a name = "chance.text.sentence"></a>
+    <strong>chance.text.sentence ([flags])</strong>
     </dt>
     <dd>
-    Generates a random sentence of words via <a href="index.html#word">chance.word</a>.
+    Generates a random sentence of words via <a href="index.html#chance.text.word">chance.text.word</a>.
 <p> This function returns a sentence of random words, between twelve to
  eighteen words by default.  The optional <code>words</code> flag
  allows controling exactly how many words appear in the sentence.
@@ -931,32 +935,32 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#word">chance.word</a>
+         <a href="index.html#chance.text.word">chance.text.word</a>
     </ul>
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">chance.sentence { words = <span class="number">3</span> } == <span class="string">"Hob the rag."</span></pre>
+        <pre class="example">chance.text.sentence { words = <span class="number">3</span> } == <span class="string">"Hob the rag."</span></pre>
     </ul>
 
 </dd>
     <dt>
-    <a name = "paragraph"></a>
-    <strong>paragraph ([flags])</strong>
+    <a name = "chance.text.paragraph"></a>
+    <strong>chance.text.paragraph ([flags])</strong>
     </dt>
     <dd>
-    Generates a random paragraph via <a href="index.html#sentence">chance.sentence</a>.
+    Generates a random paragraph via <a href="index.html#chance.text.sentence">chance.text.sentence</a>.
 <p> This function returns a paragraph of random sentences, created by
- calling <a href="index.html#sentence">chance.sentence</a>.  By default the paragraph will contain
- three to seven sentences.  However, the optional integer flag
- <code>sentences</code> controls exactly how many sentences to
+ calling <a href="index.html#chance.text.sentence">chance.text.sentence</a>.  By default the paragraph will
+ contain three to seven sentences.  However, the optional integer
+ flag <code>sentences</code> controls exactly how many sentences to
  create for the paragraph.
 
 
@@ -972,14 +976,14 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#sentence">chance.sentence</a>
+         <a href="index.html#chance.text.sentence">chance.text.sentence</a>
     </ul>
 
 
@@ -993,8 +997,39 @@
           </div>
     <dl class="function">
     <dt>
-    <a name = "gender"></a>
-    <strong>gender ([flags])</strong>
+    <a name = "chance.person.ssn"></a>
+    <strong>chance.person.ssn ()</strong>
+    </dt>
+    <dd>
+    Generates a random United States Social Security Number.
+<p> This function generates a random United States Social Security
+ Number and returns it as a string, <code>AAA-GG-SSSS</code>, where
+ the digits represent the Area, Group, and Serial numbers,
+ respectively.  The function will not return all zeros for any part
+ of the number, nor will the Area ever be '666' or '900-999', per
+ the standards on Social Security Numbers.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
+
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">chance.person.ssn() == <span class="string">"343-74-0571"</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "chance.person.gender"></a>
+    <strong>chance.person.gender ([flags])</strong>
     </dt>
     <dd>
     Returns a random gender as a string.
@@ -1018,7 +1053,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
@@ -1029,14 +1064,14 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.gender() == <span class="string">"Female"</span></pre></li>
-        <li><pre class="example">chance.gender { binary = <span class="keyword">true</span> } == <span class="string">"Male"</span></pre></li>
+        <li><pre class="example">chance.person.gender() == <span class="string">"Female"</span></pre></li>
+        <li><pre class="example">chance.person.gender { binary = <span class="keyword">true</span> } == <span class="string">"Male"</span></pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "prefix"></a>
-    <strong>prefix ([flags])</strong>
+    <a name = "chance.person.prefix"></a>
+    <strong>chance.person.prefix ([flags])</strong>
     </dt>
     <dd>
     Returns a random prefix for a name.
@@ -1060,7 +1095,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
@@ -1068,14 +1103,14 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.prefix() == <span class="string">"Mrs."</span></pre></li>
-        <li><pre class="example">chance.prefix { <span class="global">type</span> = <span class="string">"long"</span> } == <span class="string">"Doctor"</span></pre></li>
+        <li><pre class="example">chance.person.prefix() == <span class="string">"Mrs."</span></pre></li>
+        <li><pre class="example">chance.person.prefix { <span class="global">type</span> = <span class="string">"long"</span> } == <span class="string">"Doctor"</span></pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "suffix"></a>
-    <strong>suffix ([flags])</strong>
+    <a name = "chance.person.suffix"></a>
+    <strong>chance.person.suffix ([flags])</strong>
     </dt>
     <dd>
     Returns a random suffix for names.
@@ -1099,7 +1134,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
@@ -1107,14 +1142,14 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.suffix() == <span class="string">"Sr."</span></pre></li>
-        <li><pre class="example">chance.suffix { <span class="global">type</span> = <span class="string">"long"</span> } == <span class="string">"Senior"</span></pre></li>
+        <li><pre class="example">chance.person.suffix() == <span class="string">"Sr."</span></pre></li>
+        <li><pre class="example">chance.person.suffix { <span class="global">type</span> = <span class="string">"long"</span> } == <span class="string">"Senior"</span></pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "age"></a>
-    <strong>age ([flags])</strong>
+    <a name = "chance.person.age"></a>
+    <strong>chance.person.age ([flags])</strong>
     </dt>
     <dd>
     Returns a random age for a person.
@@ -1129,8 +1164,8 @@
  <li><code>"senior" = [65, 100]</code></li>
  </ol>
 <p> These ranges are defined in the <code>ages</code> data set, meaning
- one can use <a href="index.html#set">chance.set</a> and <a href="index.html#appendSet">chance.appendSet</a> to redefine the
- ranges for types and/or add new types.
+ one can use <a href="index.html#chance.core.set">chance.core.set</a> and <a href="index.html#chance.core.appendSet">chance.core.appendSet</a> to
+ redefine the ranges for types and/or add new types.
 
 
 
@@ -1153,9 +1188,9 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.age() == <span class="number">33</span></pre></li>
-        <li><pre class="example">chance.age { <span class="global">type</span> = <span class="string">"teen"</span> } == <span class="number">17</span></pre></li>
-        <li><pre class="example">chance.age { <span class="global">type</span> = <span class="string">"adult"</span> } == <span class="number">40</span></pre></li>
+        <li><pre class="example">chance.person.age() == <span class="number">33</span></pre></li>
+        <li><pre class="example">chance.person.age { <span class="global">type</span> = <span class="string">"teen"</span> } == <span class="number">17</span></pre></li>
+        <li><pre class="example">chance.person.age { <span class="global">type</span> = <span class="string">"adult"</span> } == <span class="number">40</span></pre></li>
     </ul>
 
 </dd>
@@ -1168,8 +1203,8 @@
           </div>
     <dl class="function">
     <dt>
-    <a name = "hour"></a>
-    <strong>hour ([flags])</strong>
+    <a name = "chance.time.hour"></a>
+    <strong>chance.time.hour ([flags])</strong>
     </dt>
     <dd>
     Returns a random hour.
@@ -1198,14 +1233,14 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.hour() == <span class="number">3</span></pre></li>
-        <li><pre class="example">chance.hour { twentyfour = <span class="keyword">true</span> } == <span class="number">15</span></pre></li>
+        <li><pre class="example">chance.time.hour() == <span class="number">3</span></pre></li>
+        <li><pre class="example">chance.time.hour { twentyfour = <span class="keyword">true</span> } == <span class="number">15</span></pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "minute"></a>
-    <strong>minute ()</strong>
+    <a name = "chance.time.minute"></a>
+    <strong>chance.time.minute ()</strong>
     </dt>
     <dd>
     Returns a random minute.
@@ -1226,8 +1261,8 @@
 
 </dd>
     <dt>
-    <a name = "second"></a>
-    <strong>second ()</strong>
+    <a name = "chance.time.second"></a>
+    <strong>chance.time.second ()</strong>
     </dt>
     <dd>
     Returns a random second.
@@ -1248,8 +1283,8 @@
 
 </dd>
     <dt>
-    <a name = "millisecond"></a>
-    <strong>millisecond ()</strong>
+    <a name = "chance.time.millisecond"></a>
+    <strong>chance.time.millisecond ()</strong>
     </dt>
     <dd>
     Returns a random millisecond.
@@ -1271,22 +1306,22 @@
 
 </dd>
     <dt>
-    <a name = "year"></a>
-    <strong>year ([flags])</strong>
+    <a name = "chance.time.year"></a>
+    <strong>chance.time.year ([flags])</strong>
     </dt>
     <dd>
     Returns a random year.
 <p> By default this function returns a number representing a year in
  the range of the current year and a century later.  For example,
- calling <code>chance.year()</code> in the year 2015 will return
- a number between 2015 and 2115.
+ calling <code>chance.time.year()</code> in the year 2015 will
+ return a number between 2015 and 2115.
 <p> The function accepts an optional table of flags which can have
  <code>min</code> and <code>max</code> properties to restrict the
  range of the output.  If only <code>min</code> is provided then the
  maximum range is one century ahead of the minimum, for example
- <code>chance.year { min = 1750 }</code> returns a year between 1750
- and 1850.  If only <code>max</code> is provided then the minimum is
- the current year.
+ <code>chance.time.year { min = 1750 }</code> returns a year between
+ 1750 and 1850.  If only <code>max</code> is provided then the
+ minimum is the current year.
 
 
 
@@ -1309,16 +1344,16 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.year() == <span class="number">2074</span></pre></li>
-        <li><pre class="example">chance.year { min = <span class="number">1800</span> } == <span class="number">1884</span></pre></li>
-        <li><pre class="example">chance.year { max = <span class="number">2300</span> } == <span class="number">2203</span></pre></li>
-        <li><pre class="example">chance.year { min = <span class="number">1990</span>, max = <span class="number">2000</span> } == <span class="number">1995</span></pre></li>
+        <li><pre class="example">chance.time.year() == <span class="number">2074</span></pre></li>
+        <li><pre class="example">chance.time.year { min = <span class="number">1800</span> } == <span class="number">1884</span></pre></li>
+        <li><pre class="example">chance.time.year { max = <span class="number">2300</span> } == <span class="number">2203</span></pre></li>
+        <li><pre class="example">chance.time.year { min = <span class="number">1990</span>, max = <span class="number">2000</span> } == <span class="number">1995</span></pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "month"></a>
-    <strong>month ()</strong>
+    <a name = "chance.time.month"></a>
+    <strong>chance.time.month ()</strong>
     </dt>
     <dd>
     Returns the name of a random month.
@@ -1331,7 +1366,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
@@ -1340,8 +1375,8 @@
 
 </dd>
     <dt>
-    <a name = "day"></a>
-    <strong>day ([flags])</strong>
+    <a name = "chance.time.day"></a>
+    <strong>chance.time.day ([flags])</strong>
     </dt>
     <dd>
     Returns a random day of the week.
@@ -1365,7 +1400,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
@@ -1373,15 +1408,15 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.day() == <span class="string">"Monday"</span></pre></li>
-        <li><pre class="example">chance.day { weekends = <span class="keyword">true</span> } == <span class="string">"Sunday"</span></pre></li>
-        <li><pre class="example">chance.day { weekends = <span class="keyword">false</span> } == <span class="string">"Thursday"</span></pre></li>
+        <li><pre class="example">chance.time.day() == <span class="string">"Monday"</span></pre></li>
+        <li><pre class="example">chance.time.day { weekends = <span class="keyword">true</span> } == <span class="string">"Sunday"</span></pre></li>
+        <li><pre class="example">chance.time.day { weekends = <span class="keyword">false</span> } == <span class="string">"Thursday"</span></pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "timestamp"></a>
-    <strong>timestamp ()</strong>
+    <a name = "chance.time.timestamp"></a>
+    <strong>chance.time.timestamp ()</strong>
     </dt>
     <dd>
     Returns a random Unix timestamp.
@@ -1406,8 +1441,8 @@
 
 </dd>
     <dt>
-    <a name = "ampm"></a>
-    <strong>ampm ()</strong>
+    <a name = "chance.time.ampm"></a>
+    <strong>chance.time.ampm ()</strong>
     </dt>
     <dd>
     Returns 'am' or 'pm' for use with times.
@@ -1417,7 +1452,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
         <code>"am"</code> or <code>"pm"</code>
     </ol>
 
@@ -1435,8 +1470,8 @@
           </div>
     <dl class="function">
     <dt>
-    <a name = "color"></a>
-    <strong>color ([flags])</strong>
+    <a name = "chance.web.color"></a>
+    <strong>chance.web.color ([flags])</strong>
     </dt>
     <dd>
     Returns a random color for use in HTML and CSS.
@@ -1467,7 +1502,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
@@ -1475,16 +1510,16 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.color() == <span class="string">"#a034cc"</span></pre></li>
-        <li><pre class="example">chance.color { format = <span class="string">"shorthex"</span> } == <span class="string">"#eeb"</span></pre></li>
-        <li><pre class="example">chance.color { format = <span class="string">"rgb"</span> } == <span class="string">"rgb(120, 80, 255)"</span></pre></li>
-        <li><pre class="example">chance.color { greyscale = <span class="keyword">true</span> } == <span class="string">"#3c3c3c"</span></pre></li>
+        <li><pre class="example">chance.web.color() == <span class="string">"#a034cc"</span></pre></li>
+        <li><pre class="example">chance.web.color { format = <span class="string">"shorthex"</span> } == <span class="string">"#eeb"</span></pre></li>
+        <li><pre class="example">chance.web.color { format = <span class="string">"rgb"</span> } == <span class="string">"rgb(120, 80, 255)"</span></pre></li>
+        <li><pre class="example">chance.web.color { greyscale = <span class="keyword">true</span> } == <span class="string">"#3c3c3c"</span></pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "ip"></a>
-    <strong>ip ([flags])</strong>
+    <a name = "chance.web.ip"></a>
+    <strong>chance.web.ip ([flags])</strong>
     </dt>
     <dd>
     Generates a random IP address.
@@ -1507,27 +1542,27 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#ipv6">chance.ipv6</a>
+         <a href="index.html#chance.web.ipv6">chance.web.ipv6</a>
     </ul>
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.ip() == <span class="string">"132.89.0.200"</span></pre></li>
-        <li><pre class="example">chance.ip { class = <span class="string">"B"</span> } == <span class="string">"190.1.24.30"</span></pre></li>
-        <li><pre class="example">chance.ip { octets = { <span class="number">192</span>, <span class="number">128</span> }} == <span class="string">"192.128.0.1"</span></pre></li>
+        <li><pre class="example">chance.web.ip() == <span class="string">"132.89.0.200"</span></pre></li>
+        <li><pre class="example">chance.web.ip { class = <span class="string">"B"</span> } == <span class="string">"190.1.24.30"</span></pre></li>
+        <li><pre class="example">chance.web.ip { octets = { <span class="number">192</span>, <span class="number">128</span> }} == <span class="string">"192.128.0.1"</span></pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "ipv6"></a>
-    <strong>ipv6 ()</strong>
+    <a name = "chance.web.ipv6"></a>
+    <strong>chance.web.ipv6 ()</strong>
     </dt>
     <dd>
     Generates a random IPv6 address.
@@ -1537,21 +1572,21 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#ip">chance.ip</a>
+         <a href="index.html#chance.web.ip">chance.web.ip</a>
     </ul>
 
 
 </dd>
     <dt>
-    <a name = "tld"></a>
-    <strong>tld ()</strong>
+    <a name = "chance.web.tld"></a>
+    <strong>chance.web.tld ()</strong>
     </dt>
     <dd>
     Generate a random top-level domain.
@@ -1564,7 +1599,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
@@ -1572,13 +1607,13 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">chance.tld() == <span class="string">"net"</span></pre>
+        <pre class="example">chance.web.tld() == <span class="string">"net"</span></pre>
     </ul>
 
 </dd>
     <dt>
-    <a name = "domain"></a>
-    <strong>domain ([flags])</strong>
+    <a name = "chance.web.domain"></a>
+    <strong>chance.web.domain ([flags])</strong>
     </dt>
     <dd>
     Generate a random domain.
@@ -1601,28 +1636,28 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
 
     <h3>See also:</h3>
     <ul>
-         <li><a href="index.html#word">chance.word</a></li>
-         <li><a href="index.html#tld">chance.tld</a></li>
+         <li><a href="index.html#chance.text.word">chance.text.word</a></li>
+         <li><a href="index.html#chance.web.tld">chance.web.tld</a></li>
     </ul>
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.domain() == <span class="string">"paroo.net"</span></pre></li>
-        <li><pre class="example">chance.domain { words = <span class="number">1</span> } == <span class="string">"fee.gov"</span></pre></li>
-        <li><pre class="example">chance.domain { tld = <span class="string">"co.bh"</span> } == <span class="string">"havashi.co.bh"</span></pre></li>
+        <li><pre class="example">chance.web.domain() == <span class="string">"paroo.net"</span></pre></li>
+        <li><pre class="example">chance.web.domain { words = <span class="number">1</span> } == <span class="string">"fee.gov"</span></pre></li>
+        <li><pre class="example">chance.web.domain { tld = <span class="string">"co.bh"</span> } == <span class="string">"havashi.co.bh"</span></pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "email"></a>
-    <strong>email ([flags])</strong>
+    <a name = "chance.web.email"></a>
+    <strong>chance.web.email ([flags])</strong>
     </dt>
     <dd>
     Returns a random email address.
@@ -1643,27 +1678,27 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
 
     <h3>See also:</h3>
     <ul>
-         <li><a href="index.html#word">chance.word</a></li>
-         <li><a href="index.html#domain">chance.domain</a></li>
+         <li><a href="index.html#chance.text.word">chance.text.word</a></li>
+         <li><a href="index.html#chance.web.domain">chance.web.domain</a></li>
     </ul>
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.email() == <span class="string">"foo@boohoo.edu"</span></pre></li>
-        <li><pre class="example">chance.email { domain = <span class="string">"example.com"</span> } == <span class="string">"lepiwoa@example.com"</span></pre></li>
+        <li><pre class="example">chance.web.email() == <span class="string">"foo@boohoo.edu"</span></pre></li>
+        <li><pre class="example">chance.web.email { domain = <span class="string">"example.com"</span> } == <span class="string">"lepiwoa@example.com"</span></pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "hashtag"></a>
-    <strong>hashtag ()</strong>
+    <a name = "chance.web.hashtag"></a>
+    <strong>chance.web.hashtag ()</strong>
     </dt>
     <dd>
     Returns a random Twitter hashtag.
@@ -1677,25 +1712,25 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#twitter">chance.twitter</a>
+         <a href="index.html#chance.web.twitter">chance.web.twitter</a>
     </ul>
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">chance.hashtag() == <span class="string">"#namarob"</span></pre>
+        <pre class="example">chance.web.hashtag() == <span class="string">"#namarob"</span></pre>
     </ul>
 
 </dd>
     <dt>
-    <a name = "twitter"></a>
-    <strong>twitter ()</strong>
+    <a name = "chance.web.twitter"></a>
+    <strong>chance.web.twitter ()</strong>
     </dt>
     <dd>
     Generates a random Twitter handle.
@@ -1709,25 +1744,25 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#hashtag">chance.hashtag</a>
+         <a href="index.html#chance.web.hashtag">chance.web.hashtag</a>
     </ul>
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">chance.twitter() == <span class="string">"@meepboat"</span></pre>
+        <pre class="example">chance.web.twitter() == <span class="string">"@meepboat"</span></pre>
     </ul>
 
 </dd>
     <dt>
-    <a name = "uri"></a>
-    <strong>uri ([flags])</strong>
+    <a name = "chance.web.uri"></a>
+    <strong>chance.web.uri ([flags])</strong>
     </dt>
     <dd>
     Generates a random URI.
@@ -1755,23 +1790,23 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
 
     <h3>See also:</h3>
     <ul>
-         <a href="index.html#domain">chance.domain</a>
+         <a href="index.html#chance.web.domain">chance.web.domain</a>
     </ul>
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.uri() == <span class="string">"http://foobar.net/baz"</span></pre></li>
-        <li><pre class="example">chance.uri { domain = <span class="string">"example.com"</span> } == <span class="string">"http://example.com/wee"</span></pre></li>
-        <li><pre class="example">chance.uri { path = <span class="string">"foo/bar"</span> } == <span class="string">"http://narofu.edu/foo/bar"</span></pre></li>
-        <li><pre class="example">chance.uri { extensions = { <span class="string">"png"</span>, <span class="string">"gif"</span> }} == <span class="string">"http://benhoo.gov/dao.png"</span></pre></li>
-        <li><pre class="example">chance.uri { protocol = <span class="string">"ftp"</span> } == <span class="string">"ftp://fufoo.net/veto"</span></pre></li>
+        <li><pre class="example">chance.web.uri() == <span class="string">"http://foobar.net/baz"</span></pre></li>
+        <li><pre class="example">chance.web.uri { domain = <span class="string">"example.com"</span> } == <span class="string">"http://example.com/wee"</span></pre></li>
+        <li><pre class="example">chance.web.uri { path = <span class="string">"foo/bar"</span> } == <span class="string">"http://narofu.edu/foo/bar"</span></pre></li>
+        <li><pre class="example">chance.web.uri { extensions = { <span class="string">"png"</span>, <span class="string">"gif"</span> }} == <span class="string">"http://benhoo.gov/dao.png"</span></pre></li>
+        <li><pre class="example">chance.web.uri { protocol = <span class="string">"ftp"</span> } == <span class="string">"ftp://fufoo.net/veto"</span></pre></li>
     </ul>
 
 </dd>
@@ -1781,7 +1816,7 @@
     </dt>
     <dd>
     Generates a random URL.
-<p> This function is an alias for <a href="index.html#uri">chance.uri</a>.
+<p> This function is an alias for <a href="index.html#chance.web.uri">chance.web.uri</a>.
 
 
 
@@ -1796,7 +1831,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
@@ -1814,8 +1849,8 @@
           </div>
     <dl class="function">
     <dt>
-    <a name = "normal"></a>
-    <strong>normal ([flags])</strong>
+    <a name = "chance.misc.normal"></a>
+    <strong>chance.misc.normal ([flags])</strong>
     </dt>
     <dd>
     Returns a normally-distributed random value.
@@ -1845,15 +1880,15 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.normal() == <span class="number">0.2938473</span></pre></li>
-        <li><pre class="example">chance.normal { mean = <span class="number">100</span> } == <span class="number">99.172493</span></pre></li>
-        <li><pre class="example">chance.normal { mean = <span class="number">100</span>, deviation = <span class="number">15</span> } == <span class="number">85.83741</span></pre></li>
+        <li><pre class="example">chance.misc.normal() == <span class="number">0.2938473</span></pre></li>
+        <li><pre class="example">chance.misc.normal { mean = <span class="number">100</span> } == <span class="number">99.172493</span></pre></li>
+        <li><pre class="example">chance.misc.normal { mean = <span class="number">100</span>, deviation = <span class="number">15</span> } == <span class="number">85.83741</span></pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "weighted"></a>
-    <strong>weighted (values, weights)</strong>
+    <a name = "chance.misc.weighted"></a>
+    <strong>chance.misc.weighted (values, weights)</strong>
     </dt>
     <dd>
     Randomly selects an item from an array of weighted values.
@@ -1861,7 +1896,8 @@
  select from, and the second a table of numbers indicating the
  weight for each value, i.e. the probability the function will
  select that value.  <strong>If the two arguments are not tables of
- the same length then the function returns <code>nil</code>.</strong>
+ the same length then the function returns
+ <code>nil</code>.</strong>
 
 
 
@@ -1887,7 +1923,7 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example"> chance.weighted({<span class="string">"a"</span>, <span class="string">"b"</span>}, {<span class="number">100</span>, <span class="number">1</span>})
+        <pre class="example"> chance.misc.weighted({<span class="string">"a"</span>, <span class="string">"b"</span>}, {<span class="number">100</span>, <span class="number">1</span>})
  <span class="comment">-- This will return "a" one-hundred times more often than
 </span> <span class="comment">-- it will return "b".
 </span></pre>
@@ -1895,8 +1931,8 @@
 
 </dd>
     <dt>
-    <a name = "n"></a>
-    <strong>n (generator, count[, ...])</strong>
+    <a name = "chance.misc.n"></a>
+    <strong>chance.misc.n (generator, count[, ...])</strong>
     </dt>
     <dd>
     Create an array of random data from a given generator.
@@ -1937,23 +1973,23 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">switches = chance.n(chance.bool, <span class="number">3</span>)</pre></li>
-        <li><pre class="example">numbers = chance.n(chance.natural, <span class="number">10</span>, { max = <span class="number">100</span> })</pre></li>
+        <li><pre class="example">switches = chance.misc.n(chance.basic.bool, <span class="number">3</span>)</pre></li>
+        <li><pre class="example">numbers = chance.misc.n(chance.basic.natural, <span class="number">10</span>, { max = <span class="number">100</span> })</pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "unique"></a>
-    <strong>unique (generator, count[, ...])</strong>
+    <a name = "chance.misc.unique"></a>
+    <strong>chance.misc.unique (generator, count[, ...])</strong>
     </dt>
     <dd>
     Creates an array of unique values from a given generator.
-<p> This function is similar to <a href="index.html#n">chance.n</a> in that it accepts a
+<p> This function is similar to <a href="index.html#chance.misc.n">chance.misc.n</a> in that it accepts a
  generator function, often another <code>chance</code> function, and
  a number of items to generate.  The function will return an array
  containing that many items, randomly generated by the given
- function.  However, unlike <a href="index.html#n">chance.n</a>, the items in the array are
- guaranteed to be unique.
+ function.  However, unlike <a href="index.html#chance.misc.n">chance.misc.n</a>, the items in the array
+ are guaranteed to be unique.
 <p> Any additional arguments will be given to the generator function on
  each invocation.
 
@@ -1984,14 +2020,14 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.unique(chance.month, <span class="number">3</span>) == { <span class="string">"May"</span>, <span class="string">"February"</span>, <span class="string">"April"</span> }</pre></li>
-        <li><pre class="example">chance.unique(chance.character, <span class="number">2</span>, { pool = <span class="string">"aeiou"</span> }) == { <span class="string">"e"</span>, <span class="string">"u"</span> }</pre></li>
+        <li><pre class="example">chance.misc.unique(chance.time.month, <span class="number">3</span>) == { <span class="string">"May"</span>, <span class="string">"February"</span>, <span class="string">"April"</span> }</pre></li>
+        <li><pre class="example">chance.misc.unique(chance.basic.character, <span class="number">2</span>, { pool = <span class="string">"aeiou"</span> }) == { <span class="string">"e"</span>, <span class="string">"u"</span> }</pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "hash"></a>
-    <strong>hash ([flags])</strong>
+    <a name = "chance.misc.hash"></a>
+    <strong>chance.misc.hash ([flags])</strong>
     </dt>
     <dd>
     Create a random hash in hexadecimal.
@@ -2014,7 +2050,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="index.html#string">string</a></span>
+           <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
     </ol>
 
@@ -2022,14 +2058,14 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.hash() == <span class="string">"9f3cbf2466d865d82310b9b1e785401556daedce"</span></pre></li>
-        <li><pre class="example">chance.hash { digits = <span class="number">8</span> } == <span class="string">"5d82310b"</span></pre></li>
+        <li><pre class="example">chance.misc.hash() == <span class="string">"9f3cbf2466d865d82310b9b1e785401556daedce"</span></pre></li>
+        <li><pre class="example">chance.misc.hash { digits = <span class="number">8</span> } == <span class="string">"5d82310b"</span></pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "rpg"></a>
-    <strong>rpg (notation)</strong>
+    <a name = "chance.misc.rpg"></a>
+    <strong>chance.misc.rpg (notation)</strong>
     </dt>
     <dd>
     Create an array of die rolls using Dungeons and Dragons notation.
@@ -2062,14 +2098,14 @@
 
     <h3>Usage:</h3>
     <ul>
-        <li><pre class="example">chance.rpg(<span class="string">"1d8"</span>) == {<span class="number">4</span>}</pre></li>
-        <li><pre class="example">chance.rpg(<span class="string">"3d20"</span>) == {<span class="number">10</span>, <span class="number">4</span>, <span class="number">17</span>}</pre></li>
+        <li><pre class="example">chance.misc.rpg(<span class="string">"1d8"</span>) == {<span class="number">4</span>}</pre></li>
+        <li><pre class="example">chance.misc.rpg(<span class="string">"3d20"</span>) == {<span class="number">10</span>, <span class="number">4</span>, <span class="number">17</span>}</pre></li>
     </ul>
 
 </dd>
     <dt>
-    <a name = "d4"></a>
-    <strong>d4 ()</strong>
+    <a name = "chance.misc.d4"></a>
+    <strong>chance.misc.d4 ()</strong>
     </dt>
     <dd>
     Roll a 4-sided die.
@@ -2088,8 +2124,8 @@
 
 </dd>
     <dt>
-    <a name = "d6"></a>
-    <strong>d6 ()</strong>
+    <a name = "chance.misc.d6"></a>
+    <strong>chance.misc.d6 ()</strong>
     </dt>
     <dd>
     Roll a 6-sided die.
@@ -2108,8 +2144,8 @@
 
 </dd>
     <dt>
-    <a name = "d8"></a>
-    <strong>d8 ()</strong>
+    <a name = "chance.misc.d8"></a>
+    <strong>chance.misc.d8 ()</strong>
     </dt>
     <dd>
     Roll an 8-sided die.
@@ -2128,8 +2164,8 @@
 
 </dd>
     <dt>
-    <a name = "d10"></a>
-    <strong>d10 ()</strong>
+    <a name = "chance.misc.d10"></a>
+    <strong>chance.misc.d10 ()</strong>
     </dt>
     <dd>
     Roll a 10-sided die.
@@ -2148,8 +2184,8 @@
 
 </dd>
     <dt>
-    <a name = "d12"></a>
-    <strong>d12 ()</strong>
+    <a name = "chance.misc.d12"></a>
+    <strong>chance.misc.d12 ()</strong>
     </dt>
     <dd>
     Roll a 12-sided die.
@@ -2168,8 +2204,8 @@
 
 </dd>
     <dt>
-    <a name = "d20"></a>
-    <strong>d20 ()</strong>
+    <a name = "chance.misc.d20"></a>
+    <strong>chance.misc.d20 ()</strong>
     </dt>
     <dd>
     Roll a 20-sided die.
@@ -2188,8 +2224,8 @@
 
 </dd>
     <dt>
-    <a name = "d100"></a>
-    <strong>d100 ()</strong>
+    <a name = "chance.misc.d100"></a>
+    <strong>chance.misc.d100 ()</strong>
     </dt>
     <dd>
     Roll a 100-sided die.
@@ -2217,8 +2253,8 @@
           </div>
     <dl class="function">
     <dt>
-    <a name = "pick"></a>
-    <strong>pick (array[, count])</strong>
+    <a name = "chance.helpers.pick"></a>
+    <strong>chance.helpers.pick (array[, count])</strong>
     </dt>
     <dd>
     Pick a random element from a given array.
@@ -2253,8 +2289,8 @@
 
 </dd>
     <dt>
-    <a name = "shuffle"></a>
-    <strong>shuffle (array)</strong>
+    <a name = "chance.helpers.shuffle"></a>
+    <strong>chance.helpers.shuffle (array)</strong>
     </dt>
     <dd>
     Randomly shuffle the contents of an array.
@@ -2284,7 +2320,7 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example">chance.shuffle {<span class="string">"foo"</span>, <span class="string">"bar"</span>, <span class="string">"baz"</span>} == {<span class="string">"bar"</span>, <span class="string">"foo"</span>, <span class="string">"baz"</span>}</pre>
+        <pre class="example">chance.helpers.shuffle {<span class="string">"foo"</span>, <span class="string">"bar"</span>, <span class="string">"baz"</span>} == {<span class="string">"bar"</span>, <span class="string">"foo"</span>, <span class="string">"baz"</span>}</pre>
     </ul>
 
 </dd>
@@ -2295,7 +2331,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
-<i style="float:right;">Last updated 2015-08-23 18:25:15 </i>
+<i style="float:right;">Last updated 2015-08-29 10:50:22 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
