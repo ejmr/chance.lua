@@ -1295,7 +1295,7 @@ end
 --
 -- @param[opt] flags
 -- @treturn string
--- @function chance.url
+-- @function chance.web.url
 chance.web.url = chance.web.uri
 
 
