@@ -1299,6 +1299,75 @@ end
 chance.web.url = chance.web.uri
 
 
+--- Poker
+--
+-- These are functions for generating random data related to the
+-- card game Poker and its variants.
+--
+-- @section Poker
+
+chance.poker = {}
+
+--- Ranks and Suits for Cards
+--
+-- @local
+-- @field cards
+-- @table chance.core.dataSets
+chance.core.set("cards", {
+        ["ranks"] = {
+            2, 3, 4, 5, 6, 7, 8, 9, 10,
+            "Jack", "Queen", "King", "Ace", "Joker",
+        },
+        ["suits"] = {
+            "Heart", "Diamond", "Club", "Spade",
+        }
+})
+
+--- Returns a random Poker card.
+--
+-- The functions returns a table representing a random Poker card.
+-- The table will have two keys:
+--
+-- <ol>
+-- <li><code>rank</code>: A number in the range of [2, 10], or the
+-- strings "Jack", "Queen", "King", "Ace", and "Joker".</li>
+-- <li><code>suit</code>: A string with the possible values of
+-- "Spade", "Heart", "Club", and "Diamond".</li>
+-- </ol>
+--
+-- The function accepts an optional table of flags:
+--
+-- If the <code>joker</code> flag has a boolean false value then the
+-- function will never return the Joker.
+--
+-- The <code>rank</code> and <code>suit</code> flags accept values to
+-- use explicitly for the rank and suit of the generated card.
+--
+-- @usage chance.poker.card() == { rank = 4, suit = "Club" }
+-- @usage chance.poker.card { rank = "Jack" } == { rank = "Jack", suit = "Heart" }
+-- @usage chance.poker.card { suit = "Spade" } == { rank = 10, suit = "Spade" }
+-- @usage chance.poker.card { joker = false } == { rank = 5, suit = "Diamond" }
+--
+-- @param[opt] flags
+-- @treturn table card
+function chance.poker.card(flags)
+    local rank = chance.helpers.pick(chance.core.dataSets["cards"]["ranks"])
+    local suit = chance.helpers.pick(chance.core.dataSets["cards"]["suits"])
+
+    if flags then
+        if flags["rank"] then rank = flags["rank"] end
+        if flags["suit"] then suit = flags["suit"] end
+        if flags["joker"] ~= nil and flags["joker"] == false then
+            repeat
+                rank = chance.helpers.pick(chance.core.dataSets["cards"]["ranks"])
+            until rank ~= "Joker"
+        end
+    end
+
+    return { rank = rank, suit = suit }
+end
+
+
 --- Miscellaneous
 --
 -- These are functions for generating data which does not easily fall

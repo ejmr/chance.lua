@@ -677,6 +677,42 @@ describe("The Web API", function ()
 end)
 
 
+describe("The Poker API", function ()
+
+    before_each(function () chance.core.seed(os.time()) end)
+
+    describe("chance.poker.card()", function ()
+        it("Returns a random card as a table with two keys, 'rank' and 'suit,", function ()
+            local card = chance.poker.card()
+            assert.is.in_array(card.rank, chance.core.dataSets["cards"]["ranks"])
+            assert.is.in_array(card.suit, chance.core.dataSets["cards"]["suits"])
+        end)
+
+        it("Accepts a boolean flag to never return the Joker", function ()
+            assert.has_no.errors(function ()
+                for _ = 1, 1000 do
+                    local card = chance.poker.card { joker = false }
+                    if card.rank == "Joker" and card.suit == "Joker" then
+                        error("Generated the Joker when it should never do so")
+                    end
+                end
+            end)
+        end)
+
+        it("Can return cards of a specific rank and/or suit", function ()
+            local heart = chance.poker.card { suit = "Heart" }
+            local duece = chance.poker.card { rank = 2 }
+            local AOS = chance.poker.card { rank = "Ace", suit = "Spade" }
+            assert.is.equal(heart.suit, "Heart")
+            assert.is.equal(duece.rank, 2)
+            assert.is.equal(AOS.rank, "Ace")
+            assert.is.equal(AOS.suit, "Spade")
+        end)
+    end)
+
+end)
+
+
 describe("The Helper API", function ()
 
     before_each(function () chance.core.seed(os.time()) end)

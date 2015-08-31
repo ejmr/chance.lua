@@ -21,6 +21,9 @@ to [Semantic Versioning](http://semver.org/).
 - The `Person` API
     - `chance.ssn()`
 
+- The `Poker` API:
+    - `chance.poker.card()`
+
 ### Changed
 
 - All API functions now belong to sub-tables named after their
