@@ -640,7 +640,7 @@ chance.core.set("genders", {
 -- @usage chance.person.gender() == "Female"
 -- @usage chance.person.gender { binary = true } == "Male"
 --
--- @see chance.person.genders
+-- @see chance.core.dataSets
 --
 -- @param[opt] flags
 -- @treturn string

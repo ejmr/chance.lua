@@ -13,6 +13,9 @@ to [Semantic Versioning](http://semver.org/).
   that the `key` parameter can only be a string.  The parameter cannot
   be a function as the documentation erroneously said.
 
+- The documentation for `chance.person.gender()` now correctly
+  references `chance.core.dataSets`.
+
 ## Added
 
 - The `Person` API
