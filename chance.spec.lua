@@ -710,6 +710,20 @@ describe("The Poker API", function ()
         end)
     end)
 
+    describe("chance.poker.deck()", function ()
+        it("Returns a 52-card deck by default", function ()
+            local deck = chance.poker.deck()
+            assert.is.equal(#deck, 52)
+            assert.is.unique_array(deck)
+        end)
+
+        it("Accepts an optional flag to include the Joker", function ()
+            local deck = chance.poker.deck { joker = true }
+            assert.is.equal(#deck, 53)
+            assert.is.unique_array(deck)
+        end)
+    end)
+
 end)
 
 

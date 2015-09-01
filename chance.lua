@@ -1367,6 +1367,39 @@ function chance.poker.card(flags)
     return { rank = rank, suit = suit }
 end
 
+--- Returns a deck of Poker cards.
+--
+-- This function returns a table representing a deck of Poker cards.
+-- By default the deck contains 52 cards, i.e. it does not include the
+-- Joker.  However, if the optional <code>joker</code> flag is present
+-- and has a boolean true value then the deck will include the Joker,
+-- for a total of 53 cards.
+--
+-- @see chance.poker.card
+--
+-- @usage local deck = chance.poker.deck(); #deck == 52
+-- @usage local deck = chance.poker.deck { joker = true }; #deck == 53
+--
+-- @param[opt] flags
+-- @treturn table deck
+function chance.poker.deck(flags)
+    local deck = {}
+
+    for _,suit in ipairs(chance.core.dataSets["cards"]["suits"]) do
+        for _,rank in ipairs(chance.core.dataSets["cards"]["ranks"]) do
+            if rank ~= "Joker" then
+                table.insert(deck, { rank = rank, suit = suit })
+            end
+        end
+    end
+
+    if flags and flags["joker"] == true then
+        table.insert(deck, { rank = "Joker", suit = "Joker" })
+    end
+
+    return deck
+end
+
 
 --- Miscellaneous
 --
