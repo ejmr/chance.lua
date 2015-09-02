@@ -744,6 +744,12 @@ describe("The Helper API", function ()
         end)
     end)
 
+    describe("chance.helpers.pick_unique()", function ()
+        it("Returns a random selection of unique elements from a table", function ()
+            assert.is.unique_array(chance.helpers.pick_unique(chance.core.dataSets["months"], 10))
+        end)
+    end)
+
     describe("chance.helpers.shuffle()", function ()
         it("Returns an array of randomly shuffled elements", function ()
             local original = { "foo", "bar", "baz" }

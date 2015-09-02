@@ -18,6 +18,9 @@ to [Semantic Versioning](http://semver.org/).
 
 ## Added
 
+- The `Helper` API:
+    - `chance.helpers.pick_unique()`
+
 - The `Person` API
     - `chance.ssn()`
 

@@ -1712,6 +1712,31 @@ function chance.helpers.pick(array, count)
     return array[chance.core.random(1, size)]
 end
 
+--- Pick a random collection of unique elements from an array.
+--
+-- This function is like @{chance.helpers.pick} except that the
+-- <code>count</code> parameter is mandatory and the array that the
+-- function returns will not have any duplicate elements.
+--
+-- @see chance.helpers.pick
+--
+-- @tparam table array
+-- @tparam number count
+-- @treturn table
+function chance.helpers.pick_unique(array, count)
+    local data = makeShallowCopy(array)
+    local choices = {}
+
+    while count > 0 do
+        local index = chance.core.random(1, #data)
+        table.insert(choices, data[index])
+        table.remove(data, index)
+        count = count - 1
+    end
+
+    return choices
+end
+
 --- Randomly shuffle the contents of an array.
 --
 -- This function takes an array, i.e. a table with only numeric
