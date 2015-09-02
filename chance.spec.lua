@@ -724,6 +724,30 @@ describe("The Poker API", function ()
         end)
     end)
 
+    describe("chance.poker.hand()", function ()
+        it("Returns a five card hand by default", function ()
+            local hand = chance.poker.hand()
+            assert.is.equal(#hand, 5)
+        end)
+
+        it("Never returns duplicate cards", function ()
+            for _ = 1, 100 do
+                assert.is.unique_array(chance.poker.hand())
+            end
+        end)
+
+        it("Can return a hand with a specific number of cards", function ()
+            local hand = chance.poker.hand { cards = 2 }
+            assert.is.equal(#hand, 2)
+        end)
+
+        it("Can return a hand chosen from a specific deck", function ()
+            local hand = chance.poker.hand { deck = chance.poker.deck { joker = true } }
+            assert.is.equal(#hand, 5)
+            assert.is.unique_array(hand)
+        end)
+    end)
+
 end)
 
 

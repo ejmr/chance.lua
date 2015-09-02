@@ -27,6 +27,7 @@ to [Semantic Versioning](http://semver.org/).
 - The `Poker` API:
     - `chance.poker.card()`
     - `chance.poker.deck()`
+    - `chance.poker.hand()`
 
 ### Changed
 
