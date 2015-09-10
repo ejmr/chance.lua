@@ -5,7 +5,7 @@ to [Semantic Versioning](http://semver.org/).
 
 
 
-## Unreleased
+## [0.5.0] - 2015-09-09
 
 ## Fixed
 
@@ -18,8 +18,16 @@ to [Semantic Versioning](http://semver.org/).
 
 ## Added
 
+- The `Helper` API:
+    - `chance.helpers.pick_unique()`
+
 - The `Person` API
     - `chance.ssn()`
+
+- The `Poker` API:
+    - `chance.poker.card()`
+    - `chance.poker.deck()`
+    - `chance.poker.hand()`
 
 ### Changed
 

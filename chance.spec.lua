@@ -677,6 +677,80 @@ describe("The Web API", function ()
 end)
 
 
+describe("The Poker API", function ()
+
+    before_each(function () chance.core.seed(os.time()) end)
+
+    describe("chance.poker.card()", function ()
+        it("Returns a random card as a table with two keys, 'rank' and 'suit,", function ()
+            local card = chance.poker.card()
+            assert.is.in_array(card.rank, chance.core.dataSets["cards"]["ranks"])
+            assert.is.in_array(card.suit, chance.core.dataSets["cards"]["suits"])
+        end)
+
+        it("Accepts a boolean flag to never return the Joker", function ()
+            assert.has_no.errors(function ()
+                for _ = 1, 1000 do
+                    local card = chance.poker.card { joker = false }
+                    if card.rank == "Joker" and card.suit == "Joker" then
+                        error("Generated the Joker when it should never do so")
+                    end
+                end
+            end)
+        end)
+
+        it("Can return cards of a specific rank and/or suit", function ()
+            local heart = chance.poker.card { suit = "Heart" }
+            local duece = chance.poker.card { rank = 2 }
+            local AOS = chance.poker.card { rank = "Ace", suit = "Spade" }
+            assert.is.equal(heart.suit, "Heart")
+            assert.is.equal(duece.rank, 2)
+            assert.is.equal(AOS.rank, "Ace")
+            assert.is.equal(AOS.suit, "Spade")
+        end)
+    end)
+
+    describe("chance.poker.deck()", function ()
+        it("Returns a 52-card deck by default", function ()
+            local deck = chance.poker.deck()
+            assert.is.equal(#deck, 52)
+            assert.is.unique_array(deck)
+        end)
+
+        it("Accepts an optional flag to include the Joker", function ()
+            local deck = chance.poker.deck { joker = true }
+            assert.is.equal(#deck, 53)
+            assert.is.unique_array(deck)
+        end)
+    end)
+
+    describe("chance.poker.hand()", function ()
+        it("Returns a five card hand by default", function ()
+            local hand = chance.poker.hand()
+            assert.is.equal(#hand, 5)
+        end)
+
+        it("Never returns duplicate cards", function ()
+            for _ = 1, 100 do
+                assert.is.unique_array(chance.poker.hand())
+            end
+        end)
+
+        it("Can return a hand with a specific number of cards", function ()
+            local hand = chance.poker.hand { cards = 2 }
+            assert.is.equal(#hand, 2)
+        end)
+
+        it("Can return a hand chosen from a specific deck", function ()
+            local hand = chance.poker.hand { deck = chance.poker.deck { joker = true } }
+            assert.is.equal(#hand, 5)
+            assert.is.unique_array(hand)
+        end)
+    end)
+
+end)
+
+
 describe("The Helper API", function ()
 
     before_each(function () chance.core.seed(os.time()) end)
@@ -691,6 +765,12 @@ describe("The Helper API", function ()
             local count = 10
             local choices = chance.helpers.pick({"foo", "bar", "baz"}, count)
             assert.equals(count, #choices)
+        end)
+    end)
+
+    describe("chance.helpers.pick_unique()", function ()
+        it("Returns a random selection of unique elements from a table", function ()
+            assert.is.unique_array(chance.helpers.pick_unique(chance.core.dataSets["months"], 10))
         end)
     end)
 
