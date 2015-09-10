@@ -35,6 +35,7 @@
 <li><a href="#Person">Person </a></li>
 <li><a href="#Time">Time </a></li>
 <li><a href="#Web">Web </a></li>
+<li><a href="#Poker">Poker </a></li>
 <li><a href="#Miscellaneous">Miscellaneous </a></li>
 <li><a href="#Helpers">Helpers </a></li>
 </ul>
@@ -240,8 +241,23 @@
 	<td class="summary">Generates a random URI.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#url">url ([flags])</a></td>
+	<td class="name" nowrap><a href="#chance.web.url">chance.web.url ([flags])</a></td>
 	<td class="summary">Generates a random URL.</td>
+	</tr>
+</table>
+<h2><a href="#Poker">Poker </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#chance.poker.card">chance.poker.card ([flags])</a></td>
+	<td class="summary">Returns a random Poker card.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#chance.poker.deck">chance.poker.deck ([flags])</a></td>
+	<td class="summary">Returns a deck of Poker cards.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#chance.poker.hand">chance.poker.hand ([flags])</a></td>
+	<td class="summary">Returns a hand of Poker cards.</td>
 	</tr>
 </table>
 <h2><a href="#Miscellaneous">Miscellaneous </a></h2>
@@ -304,6 +320,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#chance.helpers.pick">chance.helpers.pick (array[, count])</a></td>
 	<td class="summary">Pick a random element from a given array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#chance.helpers.pick_unique">chance.helpers.pick_unique (array, count)</a></td>
+	<td class="summary">Pick a random collection of unique elements from an array.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#chance.helpers.shuffle">chance.helpers.shuffle (array)</a></td>
@@ -575,7 +595,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">key</span>
-            <span class="types"><a class="type" href="index.html#chance.basic.string">string</a> or <span class="type">function</span></span>
+            <span class="types"><a class="type" href="index.html#chance.basic.string">string</a></span>
 
         </li>
     </ul>
@@ -1060,6 +1080,7 @@
 
     <h3>See also:</h3>
     <ul>
+         <a href="index.html#chance.core.dataSets">chance.core.dataSets</a>
     </ul>
 
     <h3>Usage:</h3>
@@ -1811,8 +1832,8 @@
 
 </dd>
     <dt>
-    <a name = "url"></a>
-    <strong>url ([flags])</strong>
+    <a name = "chance.web.url"></a>
+    <strong>chance.web.url ([flags])</strong>
     </dt>
     <dd>
     Generates a random URL.
@@ -1836,6 +1857,147 @@
     </ol>
 
 
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Poker"></a>Poker </h2>
+
+          <div class="section-description">
+           These are functions for generating random data related to the
+ card game Poker and its variants.
+
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "chance.poker.card"></a>
+    <strong>chance.poker.card ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a random Poker card.
+<p> The functions returns a table representing a random Poker card.
+ The table will have two keys:
+<p> <ol>
+ <li><code>rank</code>: A number in the range of [2, 10], or the
+ strings "Jack", "Queen", "King", "Ace", and "Joker".</li>
+ <li><code>suit</code>: A string with the possible values of
+ "Spade", "Heart", "Club", and "Diamond".</li>
+ </ol>
+<p> The function accepts an optional table of flags:
+<p> If the <code>joker</code> flag has a boolean false value then the
+ function will never return the Joker.
+<p> The <code>rank</code> and <code>suit</code> flags accept values to
+ use explicitly for the rank and suit of the generated card.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        card
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">chance.poker.card() == { rank = <span class="number">4</span>, suit = <span class="string">"Club"</span> }</pre></li>
+        <li><pre class="example">chance.poker.card { rank = <span class="string">"Jack"</span> } == { rank = <span class="string">"Jack"</span>, suit = <span class="string">"Heart"</span> }</pre></li>
+        <li><pre class="example">chance.poker.card { suit = <span class="string">"Spade"</span> } == { rank = <span class="number">10</span>, suit = <span class="string">"Spade"</span> }</pre></li>
+        <li><pre class="example">chance.poker.card { joker = <span class="keyword">false</span> } == { rank = <span class="number">5</span>, suit = <span class="string">"Diamond"</span> }</pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "chance.poker.deck"></a>
+    <strong>chance.poker.deck ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a deck of Poker cards.
+<p> This function returns a table representing a deck of Poker cards.
+ By default the deck contains 52 cards, i.e. it does not include the
+ Joker.  However, if the optional <code>joker</code> flag is present
+ and has a boolean true value then the deck will include the Joker,
+ for a total of 53 cards.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        deck
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#chance.poker.card">chance.poker.card</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example"><span class="keyword">local</span> deck = chance.poker.deck(); #deck == <span class="number">52</span></pre></li>
+        <li><pre class="example"><span class="keyword">local</span> deck = chance.poker.deck { joker = <span class="keyword">true</span> }; #deck == <span class="number">53</span></pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "chance.poker.hand"></a>
+    <strong>chance.poker.hand ([flags])</strong>
+    </dt>
+    <dd>
+    Returns a hand of Poker cards.
+<p> By default this function returns a table with five elements, cards
+ generated by calling the <a href="index.html#chance.poker.card">chance.poker.card</a> function.  The hand
+ will contain unique cards.  And the function will contain cards
+ from the standard deck created by <a href="index.html#chance.poker.deck">chance.poker.deck</a>.
+<p> If given the optional flag <code>cards</code> then the function
+ will return a hand containing that number of cards.  If given the
+ optional flag <code>deck</code> then it will select cards from that
+ deck, which must be a table of cards, like the kind that
+ <a href="index.html#chance.poker.deck">chance.poker.deck</a> will create.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        hand
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="index.html#chance.poker.card">chance.poker.card</a></li>
+         <li><a href="index.html#chance.poker.deck">chance.poker.deck</a></li>
+    </ul>
 
 
 </dd>
@@ -2289,6 +2451,45 @@
 
 </dd>
     <dt>
+    <a name = "chance.helpers.pick_unique"></a>
+    <strong>chance.helpers.pick_unique (array, count)</strong>
+    </dt>
+    <dd>
+    Pick a random collection of unique elements from an array.
+<p> This function is like <a href="index.html#chance.helpers.pick">chance.helpers.pick</a> except that the
+ <code>count</code> parameter is mandatory and the array that the
+ function returns will not have any duplicate elements.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">array</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+        </li>
+        <li><span class="parameter">count</span>
+            <span class="types"><span class="type">number</span></span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="index.html#chance.helpers.pick">chance.helpers.pick</a>
+    </ul>
+
+
+</dd>
+    <dt>
     <a name = "chance.helpers.shuffle"></a>
     <strong>chance.helpers.shuffle (array)</strong>
     </dt>
@@ -2331,7 +2532,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
-<i style="float:right;">Last updated 2015-08-29 10:50:22 </i>
+<i style="float:right;">Last updated 2015-09-01 20:20:45 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
