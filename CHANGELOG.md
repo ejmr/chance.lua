@@ -5,7 +5,7 @@ to [Semantic Versioning](http://semver.org/).
 
 
 
-## Unreleased
+## [0.5.0] - 2015-09-09
 
 ## Fixed
 
